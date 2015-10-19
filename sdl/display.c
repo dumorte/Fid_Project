@@ -10,8 +10,6 @@ void init_sdl(void);
 SDL_Surface *load_image(char *path);
 SDL_Surface *display_image(SDL_Surface *img);
 
-void grey_level(SDL_Surface *img);
-
 int main(int argc, char **argv){
 	if(argc < 2)
 		errx(2, "Usage: %s <image path>\n", argv[0]);
@@ -22,28 +20,11 @@ int main(int argc, char **argv){
 	img = load_image(argv[1]);
 
 	display_image(img);
-	grey_level(img);
+	display_image(grey_level(img));
 
-	display_image(img);
 	SDL_FreeSurface(img);
 
 	return 0;
-}
-
-void grey_level(SDL_Surface *img){
-	Uint8 r, g, b;
-	float average = 0;
-	
-	for(int i = 0; i < img->w; i++){
-		for(int j = 0; j < img->h; j++){
-			SDL_GetRGB(getpixel(img, i, j), img->format, &r, &g, &b);
-			average = (0.3 * r + 0.59 * g + 0.11 * b) / 3;
-			r = average;
-			b = average;
-			g = average;
-			putpixel(img, i, j, SDL_MapRGB(img->format, r, g, b));
-		}
-	}
 }
 
 void wait_for_keypressed(void) {

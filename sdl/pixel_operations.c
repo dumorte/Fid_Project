@@ -1,5 +1,42 @@
 #include "pixel_operations.h"
- 
+
+
+//integral zone
+
+
+Uint32 *integral_image_matrix(SDL_Surface *img, size_t width, size_t height)
+{ 
+	int *mat = malloc(height*width*sizeof(Uint32));
+	for(int i = 0; i<height; i++)
+		for(int j=0; j<width;j++)
+			mat[i*width + j] = integral_image_point(img, i, j);
+}
+
+Uint32 integral_image_point(SDL_Surface *img, int x, int y)
+{
+	if(x == 0 || y==0)
+		return getpixel(img, x, y);
+	return getpixel(img, x, y) + integral_image_point(img, x-1, y) + integral_image_point(img, x, y-1) - integral_image_point(img, x-1, y-1);
+}
+
+SDL_Surface *grey_level(SDL_Surface *img)
+{                                                                                                          
+	Uint8 r, g, b;                                                                                                                      
+	float average = 0;                                                                                                                  
+
+	for(int i = 0; i < img->w; i++){                                                                                                    
+		for(int j = 0; j < img->h; j++){                                                                                            
+			SDL_GetRGB(getpixel(img, i, j), img->format, &r, &g, &b);                                                           
+			average = (0.3 * r + 0.59 * g + 0.11 * b) / 3;                                                                      
+			r = average;                                                                                                        
+			b = average;                                                                                                        
+			g = average;                                                                                                        
+                        putpixel(img, i, j, SDL_MapRGB(img->format, r, g, b));
+		}
+	}
+	return img;
+}           
+
 static inline
 Uint8* pixelref(SDL_Surface *surf, unsigned x, unsigned y) {
 	int bpp = surf->format->BytesPerPixel;
