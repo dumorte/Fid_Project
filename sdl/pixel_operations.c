@@ -6,17 +6,20 @@
 
 Uint32 *integral_image_matrix(SDL_Surface *img, size_t width, size_t height)
 { 
+	//def width && height
 	int *mat = malloc(height*width*sizeof(Uint32));
 	for(int i = 0; i<height; i++)
 		for(int j=0; j<width;j++)
 			mat[i*width + j] = integral_image_point(img, i, j);
+	return mat;
 }
 
 Uint32 integral_image_point(SDL_Surface *img, int x, int y)
 {
 	if(x == 0 || y==0)
 		return getpixel(img, x, y);
-	return getpixel(img, x, y) + integral_image_point(img, x-1, y) + integral_image_point(img, x, y-1) - integral_image_point(img, x-1, y-1);
+	else
+		return getpixel(img, x, y) + integral_image_point(img, x-1, y) + integral_image_point(img, x, y-1) - integral_image_point(img, x-1, y-1);
 }
 
 SDL_Surface *grey_level(SDL_Surface *img)
