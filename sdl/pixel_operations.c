@@ -3,23 +3,38 @@
 
 //integral zone
 
-
-Uint32 *integral_image_matrix(SDL_Surface *img, size_t width, size_t height)
+SDL_Surface *matrix_to_img(SDL_Surface *img, Uint32 *mat)
 { 
-	//def width && height
-	int *mat = malloc(height*width*sizeof(Uint32));
-	for(int i = 0; i<height; i++)
-		for(int j=0; j<width;j++)
-			mat[i*width + j] = integral_image_point(img, i, j);
+	Uint32 width = img->w;
+	Uint32 height = img->h;
+	for(Uint32 i = 0; i<height; i++)
+		for(Uint32 j=0; j<width;j++)
+			putpixel(img, i, j, mat[i*width+j]);
+	return img;
+}
+
+Uint32 *integral_image_matrix(SDL_Surface *img)
+{
+	Uint32 width = img->w;
+	Uint32 height = img->h;
+	Uint32 *mat = malloc(height*width*sizeof(Uint32));
+	for(Uint32 i = 0; i<height; i++){
+		printf("\n %u:", i);
+		for(Uint32 j=0; j<width; j++){
+			mat[i*width + j] = integral_image_point(img, j, i);
+			//printf("%u|", mat[i*width+j]);
+			printf(" %u", j);
+		}
+	}
 	return mat;
 }
 
-Uint32 integral_image_point(SDL_Surface *img, int x, int y)
+Uint32 integral_image_point(SDL_Surface *img, unsigned x, unsigned y)
 {
-	if(x == 0 || y==0)
-		return getpixel(img, x, y);
-	else
-		return getpixel(img, x, y) + integral_image_point(img, x-1, y) + integral_image_point(img, x, y-1) - integral_image_point(img, x-1, y-1);
+	if(x == 4294967295 || y == 4294967295 )
+		return 0;
+	return getpixel(img, x, y) + integral_image_point(img, x-1, y) + integral_image_point(img, x, y-1) - integral_image_point(img, x-1, y-1);
+	
 }
 
 SDL_Surface *grey_level(SDL_Surface *img)
@@ -47,7 +62,7 @@ Uint8* pixelref(SDL_Surface *surf, unsigned x, unsigned y) {
 	return (Uint8*)surf->pixels + y * surf->pitch + x * bpp;
 }
  
-Uint32 getpixel(SDL_Surface *surface, unsigned x, unsigned y) {
+Uint32 getpixel(SDL_Surface *surface, unsigned x, unsigned y) {	
 	Uint8 *p = pixelref(surface, x, y);
 	switch(surface->format->BytesPerPixel) {
 		case 1:
