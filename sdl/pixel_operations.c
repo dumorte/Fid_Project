@@ -1,40 +1,29 @@
 #include "pixel_operations.h"
 
-
-//integral zone
-
 SDL_Surface *matrix_to_img(SDL_Surface *img, Uint32 *mat)
 { 
 	Uint32 width = img->w;
 	Uint32 height = img->h;
-	for(Uint32 i = 0; i<height; i++)
-		for(Uint32 j=0; j<width;j++)
-			putpixel(img, i, j, mat[i*width+j]);
+	for(Uint32 i = 1; i<height+1; i++)
+		for(Uint32 j=1; j<width+1;j++)
+			putpixel(img, i, j, mat[i*width+j]);//check
 	return img;
 }
 
+//integral zone : formule : s(A)+s(D)-s(B)-s(C) for ABDC triangle
+
 Uint32 *integral_image_matrix(SDL_Surface *img)
 {
+	//changer bornes du tab
 	Uint32 width = img->w;
 	Uint32 height = img->h;
-	Uint32 *mat = malloc(height*width*sizeof(Uint32));
-	for(Uint32 i = 0; i<height; i++){
-		printf("\n %u:", i);
-		for(Uint32 j=0; j<width; j++){
-			mat[i*width + j] = integral_image_point(img, j, i);
-			//printf("%u|", mat[i*width+j]);
-			printf(" %u", j);
+	Uint32 *mat = malloc((height+1)*(width+1)*sizeof(Uint32));
+	for(Uint32 i = 1; i<height+1; i++){
+		for(Uint32 j=1; j<width+1; j++){
+			mat[i*width + j] = getpixel(img, j, i) + mat[i*width+j-1] + mat[(i-1)*width + j] - mat[(i-1)*width + j-1];
 		}
 	}
 	return mat;
-}
-
-Uint32 integral_image_point(SDL_Surface *img, unsigned x, unsigned y)
-{
-	if(x == 4294967295 || y == 4294967295 )
-		return 0;
-	return getpixel(img, x, y) + integral_image_point(img, x-1, y) + integral_image_point(img, x, y-1) - integral_image_point(img, x-1, y-1);
-	
 }
 
 SDL_Surface *grey_level(SDL_Surface *img)
