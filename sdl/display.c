@@ -21,8 +21,8 @@ int main(int argc, char **argv){
 
 	display_image(img);
 	display_image(grey_level(img));
-	display_image(matrix_to_img(img, integral_image_matrix(img)));
-	//integral_image_matrix(img);
+	display_image(matrix_to_img(img, integral_image_matrix(grey_level(img))));
+	
 	SDL_FreeSurface(img);
 
 	return 0;

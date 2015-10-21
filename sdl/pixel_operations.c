@@ -1,5 +1,7 @@
 #include "pixel_operations.h"
 
+
+
 SDL_Surface *matrix_to_img(SDL_Surface *img, Uint32 *mat)
 { 
 	Uint32 width = img->w;
@@ -10,7 +12,7 @@ SDL_Surface *matrix_to_img(SDL_Surface *img, Uint32 *mat)
 	return img;
 }
 
-//integral zone : formule : s(A)+s(D)-s(B)-s(C) for ABDC triangle
+//integral zone : formule : s(A)+s(D)-s(B)-s(C) for ABDC rectangle
 
 Uint32 *integral_image_matrix(SDL_Surface *img)
 {
