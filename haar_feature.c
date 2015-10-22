@@ -19,8 +19,8 @@ struct Vector *feature_vect(SDL_Surface *img){
 	/* Feature type A */
 	for(int i = 0; i < r.w; i++){
 		for(int j = 0; j < r.h; j++){
-			for(int w = 1; 2*w < r.w+1-j%r.h; w++){
-				for(int h = 1; h < r.w+1-i%r.w; h++){
+			for(int w = 1; 2*w <= r.w+1-j%r.h; w++){
+				for(int h = 1; h <= r.w+1-i%r.w; h++){
 					s1 = getpixel(ii, i, j); 
 					s2 = getpixel(ii, i+h-1, j); 
 					s3 = getpixel(ii, i+h-1, j+w-1); 
@@ -42,8 +42,8 @@ struct Vector *feature_vect(SDL_Surface *img){
 	/* Feature type B */
 	for(int i = 0; i < r.w; i++){
 		for(int j = 0; j < r.h; j++){
-			for(int w = 1; 3*w < r.w+1-j%r.w; w++){
-				for(int h = 1; h < r.w+1-i%r.h; h++){
+			for(int w = 1; 3*w <= r.w+1-j%r.w; w++){
+				for(int h = 1; h <= r.w+1-i%r.h; h++){
 					s1 = getpixel(ii, i, j); 
 					s2 = getpixel(ii, i+h-1, j); 
 					s3 = getpixel(ii, i+h-1, j+w-1);
@@ -67,8 +67,8 @@ struct Vector *feature_vect(SDL_Surface *img){
 	/* Feature type C */
 	for(int i = 0; i < r.w; i++){
 		for(int j = 0; j < r.h; j++){
-			for(int w = 1; w < r.w+1-j%r.w; w++){
-				for(int h = 1; 2*h < r.h+1-i%r.h; h++){
+			for(int w = 1; w <= r.w+1-j%r.w; w++){
+				for(int h = 1; 2*h <= r.h+1-i%r.h; h++){
 					s1 = getpixel(ii, i, j); 
 					s2 = getpixel(ii, i+h-1, j); 
 					s3 = getpixel(ii, i+2*h-1, j); 
@@ -90,8 +90,8 @@ struct Vector *feature_vect(SDL_Surface *img){
 	/* Feature type D */
 	for(int i = 0; i < r.w; i++){
 		for(int j = 0; j < r.h; j++){
-			for(int w = 1; w < r.w+1-j%r.w; w++){
-				for(int h = 1; 3*h < r.h+1-i%r.h; h++){
+			for(int w = 1; w <= r.w+1-j%r.w; w++){
+				for(int h = 1; 3*h <= r.h+1-i%r.h; h++){
 					s1 = getpixel(ii, i, j); 
 					s2 = getpixel(ii, i+h-1, j); 
 					s3 = getpixel(ii, i+2*h-1, j);
@@ -115,8 +115,8 @@ struct Vector *feature_vect(SDL_Surface *img){
 	/* Feature type E */
 	for(int i = 0; i < r.w; i++){
 		for(int j = 0; j < r.h; j++){
-			for(int w = 1; 2*w < r.w+1-j%r.w; w++){
-				for(int h = 1; 2*h < r.h+1-i%r.h; h++){
+			for(int w = 1; 2*w <= r.w+1-j%r.w; w++){
+				for(int h = 1; 2*h <= r.h+1-i%r.h; h++){
 					s1 = getpixel(ii, i, j); 
 					s2 = getpixel(ii, i+h-1, j); 
 					s3 = getpixel(ii, i+2*h-1, j); 
