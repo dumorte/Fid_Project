@@ -4,6 +4,7 @@
 #include <SDL/SDL_image.h>
 
 #include "pixel_operations.h"
+#include "integral_image.h"
 
 void wait_for_keypressed(void);
 void init_sdl(void);
