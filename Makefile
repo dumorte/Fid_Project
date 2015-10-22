@@ -6,7 +6,7 @@ CFLAGS= -g -Wall -Wextra -Werror -std=c99
 LDFLAGS=
 LDLIBS= `pkg-config --libs sdl` -lSDL_image
 
-SRC= integral_image.c pixel_operations.c display.c 
+SRC= haar_feature.c integral_image.c pixel_operations.c display.c 
 OBJ= ${SRC:.c=.o}
 BIN= display
 

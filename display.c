@@ -5,6 +5,7 @@
 
 #include "pixel_operations.h"
 #include "integral_image.h"
+#include "haar_feature.h"
 
 void wait_for_keypressed(void);
 void init_sdl(void);
