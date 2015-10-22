@@ -3,6 +3,7 @@
 
 #include "haar_feature.h"
 #include "pixel_operations.h"
+#include "integral_image.h"
 
 struct Vector *feature_vect(SDL_Surface *img){
 	struct Vector *v = malloc(sizeof(struct Vector)); 
