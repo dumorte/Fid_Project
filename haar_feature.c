@@ -24,11 +24,11 @@ struct Vector *feature_vect(SDL_Surface *img, int x, int y){
 			for(int w = 1; 2*w <= r.w+1-j%r.w; w++){
 				for(int h = 1; h <= r.h+1-i%r.h; h++){
 					s1 = mat[i*width+j]; 
-					s2 = getpixel(ii, i+h-1, j); 
-					s3 = getpixel(ii, i+h-1, j+w-1); 
-					s4 = getpixel(ii, i+h-1, j+2*w-1); 
-					s5 = getpixel(ii, i, j+2*w-1); 
-					s6 = getpixel(ii, i, j+w-1); 
+					s2 = mat[(i+h-1)*width+j]; 
+					s3 = mat[(i+h-1)*width+(j+w-1)]; 
+					s4 = mat[(i+h-1)*width+j+2*w-1]; 
+					s5 = mat[i*width+j+2*w-1]; 
+					s6 = mat[i*width+j+w-1]; 
 					v->tab[f].type = A; 
 					v->tab[f].i = i; 
 					v->tab[f].j = j; 
