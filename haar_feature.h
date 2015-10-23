@@ -20,6 +20,6 @@ struct Vector {
 	struct Feature tab[NB_FEATURES]; 
 };
 
-struct Vector *feature_vect(SDL_Surface *img); 
+struct Vector *feature_vect(SDL_Surface *img, int x, int y); 
 
 #endif
