@@ -21,5 +21,6 @@ struct Vector {
 };
 
 struct Vector *feature_vect(SDL_Surface *img, int x, int y); 
+struct Vector **haar_feature(SDL_Surface *img); 
 
 #endif
