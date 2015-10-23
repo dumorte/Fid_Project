@@ -5,24 +5,25 @@
 #include "pixel_operations.h"
 #include "integral_image.h"
 
-struct Vector *feature_vect(SDL_Surface *img){
+struct Vector *feature_vect(SDL_Surface *img, int x, int y){
 	struct Vector *v = malloc(sizeof(struct Vector)); 
-	Uint32 *mat = integral_image_matrix(img); 
-	SDL_Surface *ii = matrix_to_img(img, mat); 
+	Uint32 *mat = integral_image_matrix(grey_level(img));  
+	Uint32 width = img->w; 
+	Uint32 height = img->h; 
 	SDL_Rect r; 
-	r.x = 0; 
-	r.y = 0; 
+	r.x = x; 
+	r.y = y; 
 	r.w = 24; 
 	r.h = 24; 
 	Uint32 s1, s2, s3, s4, s5, s6, s7, s8, s9; 
 	int f = 0; 
 	
 	/* Feature type A */
-	for(int i = 0; i < r.w; i++){
-		for(int j = 0; j < r.h; j++){
-			for(int w = 1; 2*w <= r.w+1-j%r.h; w++){
-				for(int h = 1; h <= r.w+1-i%r.w; h++){
-					s1 = getpixel(ii, i, j); 
+	for(int i = r.y; i < r.y+r.h; i++){
+		for(int j = r.x; j < r.x+r.w; j++){
+			for(int w = 1; 2*w <= r.w+1-j%r.w; w++){
+				for(int h = 1; h <= r.h+1-i%r.h; h++){
+					s1 = mat[i*width+j]; 
 					s2 = getpixel(ii, i+h-1, j); 
 					s3 = getpixel(ii, i+h-1, j+w-1); 
 					s4 = getpixel(ii, i+h-1, j+2*w-1); 
@@ -41,8 +42,8 @@ struct Vector *feature_vect(SDL_Surface *img){
 	}
 
 	/* Feature type B */
-	for(int i = 0; i < r.w; i++){
-		for(int j = 0; j < r.h; j++){
+	for(int i = 0; i < r.h; i++){
+		for(int j = 0; j < r.w; j++){
 			for(int w = 1; 3*w <= r.w+1-j%r.w; w++){
 				for(int h = 1; h <= r.w+1-i%r.h; h++){
 					s1 = getpixel(ii, i, j); 
@@ -66,8 +67,8 @@ struct Vector *feature_vect(SDL_Surface *img){
 	}
 
 	/* Feature type C */
-	for(int i = 0; i < r.w; i++){
-		for(int j = 0; j < r.h; j++){
+	for(int i = 0; i < r.h; i++){
+		for(int j = 0; j < r.w; j++){
 			for(int w = 1; w <= r.w+1-j%r.w; w++){
 				for(int h = 1; 2*h <= r.h+1-i%r.h; h++){
 					s1 = getpixel(ii, i, j); 
@@ -89,8 +90,8 @@ struct Vector *feature_vect(SDL_Surface *img){
 	}
 
 	/* Feature type D */
-	for(int i = 0; i < r.w; i++){
-		for(int j = 0; j < r.h; j++){
+	for(int i = 0; i < r.h; i++){
+		for(int j = 0; j < r.w; j++){
 			for(int w = 1; w <= r.w+1-j%r.w; w++){
 				for(int h = 1; 3*h <= r.h+1-i%r.h; h++){
 					s1 = getpixel(ii, i, j); 
@@ -114,8 +115,8 @@ struct Vector *feature_vect(SDL_Surface *img){
 	}
 
 	/* Feature type E */
-	for(int i = 0; i < r.w; i++){
-		for(int j = 0; j < r.h; j++){
+	for(int i = 0; i < r.h; i++){
+		for(int j = 0; j < r.w; j++){
 			for(int w = 1; 2*w <= r.w+1-j%r.w; w++){
 				for(int h = 1; 2*h <= r.h+1-i%r.h; h++){
 					s1 = getpixel(ii, i, j); 
