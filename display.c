@@ -25,6 +25,10 @@ int main(int argc, char **argv){
 	display_image(grey_level(img));
 	display_image(matrix_to_img(img, integral_image_matrix(grey_level(img))));
 
+	struct Vector *v = feature_vect(img, 0, 0); 
+
+	free(v); 
+
 	SDL_FreeSurface(img);
 
 	return 0;
