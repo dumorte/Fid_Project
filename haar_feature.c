@@ -7,10 +7,10 @@
 
 #define SIZE 24
 
-struct Vector **haar_feature(SDL_Surface *img){
+/*struct Vector **haar_feature(SDL_Surface *img){
 	int width = img->w - SIZE; 
 	int height = img->h - SIZE; 
-	struct Vector **haar = malloc(width * height * sizeof(struct Vector)); 
+	struct Vector *haar = malloc(width * height * sizeof(struct Vector)); 
 
 	for(int i = 0; i < height; i++){
 		for(int j = 0; j < width; j++){
@@ -19,7 +19,7 @@ struct Vector **haar_feature(SDL_Surface *img){
 	}
 
 	return haar; 
-}
+}*/
 
 struct Vector *feature_vect(SDL_Surface *img, int x, int y){
 	struct Vector *v = malloc(sizeof(struct Vector)); 
@@ -31,14 +31,15 @@ struct Vector *feature_vect(SDL_Surface *img, int x, int y){
 	r.y = y; 
 	r.w = SIZE; 
 	r.h = SIZE; 
+	//SDL_Rect p; 
 	Uint32 s1, s2, s3, s4, s5, s6, s7, s8, s9; 
 	int f = 0; 
 	
 	/* Feature type A */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; 2*w <= r.x+r.w+1-j%r.w; w++){
-				for(int h = 1; h <= r.y+r.h+1-i%r.h; h++){
+			for(int w = 1; 2*w <= (r.x+r.w+1-j)%r.w; w++){
+				for(int h = 1; h <= (r.y+r.h+1-i)%r.h; h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+h-1)*width+(j+w-1)]; 
@@ -52,16 +53,33 @@ struct Vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].h = h; 
 					v->tab[f].param = s3-s6-s2+s1-s4+s5+s3-s6;
 					f++; 
+					/*p.x = j; 
+					p.y = i; 
+					p.w = w; 
+					p.h = h; 
+					SDL_Surface *s1 = SDL_CreateRGBSurface(0, w, h, 32, 0, 0, 0, 0); 
+					SDL_Surface *s2 = SDL_CreateRGBSurface(0, w, h, 32, 0, 0, 0, 0); 
+					SDL_FillRect(s1, NULL, SDL_MapRGB(screen->format, 255, 255, 255)); 
+					SDL_FillRect(s2, NULL, SDL_MapRGB(screen->format, 0, 0, 0)); 
+					SDL_BlitSurface(s1, NULL, screen, &p); 
+					p.x += p.w; 
+					SDL_BlitSurface(s2, NULL, screen, &p); 
+					SDL_UpdateRect(screen, 0, 0, img->w, img->h); 
+					SDL_FreeSurface(s1); 
+					SDL_FreeSurface(s2); 
+					SDL_UpdateRect(screen, 0, 0, img->w, img->h); */
 				}
 			}
 		}
 	}
 
+	//printf("Type A DONE\n"); 
+
 	/* Feature type B */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; 3*w <= r.x+r.w+1-j%r.w; w++){
-				for(int h = 1; h <= r.y+r.w+1-i%r.h; h++){
+			for(int w = 1; 3*w <= (r.x+r.w+1-j)%r.w; w++){
+				for(int h = 1; h <= (r.y+r.w+1-i)%r.h; h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+h-1)*width+(j+w-1)];
@@ -82,11 +100,13 @@ struct Vector *feature_vect(SDL_Surface *img, int x, int y){
 		}
 	}
 
+	//printf("Type B DONE\n"); 
+
 	/* Feature type C */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; w <= r.x+r.w+1-j%r.w; w++){
-				for(int h = 1; 2*h <= r.y+r.h+1-i%r.h; h++){
+			for(int w = 1; w <= (r.x+r.w+1-j)%r.w; w++){
+				for(int h = 1; 2*h <= (r.y+r.h+1-i)%r.h; h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+2*h-1)*width+j]; 
@@ -105,11 +125,13 @@ struct Vector *feature_vect(SDL_Surface *img, int x, int y){
 		}
 	}
 
+	//printf("Type C DONE\n"); 
+
 	/* Feature type D */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; w <= r.x+r.w+1-j%r.w; w++){
-				for(int h = 1; 3*h <= r.y+r.h+1-i%r.h; h++){
+			for(int w = 1; w <= (r.x+r.w+1-j)%r.w; w++){
+				for(int h = 1; 3*h <= (r.y+r.h+1-i)%r.h; h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+2*h-1)*width+j];
@@ -118,7 +140,7 @@ struct Vector *feature_vect(SDL_Surface *img, int x, int y){
 					s6 = mat[(i+2*h-1)*width+(j+w-1)];
 					s7 = mat[(i+h-1)*width+(j+w-1)];
 					s8 = mat[i*width+(j+w-1)];
-					v->tab[f].type = D; // SEGFAULT ici
+					v->tab[f].type = D;
 					v->tab[f].i = i; 
 					v->tab[f].j = j; 
 					v->tab[f].w = w; 
@@ -130,11 +152,13 @@ struct Vector *feature_vect(SDL_Surface *img, int x, int y){
 		}
 	}
 
+	//printf("Type D DONE\n"); 
+
 	/* Feature type E */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; 2*w <= r.x+r.w+1-j%r.w; w++){
-				for(int h = 1; 2*h <= r.y+r.h+1-i%r.h; h++){
+			for(int w = 1; 2*w <= (r.x+r.w+1-j)%r.w; w++){
+				for(int h = 1; 2*h <= (r.y+r.h+1-i)%r.h; h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+2*h-1)*width+j]; 
@@ -155,6 +179,8 @@ struct Vector *feature_vect(SDL_Surface *img, int x, int y){
 			}
 		}
 	}
+
+	//printf("f = %d\n", f); //f = 136656 
 
 	return v; 
 }
