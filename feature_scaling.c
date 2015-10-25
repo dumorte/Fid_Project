@@ -10,7 +10,7 @@ int max(int a, int b){
 	return a > b ? a : b; 
 }
 
-Uint32 feature_scaling(SDL_Surface *img, struct Feature *f){
+Uint32 feature_scaling(SDL_Surface *img, t_feature *f){
 	Uint32 scaled_feature; 
 	Uint32 s1, s2, s3, s4, s5, s6, s7, s8, s9; 
 	Uint32 *mat = integral_image_matrix(grey_level(img)); 
