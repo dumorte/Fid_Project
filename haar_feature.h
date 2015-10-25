@@ -7,7 +7,8 @@ enum featureType {
 	A, B, C, D, E 
 }; 
 
-struct Feature {
+typedef struct s_feature t_feature; 
+struct s_feature {
 	enum featureType type; 
 	int i; 
 	int j; 
@@ -16,11 +17,12 @@ struct Feature {
 	Uint32 param; 
 }; 
 
-struct Vector {
-	struct Feature tab[NB_FEATURES]; 
+typedef struct s_vector t_vector; 
+struct s_vector {
+	t_feature tab[NB_FEATURES]; 
 };
 
-struct Vector *feature_vect(SDL_Surface *img, int x, int y); 
-struct Vector **haar_feature(SDL_Surface *img); 
+struct t_vector *feature_vect(SDL_Surface *img, int x, int y); 
+struct t_vector **haar_feature(SDL_Surface *img); 
 
 #endif

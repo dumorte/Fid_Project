@@ -21,8 +21,8 @@
 	return haar; 
 }*/
 
-struct Vector *feature_vect(SDL_Surface *img, int x, int y){
-	struct Vector *v = malloc(sizeof(struct Vector)); 
+t_vector *feature_vect(SDL_Surface *img, int x, int y){
+	t_vector *v = malloc(sizeof(t_vector)); 
 	Uint32 *mat = integral_image_matrix(grey_level(img));  
 	int width = img->w; 
 	//int height = img->h; 
