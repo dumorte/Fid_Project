@@ -22,7 +22,7 @@ struct s_vector {
 	t_feature tab[NB_FEATURES]; 
 };
 
-struct t_vector *feature_vect(SDL_Surface *img, int x, int y); 
-struct t_vector **haar_feature(SDL_Surface *img); 
+t_vector *feature_vect(SDL_Surface *img, int x, int y); 
+t_vector **haar_feature(SDL_Surface *img); 
 
 #endif
