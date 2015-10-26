@@ -21,17 +21,12 @@ int main(int argc, char **argv){
 	init_sdl();
 	img = load_image(argv[1]);
 
-	//display_image(img);
+	SDL_Surface *screen = display_image(img);
 	//display_image(grey_level(img));
 	//display_image(matrix_to_img(img, integral_image_matrix(grey_level(img))));
 
-	t_vector *v = NULL; 
 
-	for(int i = 0; i < img->w-24; i++){
-		for(int j = 0; j < img->h-24; j++){
-			v = feature_vect(img, i, j); 
-		}
-	}
+	t_vector *v = feature_vect(img, 0, 0, screen); 
 
 	free(v); 
 
