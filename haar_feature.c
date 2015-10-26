@@ -21,7 +21,7 @@
 	return haar; 
 }*/
 
-t_vector *feature_vect(SDL_Surface *img, int x, int y){
+t_vector *feature_vect(SDL_Surface *img, int x, int y, SDL_Surface *screen){
 	t_vector *v = malloc(sizeof(t_vector)); 
 	Uint32 *mat = integral_image_matrix(grey_level(img));  
 	int width = img->w; 
@@ -31,7 +31,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 	r.y = y; 
 	r.w = SIZE; 
 	r.h = SIZE; 
-	//SDL_Rect p; 
+	SDL_Rect p; 
 	Uint32 s1, s2, s3, s4, s5, s6, s7, s8, s9; 
 	int f = 0; 
 	
@@ -53,7 +53,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].h = h; 
 					v->tab[f].param = s3-s6-s2+s1-s4+s5+s3-s6;
 					f++; 
-					/*p.x = j; 
+					p.x = j; 
 					p.y = i; 
 					p.w = w; 
 					p.h = h; 
@@ -67,7 +67,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					SDL_UpdateRect(screen, 0, 0, img->w, img->h); 
 					SDL_FreeSurface(s1); 
 					SDL_FreeSurface(s2); 
-					SDL_UpdateRect(screen, 0, 0, img->w, img->h); */
+					SDL_UpdateRect(screen, 0, 0, img->w, img->h); 
 				}
 			}
 		}
