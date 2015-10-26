@@ -25,14 +25,12 @@ int main(int argc, char **argv){
 	//display_image(grey_level(img));
 	//display_image(matrix_to_img(img, integral_image_matrix(grey_level(img))));
 
-
 	t_vector *v = NULL; 
 
 	for(int i = 0; i < img->w-24; i++){
 		for(int j = 0; j < img->h-24; j++){
 			v = feature_vect(img, i, j); 
 		}
-		printf("i = %3d\n", i);
 	}
 
 	free(v); 
