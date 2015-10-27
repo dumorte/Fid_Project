@@ -19,7 +19,7 @@ int main(int argc, char **argv){
 	SDL_Surface *img = NULL;
 
 	init_sdl();
-	img = load_image(argv[1]);
+	img = grey_level(load_image(argv[1]));
 
 	SDL_Surface *screen = display_image(img);
 	//display_image(grey_level(img));
@@ -29,8 +29,8 @@ int main(int argc, char **argv){
 	p.w = 24;
 	p.h = 24;
 
-	for(int i = 0; i < img->w-24; i++){
-		for(int j = 0; j < img->h-24; j++){
+	for(int i = 0; i < img->h-24; i++){
+		for(int j = 0; j < img->w-24; j++){
 			t_vector *v = feature_vect(img, i, j); 
 			p.x = j;
 			p.y = i;
@@ -42,7 +42,6 @@ int main(int argc, char **argv){
 			free(v);
 		}
 	}
-
 
 	SDL_FreeSurface(img);
 
