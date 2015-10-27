@@ -21,7 +21,7 @@
 	return haar; 
 }*/
 
-t_vector *feature_vect(SDL_Surface *img, int x, int y, SDL_Surface *screen){
+t_vector *feature_vect(SDL_Surface *img, int x, int y){
 	t_vector *v = malloc(sizeof(t_vector)); 
 	Uint32 *mat = integral_image_matrix(grey_level(img));  
 	int width = img->w; 
@@ -31,15 +31,14 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y, SDL_Surface *screen){
 	r.y = y; 
 	r.w = SIZE; 
 	r.h = SIZE; 
-	SDL_Rect p; 
-	Uint32 s1, s2, s3, s4, s5, s6, s7, s8, s9; 
+	int s1, s2, s3, s4, s5, s6, s7, s8, s9; 
 	int f = 0; 
 	
 	/* Feature type A */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; 2*w <= (r.x+r.w+1-j)%r.w; w++){
-				for(int h = 1; h <= (r.y+r.h+1-i)%r.h; h++){
+			for(int w = 1; 2*w < (r.x+r.w+1-j); w++){
+				for(int h = 1; h < (r.y+r.h+1-i); h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+h-1)*width+(j+w-1)]; 
@@ -52,22 +51,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y, SDL_Surface *screen){
 					v->tab[f].w = w; 
 					v->tab[f].h = h; 
 					v->tab[f].param = s3-s6-s2+s1-s4+s5+s3-s6;
-					f++; 
-					p.x = j; 
-					p.y = i; 
-					p.w = w; 
-					p.h = h; 
-					SDL_Surface *s1 = SDL_CreateRGBSurface(0, w, h, 32, 0, 0, 0, 0); 
-					SDL_Surface *s2 = SDL_CreateRGBSurface(0, w, h, 32, 0, 0, 0, 0); 
-					SDL_FillRect(s1, NULL, SDL_MapRGB(screen->format, 255, 255, 255)); 
-					SDL_FillRect(s2, NULL, SDL_MapRGB(screen->format, 0, 0, 0)); 
-					SDL_BlitSurface(s1, NULL, screen, &p); 
-					p.x += p.w; 
-					SDL_BlitSurface(s2, NULL, screen, &p); 
-					SDL_UpdateRect(screen, 0, 0, img->w, img->h); 
-					SDL_FreeSurface(s1); 
-					SDL_FreeSurface(s2); 
-					SDL_UpdateRect(screen, 0, 0, img->w, img->h); 
+					f++;
 				}
 			}
 		}
@@ -78,8 +62,8 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y, SDL_Surface *screen){
 	/* Feature type B */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; 3*w <= (r.x+r.w+1-j)%r.w; w++){
-				for(int h = 1; h <= (r.y+r.w+1-i)%r.h; h++){
+			for(int w = 1; 3*w < (r.x+r.w+1-j); w++){
+				for(int h = 1; h < (r.y+r.w+1-i); h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+h-1)*width+(j+w-1)];
@@ -105,8 +89,8 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y, SDL_Surface *screen){
 	/* Feature type C */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; w <= (r.x+r.w+1-j)%r.w; w++){
-				for(int h = 1; 2*h <= (r.y+r.h+1-i)%r.h; h++){
+			for(int w = 1; w < (r.x+r.w+1-j); w++){
+				for(int h = 1; 2*h < (r.y+r.h+1-i); h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+2*h-1)*width+j]; 
@@ -130,8 +114,8 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y, SDL_Surface *screen){
 	/* Feature type D */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; w <= (r.x+r.w+1-j)%r.w; w++){
-				for(int h = 1; 3*h <= (r.y+r.h+1-i)%r.h; h++){
+			for(int w = 1; w < (r.x+r.w+1-j); w++){
+				for(int h = 1; 3*h < (r.y+r.h+1-i); h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+2*h-1)*width+j];
@@ -157,8 +141,8 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y, SDL_Surface *screen){
 	/* Feature type E */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; 2*w <= (r.x+r.w+1-j)%r.w; w++){
-				for(int h = 1; 2*h <= (r.y+r.h+1-i)%r.h; h++){
+			for(int w = 1; 2*w < (r.x+r.w+1-j); w++){
+				for(int h = 1; 2*h < (r.y+r.h+1-i); h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+2*h-1)*width+j]; 
@@ -179,8 +163,6 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y, SDL_Surface *screen){
 			}
 		}
 	}
-
-	//printf("f = %d\n", f); //f = 136656 
 
 	return v; 
 }

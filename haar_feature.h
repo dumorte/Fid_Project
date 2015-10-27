@@ -14,7 +14,7 @@ struct s_feature {
 	int j; 
 	int w; 
 	int h; 
-	Uint32 param; 
+	int param; 
 }; 
 
 typedef struct s_vector t_vector; 
@@ -22,7 +22,7 @@ struct s_vector {
 	t_feature tab[NB_FEATURES]; 
 };
 
-t_vector *feature_vect(SDL_Surface *img, int x, int y, SDL_Surface *screen); 
+t_vector *feature_vect(SDL_Surface *img, int x, int y); 
 t_vector **haar_feature(SDL_Surface *img); 
 
 #endif
