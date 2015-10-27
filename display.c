@@ -25,14 +25,13 @@ int main(int argc, char **argv){
 	//display_image(grey_level(img));
 	//display_image(matrix_to_img(img, integral_image_matrix(grey_level(img))));
 
-	t_vector *v = NULL;
 	SDL_Rect p;
 	p.w = 24;
 	p.h = 24;
 
 	for(int i = 0; i < img->w-24; i++){
 		for(int j = 0; j < img->h-24; j++){
-			v = feature_vect(img, i, j, screen); 
+			t_vector *v = feature_vect(img, i, j); 
 			p.x = j;
 			p.y = i;
 			SDL_Surface *s = SDL_CreateRGBSurface(0, p.w, p.h, 32, 0, 0, 0, 0);
@@ -40,10 +39,10 @@ int main(int argc, char **argv){
 			SDL_BlitSurface(s, NULL, screen, &p);
 			SDL_Flip(screen);
 			SDL_FreeSurface(s);
+			free(v);
 		}
 	}
 
-	free(v); 
 
 	SDL_FreeSurface(img);
 
