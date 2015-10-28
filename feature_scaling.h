@@ -3,6 +3,6 @@
 
 #include "haar_feature.h"
 
-Uint32 feature_scaling(SDL_Surface *img, t_feature *f); 
+void feature_scaling(SDL_Surface *img, t_feature *f); 
 
 #endif

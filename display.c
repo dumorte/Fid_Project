@@ -28,21 +28,21 @@ int main(int argc, char **argv){
 	SDL_Rect p;
 	p.w = 24;
 	p.h = 24;
+	SDL_Surface *s = SDL_CreateRGBSurface(0, p.w, p.h, 32, 0, 0, 0, 0);
+	SDL_FillRect(s, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
 
 	for(int i = 0; i < img->h-24; i++){
 		for(int j = 0; j < img->w-24; j++){
 			t_vector *v = feature_vect(img, i, j); 
 			p.x = j;
 			p.y = i;
-			SDL_Surface *s = SDL_CreateRGBSurface(0, p.w, p.h, 32, 0, 0, 0, 0);
-			SDL_FillRect(s, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
 			SDL_BlitSurface(s, NULL, screen, &p);
 			SDL_Flip(screen);
-			SDL_FreeSurface(s);
 			free(v);
 		}
 	}
 
+	SDL_FreeSurface(s);
 	SDL_FreeSurface(img);
 
 	return 0;

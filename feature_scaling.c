@@ -10,7 +10,7 @@ int max(int a, int b){
 	return a > b ? a : b; 
 }
 
-Uint32 feature_scaling(SDL_Surface *img, t_feature *f){
+void feature_scaling(SDL_Surface *img, t_feature *f){
 	Uint32 scaled_feature; 
 	Uint32 s1, s2, s3, s4, s5, s6, s7, s8, s9; 
 	Uint32 *mat = integral_image_matrix(grey_level(img)); 
@@ -35,7 +35,8 @@ Uint32 feature_scaling(SDL_Surface *img, t_feature *f){
 			sum = s3-s6-s2+s1-s4+s5+s3-s6;
 			scaled_feature = (sum*a)/(2*f->w*f->h); 
 			
-			return scaled_feature; 
+			f->param = scaled_feature; 
+			break; 
 
 		case B: 
 			a = 3*f->w*f->h; 
@@ -54,7 +55,8 @@ Uint32 feature_scaling(SDL_Surface *img, t_feature *f){
 			sum = 2*s3+s1-2*s8-s2-2*s4+2*s7+s5-s6;
 			scaled_feature = (sum*a)/(3*f->w*f->h); 
 	
-			return scaled_feature; 
+			f->param = scaled_feature; 
+			break; 
 
 		case C: 
 			a = 2*f->w*f->h; 
@@ -71,7 +73,8 @@ Uint32 feature_scaling(SDL_Surface *img, t_feature *f){
 			sum = 2*s5+s1-s6-2*s2-s4+s3;
 			scaled_feature = (sum*a)/(2*f->w*f->h); 
 	
-			return scaled_feature; 
+			f->param = scaled_feature; 
+			break; 
 		case D: 
 			a = 3*f->w*f->h; 
 			f->i = (f->i*width)/24; 
@@ -89,7 +92,8 @@ Uint32 feature_scaling(SDL_Surface *img, t_feature *f){
 			sum = 2*s7+s1-2*s2-s8-2*s6+2*s3+s5-s4; 
 			scaled_feature = (sum*a)/(3*f->w*f->h); 
 
-			return scaled_feature; 
+			f->param = scaled_feature; 
+			break; 
 
 		case E: 
 			a = 4*f->w*f->h; 
@@ -109,9 +113,10 @@ Uint32 feature_scaling(SDL_Surface *img, t_feature *f){
 			sum = 4*s9+s1-2*s2-2*s8-2*s4+s3-2*s6+s7+s5;
 			scaled_feature = (sum*a)/(4*f->w*f->h); 
 	
-			return scaled_feature;
+			f->param = scaled_feature; 
+			break; 
 
 		default: 
-			return 0; 
+			break;  
 	}
 }

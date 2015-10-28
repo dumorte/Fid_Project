@@ -7,10 +7,10 @@
 
 #define SIZE 24
 
-/*struct Vector **haar_feature(SDL_Surface *img){
+/*t_haar_feature *haar_feature(SDL_Surface *img){
 	int width = img->w - SIZE; 
 	int height = img->h - SIZE; 
-	struct Vector *haar = malloc(width * height * sizeof(struct Vector)); 
+	t_haar_feature *haar = malloc(width * height * sizeof(struct Vector)); 
 
 	for(int i = 0; i < height; i++){
 		for(int j = 0; j < width; j++){
