@@ -57,8 +57,6 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 		}
 	}
 
-	//printf("Type A DONE\n"); 
-
 	/* Feature type B */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
@@ -84,8 +82,6 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 		}
 	}
 
-	//printf("Type B DONE\n"); 
-
 	/* Feature type C */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
@@ -108,8 +104,6 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 			}
 		}
 	}
-
-	//printf("Type C DONE\n"); 
 
 	/* Feature type D */
 	for(int i = r.y; i < r.y+r.h; i++){
@@ -135,8 +129,6 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 			}
 		}
 	}
-
-	//printf("Type D DONE\n"); 
 
 	/* Feature type E */
 	for(int i = r.y; i < r.y+r.h; i++){
