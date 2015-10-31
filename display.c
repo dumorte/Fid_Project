@@ -20,12 +20,11 @@ int main(int argc, char **argv){
 
 	init_sdl();
 	img = grey_level(load_image(argv[1]));
-
-	SDL_Surface *screen = display_image(img);
+	//SDL_Surface *screen = display_image(img);
 	//display_image(grey_level(img));
 	//display_image(matrix_to_img(img, integral_image_matrix(grey_level(img))));
 
-	SDL_Rect p;
+	/*SDL_Rect p;
 	p.w = 24;
 	p.h = 24;
 	SDL_Surface *s = SDL_CreateRGBSurface(0, p.w, p.h, 32, 0, 0, 0, 0);
@@ -43,7 +42,9 @@ int main(int argc, char **argv){
 	}
 
 	SDL_FreeSurface(s);
-	SDL_FreeSurface(img);
+	SDL_FreeSurface(img);*/
+
+	haar_feature(img);
 
 	return 0;
 }

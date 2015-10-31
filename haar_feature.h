@@ -24,7 +24,7 @@ struct s_vector {
 
 typedef struct s_haar_feature t_haar_feature;
 struct s_haar_feature {
-	t_vector *vect; 
+	t_vector *vect;
 };
 
 t_vector *feature_vect(SDL_Surface *img, int x, int y); 
