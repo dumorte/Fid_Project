@@ -44,7 +44,9 @@ int main(int argc, char **argv){
 	SDL_FreeSurface(s);
 	SDL_FreeSurface(img);*/
 
-	haar_feature(img);
+	t_vector **t = haar_feature(img);
+	free(t); 
+	printf("Coucou\n"); 
 
 	return 0;
 }

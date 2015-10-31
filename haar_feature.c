@@ -7,15 +7,18 @@
 
 #define SIZE 24
 
-t_haar_feature *haar_feature(SDL_Surface *img){
+t_vector **haar_feature(SDL_Surface *img){
 	int width = img->w - SIZE; 
 	int height = img->h - SIZE;
-	t_haar_feature *haar = malloc(sizeof(t_haar_feature));
+	t_vector **haar = malloc(sizeof(t_vector));
+
 	for(int i = 0; i < height; i++){
 		for(int j = 0; j < width; j++){
-			haar->vect[i*width+j] = *feature_vect(img, i, j); // A modifier car SegFault
+			t_vector *v = feature_vect(img, i, j);
+			haar[i*width+j] = v;
 		}
 	}
+
 	return haar; 
 }
 
