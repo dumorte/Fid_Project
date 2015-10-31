@@ -46,16 +46,14 @@ int main(int argc, char **argv){
 	SDL_FreeSurface(s);
 	SDL_FreeSurface(img);*/
 
-<<<<<<< HEAD
 	///t_vector **t = haar_feature(img);
 	///free(t); 
 	///printf("Coucou\n"); 
 
 	sort_features(feature_vect(img, 50, 50));
-=======
+	
 	t_vector **t = haar_feature(img);
 	free(t); 
->>>>>>> 3729a6b47ee75695fffc54092a620c240d774a93
 
 	return 0;
 }

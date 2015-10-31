@@ -2,6 +2,7 @@
 #define _HAAR_FEATURE_H_
 
 #define NB_FEATURES 162336
+#include <SDL/SDL.h>
 
 enum featureType {
 	A, B, C, D, E 
