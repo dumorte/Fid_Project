@@ -22,9 +22,6 @@ int main(int argc, char **argv){
 
 	init_sdl();
 	img = grey_level(load_image(argv[1]));
-	//SDL_Surface *screen = display_image(img);
-	//display_image(grey_level(img));
-	//display_image(matrix_to_img(img, integral_image_matrix(grey_level(img))));
 
 	/*SDL_Rect p;
 	p.w = 24;
@@ -46,14 +43,10 @@ int main(int argc, char **argv){
 	SDL_FreeSurface(s);
 	SDL_FreeSurface(img);*/
 
-	///t_vector **t = haar_feature(img);
-	///free(t); 
-	///printf("Coucou\n"); 
-
-	sort_features(feature_vect(img, 50, 50));
+	sort_features(feature_vect(img, 0, 0));
 	
-	t_vector **t = haar_feature(img);
-	free(t); 
+	//t_vector **t = haar_feature(img);
+	//free(t); 
 
 	return 0;
 }

@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 //#include "list.h"
+#define min(a,b) (a<b?a:b)
 
 typedef struct s_classifier t_classifier;
 struct s_classifier {

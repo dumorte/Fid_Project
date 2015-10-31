@@ -8,8 +8,9 @@
 #define SIZE 24
 
 void print(t_vector *v){
+	static char* enumstrings[] = {"A", "B", "C", "D", "E"};
 	for(int i = 0; i < NB_FEATURES; i++){
-		printf("\tType = %d\n", v->tab[i].type); 
+		printf("\tType = %s\n", enumstrings[v->tab[i].type]); 
 		printf("\tParam = %d\n", v->tab[i].param);
 	}
 }
@@ -23,7 +24,7 @@ t_vector **haar_feature(SDL_Surface *img){
 	for(int i = 0; i < height; i++){
 		for(int j = 0; j < width; j++){
 			t_vector *v = feature_vect(img, i, j); 
-			haar[i*width+j] = v;
+			haar[i*width+j] = v;	
 			printf("Vector num %d :\n", count); 
 			count++; 
 			print(haar[i*width+j]);

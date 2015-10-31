@@ -1,7 +1,5 @@
 #include "classifier.h"
 
-//trier features dans ordre valeur param
-
 int cmpfunc (const void * a, const void * b)
 {
 	if (((t_feature*)a)->param < ((t_feature*)b)->param)
@@ -22,3 +20,4 @@ t_vector *sort_features(t_vector *v)
 	return v;
 }
 
+//initialiser weights lors de la creation des features
