@@ -6,6 +6,7 @@
 #include "pixel_operations.h"
 #include "integral_image.h"
 #include "haar_feature.h"
+#include "classifier.h"
 
 void wait_for_keypressed(void);
 void init_sdl(void);
@@ -44,9 +45,11 @@ int main(int argc, char **argv){
 	SDL_FreeSurface(s);
 	SDL_FreeSurface(img);*/
 
-	t_vector **t = haar_feature(img);
-	free(t); 
-	printf("Coucou\n"); 
+	///t_vector **t = haar_feature(img);
+	///free(t); 
+	///printf("Coucou\n"); 
+
+	sort_features(feature_vect(img, 50, 50));
 
 	return 0;
 }
