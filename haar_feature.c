@@ -7,9 +7,9 @@
 
 #define SIZE 24
 
-void print(t_vector *v, int a){
-	printf("Feature num %d : \n", a);
+void print(t_vector *v){
 	for(int i = 0; i < NB_FEATURES; i++){
+		printf("\tType = %d\n", v->tab[i].type); 
 		printf("\tParam = %d\n", v->tab[i].param);
 	}
 }
@@ -18,11 +18,15 @@ t_vector **haar_feature(SDL_Surface *img){
 	int width = img->w - SIZE; 
 	int height = img->h - SIZE;
 	t_vector **haar = malloc(sizeof(t_vector));
+	int count = 1; 
 
 	for(int i = 0; i < height; i++){
 		for(int j = 0; j < width; j++){
 			t_vector *v = feature_vect(img, i, j); 
 			haar[i*width+j] = v;
+			printf("Vector num %d :\n", count); 
+			count++; 
+			print(haar[i*width+j]);
 			free(v); 
 		}
 	}
