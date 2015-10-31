@@ -13,6 +13,7 @@ void init_sdl(void);
 SDL_Surface *load_image(char *path);
 SDL_Surface *display_image(SDL_Surface *img);
 
+
 int main(int argc, char **argv){
 	if(argc < 2)
 		errx(2, "Usage: %s <image path>\n", argv[0]);
@@ -45,11 +46,16 @@ int main(int argc, char **argv){
 	SDL_FreeSurface(s);
 	SDL_FreeSurface(img);*/
 
+<<<<<<< HEAD
 	///t_vector **t = haar_feature(img);
 	///free(t); 
 	///printf("Coucou\n"); 
 
 	sort_features(feature_vect(img, 50, 50));
+=======
+	t_vector **t = haar_feature(img);
+	free(t); 
+>>>>>>> 3729a6b47ee75695fffc54092a620c240d774a93
 
 	return 0;
 }
