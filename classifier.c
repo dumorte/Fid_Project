@@ -10,7 +10,7 @@ int cmpfunc (const void * a, const void * b)
 		return 0;
 }
 
-t_vector *sort_features(t_vector *v)
+/*t_vector *sort_features(t_vector *v)
 { 
 	qsort(v->tab, NB_FEATURES, sizeof(t_feature), cmpfunc); 
 	for(int i = 0; i<NB_FEATURES; i++){
@@ -18,7 +18,7 @@ t_vector *sort_features(t_vector *v)
 		printf("%d\n", v->tab[i].param);
 	}
 	return v;
-}
+}*/
 
 //t_classifier *decision_stump(/*tableau de t_vector nomme training_ex*/)
 /*{ 

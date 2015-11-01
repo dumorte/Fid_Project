@@ -3,6 +3,7 @@
 
 #define NB_FEATURES 162336
 #include <SDL/SDL.h>
+#define SIZE 24
 
 enum featureType {
 	A, B, C, D, E 
