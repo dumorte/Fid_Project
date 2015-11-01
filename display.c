@@ -46,6 +46,7 @@ int main(int argc, char **argv){
 	//sort_features(feature_vect(img, 0, 0));
 	
 	t_vector **t = haar_feature(img);
+
 	free(t); 
 
 	return 0;
