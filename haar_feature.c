@@ -61,7 +61,6 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].j = j; 
 					v->tab[f].w = w; 
 					v->tab[f].h = h; 
-					v->tab[f].param = s3-s6-s2+s1-s4+s5+s3-s6;
 					v->tab[f].weight = 1/NB_FEATURES;
 					v->tab[f].param = s1-s2+2*s3-s4+s5-2*s6;
 					f++;
@@ -88,7 +87,6 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].j = j; 
 					v->tab[f].w = w; 
 					v->tab[f].h = h; 
-					v->tab[f].param = 2*s3+s1-2*s8-s2-2*s4+2*s7+s5-s6;
 					v->tab[f].weight = 1/NB_FEATURES;
 					v->tab[f].param = s1-s2+2*s3-2*s4+s5-s6+2*s7;
 					f++; 
@@ -113,7 +111,6 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].j = j; 
 					v->tab[f].w = w; 
 					v->tab[f].h = h; 
-					v->tab[f].param = 2*s5+s1-s6-2*s2-s4+s3;
 					v->tab[f].weight = 1/NB_FEATURES;
 					v->tab[f].param = s1-2*s2+s3-s4+2*s5-s6;
 					f++; 
@@ -140,7 +137,6 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].j = j; 
 					v->tab[f].w = w; 
 					v->tab[f].h = h; 
-					v->tab[f].param = 2*s7+s1-2*s2-s8-2*s6+2*s3+s5-s4; 
 					v->tab[f].weight = 1/NB_FEATURES;
 					v->tab[f].param = s1-2*s2+2*s3-s4+s5-2*s6+2*s7-s8; 
 					f++; 
@@ -168,7 +164,6 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].j = j; 
 					v->tab[f].w = w; 
 					v->tab[f].h = h; 
-					v->tab[f].param = 4*s9+s1-2*s2-2*s8-2*s4+s3-2*s6+s7+s5; 
 					v->tab[f].weight = 1/NB_FEATURES;
 					v->tab[f].param = s1-2*s2+s3-2*s4+s5-2*s6+s7-2*s8+4*s9; 
 					f++; 
