@@ -49,17 +49,13 @@ int main(/*int argc, char **argv*/){
 	//sort_features(feature_vect(img, 0, 0));
 	SDL_Surface **img_set= malloc(11838 * sizeof(SDL_Surface)); 
 	FILE *f = fopen("name", "r");
-	char *name = malloc(18*sizeof(char));
+	char name[62];
 	int i = 0;
 
-	while(fgets(name, 18, f) != NULL){
-		char *s = "./newface24/";
-		strcat(s, name);
-		img_set[i] = grey_level(load_image(s));
+	while(fgets(name, 61, f) != NULL){
+		img_set[i] = grey_level(load_image(name));
 		i++;
-		free(s);
 	}
-	free(name);
 	fclose(f);
 	free(img_set);
 	//t_feature *v = feature_vect(img);
@@ -100,8 +96,8 @@ SDL_Surface* load_image(char *path) {
 	SDL_Surface *img;
 
 	// Load an image using SDL_image with format detection
-	img = IMG_Load(path);
-
+	///img = IMG_Load(path);
+	img = SDL_LoadBMP(path);
 	if (!img)
 		// If it fails, die with an error message
 		errx(3, "can't load %s: %s", path, IMG_GetError());
