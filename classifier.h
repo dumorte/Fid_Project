@@ -16,6 +16,6 @@ struct s_classifier {
 	int margin;
 };
 
-t_vector *sort_features(t_vector *v);
+t_feature *sort_features(t_feature *feature);
 
 #endif

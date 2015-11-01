@@ -19,17 +19,6 @@ struct s_feature {
 	int weight;
 }; 
 
-typedef struct s_vector t_vector; 
-struct s_vector {
-	t_feature tab[NB_FEATURES]; 
-};
-
-/*typedef struct s_haar_feature t_haar_feature;
-struct s_haar_feature {
-	t_vector *vect;
-};*/
-
-t_vector *feature_vect(SDL_Surface *img, int x, int y); 
-t_vector **haar_feature(SDL_Surface *img); 
+t_feature *feature_vect(SDL_Surface *img, int x, int y); 
 
 #endif
