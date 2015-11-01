@@ -23,7 +23,9 @@ t_vector **haar_feature(SDL_Surface *img){
 	for(int i = 0; i < height; i++){
 		for(int j = 0; j<width; j++){
 			t_vector *v = feature_vect(img, i, j); 
+			
 			haar[i] = v;	
+			haar[i*width+j] = v;	
 			free(v); 
 		}
 	}
@@ -43,16 +45,17 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 	r.h = SIZE; 
 	int s1, s2, s3, s4, s5, s6, s7, s8, s9; 
 	int f = 0; 
+	//int count = 0;
 	
 	/* Feature type A */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; 2*w < (r.x+r.w+1-j); w++){
-				for(int h = 1; h < (r.y+r.h+1-i); h++){
+			for(int w = 1; j+2*w-1 < r.x+r.w; w++){
+				for(int h = 1; i+h-1 < r.y+r.h; h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+h-1)*width+(j+w-1)]; 
-					s4 = mat[(i+h-1)*width+(j+2*w-1)]; 
+					s4 = mat[(i+h)*width+(j+2*w-1)]; 
 					s5 = mat[i*width+(j+2*w-1)]; 
 					s6 = mat[i*width+(j+w-1)]; 
 					v->tab[f].type = A; 
@@ -62,6 +65,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].h = h; 
 					v->tab[f].param = s3-s6-s2+s1-s4+s5+s3-s6;
 					v->tab[f].weight = 1/NB_FEATURES;
+					v->tab[f].param = s1-s2+2*s3-s4+s5-2*s6;
 					f++;
 				}
 			}
@@ -71,8 +75,8 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 	/* Feature type B */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; 3*w < (r.x+r.w+1-j); w++){
-				for(int h = 1; h < (r.y+r.w+1-i); h++){
+			for(int w = 1; j+3*w-1 < r.x+r.w; w++){
+				for(int h = 1; i+h-1 < r.y+r.w; h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+h-1)*width+(j+w-1)];
@@ -88,6 +92,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].h = h; 
 					v->tab[f].param = 2*s3+s1-2*s8-s2-2*s4+2*s7+s5-s6;
 					v->tab[f].weight = 1/NB_FEATURES;
+					v->tab[f].param = s1-s2+2*s3-2*s4+s5-s6+2*s7;
 					f++; 
 				}
 			}
@@ -97,8 +102,8 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 	/* Feature type C */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; w < (r.x+r.w+1-j); w++){
-				for(int h = 1; 2*h < (r.y+r.h+1-i); h++){
+			for(int w = 1; j+w-1 < r.x+r.w; w++){
+				for(int h = 1; i+2*h-1 < r.y+r.h; h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+2*h-1)*width+j]; 
@@ -112,6 +117,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].h = h; 
 					v->tab[f].param = 2*s5+s1-s6-2*s2-s4+s3;
 					v->tab[f].weight = 1/NB_FEATURES;
+					v->tab[f].param = s1-2*s2+s3-s4+2*s5-s6;
 					f++; 
 				}
 			}
@@ -121,8 +127,8 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 	/* Feature type D */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; w < (r.x+r.w+1-j); w++){
-				for(int h = 1; 3*h < (r.y+r.h+1-i); h++){
+			for(int w = 1; j+w-1 < r.x+r.w; w++){
+				for(int h = 1; i+3*h-1 < r.y+r.h; h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+2*h-1)*width+j];
@@ -138,6 +144,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].h = h; 
 					v->tab[f].param = 2*s7+s1-2*s2-s8-2*s6+2*s3+s5-s4; 
 					v->tab[f].weight = 1/NB_FEATURES;
+					v->tab[f].param = s1-2*s2+2*s3-s4+s5-2*s6+2*s7-s8; 
 					f++; 
 				}
 			}
@@ -147,8 +154,8 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 	/* Feature type E */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
-			for(int w = 1; 2*w < (r.x+r.w+1-j); w++){
-				for(int h = 1; 2*h < (r.y+r.h+1-i); h++){
+			for(int w = 1; j+2*w-1 < r.x+r.w; w++){
+				for(int h = 1; i+2*h-1 < r.y+r.h; h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+2*h-1)*width+j]; 
@@ -165,11 +172,13 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].h = h; 
 					v->tab[f].param = 4*s9+s1-2*s2-2*s8-2*s4+s3-2*s6+s7+s5; 
 					v->tab[f].weight = 1/NB_FEATURES;
+					v->tab[f].param = s1-2*s2+s3-2*s4+s5-2*s6+s7-2*s8+4*s9; 
 					f++; 
 				}
 			}
 		}
 	}
+
 
 	return v; 
 }
