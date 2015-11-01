@@ -25,7 +25,7 @@ t_feature *feature_vect(SDL_Surface *img){
 	t_feature *v = malloc(NB_FEATURES*sizeof(t_feature)); 
 	Uint32 *mat = integral_image_matrix(grey_level(img));  
 	int width = img->w; 
-	int height = img->h; 
+	//int height = img->h; 
 	SDL_Rect r; 
 	r.x = 0; 
 	r.y = 0; 
@@ -34,8 +34,6 @@ t_feature *feature_vect(SDL_Surface *img){
 	int s1, s2, s3, s4, s5, s6, s7, s8, s9; 
 	int f = 0; 
 
-	for(int k = 0; k<height-SIZE; k++){
-		for(int l = 0; l<width-SIZE; l++){
 	
 	/* Feature type A */
 	for(int i = r.y; i < r.y+r.h; i++){
@@ -163,8 +161,6 @@ t_feature *feature_vect(SDL_Surface *img){
 			}
 		}
 	}
-}
-}
 
 	return v; 
 }
