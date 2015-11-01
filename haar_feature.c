@@ -5,17 +5,7 @@
 #include "pixel_operations.h"
 #include "integral_image.h"
 
-#define SIZE 24
-
-void print(t_vector *v){
-	static char* enumstrings[] = {"A", "B", "C", "D", "E"};
-	for(int i = 0; i < NB_FEATURES; i++){
-		printf("\tType = %s\n", enumstrings[v->tab[i].type]); 
-		printf("\tParam = %d\n", v->tab[i].param);
-	}
-}
-
-t_vector **haar_feature(SDL_Surface *img){
+/*t_vector **haar_feature(SDL_Surface *img){
 	int width = img->w - SIZE; 
 	int height = img->h - SIZE;
 	t_vector **haar = malloc(sizeof(t_vector));
@@ -29,21 +19,23 @@ t_vector **haar_feature(SDL_Surface *img){
 	}
 
 	return haar; 
-}
+}*/
 
-t_vector *feature_vect(SDL_Surface *img, int x, int y){
-	t_vector *v = malloc(sizeof(t_vector)); 
+t_feature *feature_vect(SDL_Surface *img){
+	t_feature *v = malloc(NB_FEATURES*sizeof(t_feature)); 
 	Uint32 *mat = integral_image_matrix(grey_level(img));  
 	int width = img->w; 
-	//int height = img->h; 
+	int height = img->h; 
 	SDL_Rect r; 
-	r.x = x; 
-	r.y = y; 
+	r.x = 0; 
+	r.y = 0; 
 	r.w = SIZE; 
 	r.h = SIZE; 
 	int s1, s2, s3, s4, s5, s6, s7, s8, s9; 
 	int f = 0; 
-	//int count = 0;
+
+	for(int k = 0; k<height-SIZE; k++){
+		for(int l = 0; l<width-SIZE; l++){
 	
 	/* Feature type A */
 	for(int i = r.y; i < r.y+r.h; i++){
@@ -56,13 +48,13 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					s4 = mat[(i+h)*width+(j+2*w-1)]; 
 					s5 = mat[i*width+(j+2*w-1)]; 
 					s6 = mat[i*width+(j+w-1)]; 
-					v->tab[f].type = A; 
-					v->tab[f].i = i; 
-					v->tab[f].j = j; 
-					v->tab[f].w = w; 
-					v->tab[f].h = h; 
-					v->tab[f].weight = 1/NB_FEATURES;
-					v->tab[f].param = s1-s2+2*s3-s4+s5-2*s6;
+					v[f].type = A; 
+					v[f].i = i; 
+					v[f].j = j; 
+					v[f].w = w; 
+					v[f].h = h; 
+					v[f].weight = 1/NB_FEATURES;
+					v[f].param = s1-s2+2*s3-s4+s5-2*s6;
 					f++;
 				}
 			}
@@ -82,13 +74,13 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					s6 = mat[i*width+(j+3*w-1)];
 					s7 = mat[i*width+(j+2*w-1)];
 					s8 = mat[i*width+(j+w-1)];
-					v->tab[f].type = B; 
-					v->tab[f].i = i; 
-					v->tab[f].j = j; 
-					v->tab[f].w = w; 
-					v->tab[f].h = h; 
-					v->tab[f].weight = 1/NB_FEATURES;
-					v->tab[f].param = s1-s2+2*s3-2*s4+s5-s6+2*s7;
+					v[f].type = B; 
+					v[f].i = i; 
+					v[f].j = j; 
+					v[f].w = w; 
+					v[f].h = h; 
+					v[f].weight = 1/NB_FEATURES;
+					v[f].param = s1-s2+2*s3-2*s4+s5-s6+2*s7;
 					f++; 
 				}
 			}
@@ -106,13 +98,13 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					s4 = mat[(i+2*h-1)*width+(j+w-1)]; 
 					s5 = mat[(i+h-1)*width+(j+w-1)]; 
 					s6 = mat[i*width+(j+w-1)];
-					v->tab[f].type = C; 
-					v->tab[f].i = i; 
-					v->tab[f].j = j; 
-					v->tab[f].w = w; 
-					v->tab[f].h = h; 
-					v->tab[f].weight = 1/NB_FEATURES;
-					v->tab[f].param = s1-2*s2+s3-s4+2*s5-s6;
+					v[f].type = C; 
+					v[f].i = i; 
+					v[f].j = j; 
+					v[f].w = w; 
+					v[f].h = h; 
+					v[f].weight = 1/NB_FEATURES;
+					v[f].param = s1-2*s2+s3-s4+2*s5-s6;
 					f++; 
 				}
 			}
@@ -132,13 +124,13 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					s6 = mat[(i+2*h-1)*width+(j+w-1)];
 					s7 = mat[(i+h-1)*width+(j+w-1)];
 					s8 = mat[i*width+(j+w-1)];
-					v->tab[f].type = D;
-					v->tab[f].i = i; 
-					v->tab[f].j = j; 
-					v->tab[f].w = w; 
-					v->tab[f].h = h; 
-					v->tab[f].weight = 1/NB_FEATURES;
-					v->tab[f].param = s1-2*s2+2*s3-s4+s5-2*s6+2*s7-s8; 
+					v[f].type = D;
+					v[f].i = i; 
+					v[f].j = j; 
+					v[f].w = w; 
+					v[f].h = h; 
+					v[f].weight = 1/NB_FEATURES;
+					v[f].param = s1-2*s2+2*s3-s4+s5-2*s6+2*s7-s8; 
 					f++; 
 				}
 			}
@@ -159,19 +151,20 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					s7 = mat[i*width+(j+2*w-1)]; 
 					s8 = mat[i*width+(j+w-1)]; 
 					s9 = mat[(i+h-1)*width+(j+w-1)]; 
-					v->tab[f].type = E; 
-					v->tab[f].i = i; 
-					v->tab[f].j = j; 
-					v->tab[f].w = w; 
-					v->tab[f].h = h; 
-					v->tab[f].weight = 1/NB_FEATURES;
-					v->tab[f].param = s1-2*s2+s3-2*s4+s5-2*s6+s7-2*s8+4*s9; 
+					v[f].type = E; 
+					v[f].i = i; 
+					v[f].j = j; 
+					v[f].w = w; 
+					v[f].h = h; 
+					v[f].weight = 1/NB_FEATURES;
+					v[f].param = s1-2*s2+s3-2*s4+s5-2*s6+s7-2*s8+4*s9; 
 					f++; 
 				}
 			}
 		}
 	}
-
+}
+}
 
 	return v; 
 }
