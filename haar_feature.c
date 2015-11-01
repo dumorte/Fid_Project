@@ -23,8 +23,6 @@ t_vector **haar_feature(SDL_Surface *img){
 	for(int i = 0; i < height; i++){
 		for(int j = 0; j<width; j++){
 			t_vector *v = feature_vect(img, i, j); 
-			
-			haar[i] = v;	
 			haar[i*width+j] = v;	
 			free(v); 
 		}
