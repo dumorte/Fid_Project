@@ -10,6 +10,7 @@
 #include "integral_image.h"
 #include "haar_feature.h"
 #include "classifier.h"
+#include "constantes.h"
 
 void wait_for_keypressed(void);
 void init_sdl(void);

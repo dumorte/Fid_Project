@@ -1,4 +1,5 @@
 #include "classifier.h"
+#include "constantes.h"
 
 int cmpfunc (const void * a, const void * b)
 {

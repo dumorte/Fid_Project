@@ -10,6 +10,7 @@
 #include "integral_image.h"
 #include "haar_feature.h"
 #include "classifier.h"
+#include "constantes.h"
 
 void wait_for_keypressed(void);
 void init_sdl(void);
@@ -108,6 +109,7 @@ SDL_Surface* display_image(SDL_Surface *img) {
 	SDL_Surface *screen;
 
 	// Set the window to the same size as the image
+	// img->w, img->h
 	screen = SDL_SetVideoMode(img->w, img->h, 0, SDL_SWSURFACE|SDL_ANYFORMAT);
 
 	if ( screen == NULL ) {

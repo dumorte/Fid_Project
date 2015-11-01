@@ -5,6 +5,7 @@
 #include "haar_feature.h"
 #include "pixel_operations.h"
 #include "integral_image.h"
+#include "constantes.h"
 
 /*void scaled_feature(SDL_Surface *img, t_vector *vect){
 	for(int i = 0; i < NB_FEATURES; i++){
