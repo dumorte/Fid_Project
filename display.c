@@ -2,6 +2,9 @@
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "pixel_operations.h"
 #include "integral_image.h"
@@ -14,14 +17,14 @@ SDL_Surface *load_image(char *path);
 SDL_Surface *display_image(SDL_Surface *img);
 
 
-int main(int argc, char **argv){
-	if(argc < 2)
-		errx(2, "Usage: %s <image path>\n", argv[0]);
+int main(/*int argc, char **argv*/){
+	//if(argc < 2)
+	//	errx(2, "Usage: %s <image path>\n", argv[0]);
 
-	SDL_Surface *img = NULL;
+	//SDL_Surface *img = NULL;
 
 	init_sdl();
-	img = grey_level(load_image(argv[1]));
+	//img = grey_level(load_image(argv[1]));
 
 	/*SDL_Rect p;
 	p.w = 24;
@@ -44,10 +47,23 @@ int main(int argc, char **argv){
 	SDL_FreeSurface(img);*/
 
 	//sort_features(feature_vect(img, 0, 0));
-	
-	t_feature *v = feature_vect(img);
+	SDL_Surface **img_set= malloc(11838 * sizeof(SDL_Surface)); 
+	FILE *f = fopen("name", "r");
+	char *name = malloc(18*sizeof(char));
+	int i = 0;
 
-	free(v); 
+	while(fgets(name, 18, f) != NULL){
+		char *s = "./newface24/";
+		strcat(s, name);
+		img_set[i] = grey_level(load_image(s));
+		i++;
+		free(s);
+	}
+	free(name);
+	fclose(f);
+	free(img_set);
+	//t_feature *v = feature_vect(img);
+	//free(v); 
 
 	return 0;
 }
