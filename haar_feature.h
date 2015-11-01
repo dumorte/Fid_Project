@@ -19,6 +19,6 @@ struct s_feature {
 	int weight;
 }; 
 
-t_feature *feature_vect(SDL_Surface *img, int x, int y); 
+t_feature *feature_vect(SDL_Surface *img); 
 
 #endif
