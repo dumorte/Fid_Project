@@ -17,14 +17,14 @@ SDL_Surface *load_image(char *path);
 SDL_Surface *display_image(SDL_Surface *img);
 
 
-int main(int argc, char **argv){
-	if(argc < 2)
-		errx(2, "Usage: %s <image path>\n", argv[0]);
+int main(/*int argc, char **argv*/){
+	/*if(argc < 2)
+		errx(2, "Usage: %s <image path>\n", argv[0]);*/
 
-	SDL_Surface *img = NULL;
+	//SDL_Surface *img = NULL;
 
 	init_sdl();
-	img = grey_level(load_image(argv[1]));
+	//img = grey_level(load_image(argv[1]));
 
 	/*SDL_Rect p;
 	p.w = 24;
@@ -46,21 +46,21 @@ int main(int argc, char **argv){
 	SDL_FreeSurface(s);
 	SDL_FreeSurface(img);*/
 
-	/*SDL_Surface **img_set= malloc(11838 * sizeof(SDL_Surface)); 
+	SDL_Surface **img_set= malloc(11838 * sizeof(SDL_Surface)); 
 	FILE *f = fopen("name", "r");
-	char name[62];
+	char *name_picture = malloc(28 * sizeof(char));
 	int i = 0;
 
-	while(fgets(name, 61, f) != NULL){
-		printf("%s", name);
-		img_set[i] = grey_level(load_image(name));
+	while(fgets(name_picture, 28, f) != NULL){
+		img_set[i] = grey_level(load_image(name_picture));
 		i++;
+		fseek(f, 1, SEEK_CUR); 
 	}
 	fclose(f);
-	free(img_set);*/
+	free(img_set);
 
-	t_feature *vect = feature_vect(img);
-	free(vect); 
+	/*t_feature *vect = feature_vect(img);
+	free(vect); */
 
 	return 0;
 }
