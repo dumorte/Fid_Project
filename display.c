@@ -43,10 +43,10 @@ int main(int argc, char **argv){
 	SDL_FreeSurface(s);
 	SDL_FreeSurface(img);*/
 
-	sort_features(feature_vect(img, 0, 0));
+	//sort_features(feature_vect(img, 0, 0));
 	
-	//t_vector **t = haar_feature(img);
-	//free(t); 
+	t_vector **t = haar_feature(img);
+	free(t); 
 
 	return 0;
 }
