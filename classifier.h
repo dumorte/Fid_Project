@@ -10,10 +10,10 @@
 
 typedef struct s_classifier t_classifier;
 struct s_classifier {
-	int threshold;
-	int toggle;
-	int error;
-	int margin;
+	float threshold;
+	float toggle;
+	float error;
+	float margin;
 };
 
 t_feature *sort_features(t_feature *feature);

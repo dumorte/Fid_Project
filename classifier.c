@@ -16,9 +16,10 @@ t_vector *sort_features(t_vector *v)
 	return v;
 }
 
+
 t_classifier *decision_stump(SDL_Surface **img)
 { 
-	for(int i = 0; i<)
+	for()
 	t_vector *sorted_examples = sort_features(v);//tries
 	free(v);
 	t_classifier *dec_stump = malloc(sizeof(t_classifier));

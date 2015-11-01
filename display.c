@@ -53,6 +53,7 @@ int main(/*int argc, char **argv*/){
 	int i = 0;
 
 	while(fgets(name, 61, f) != NULL){
+		printf("%s", name);
 		img_set[i] = grey_level(load_image(name));
 		i++;
 	}
@@ -96,8 +97,7 @@ SDL_Surface* load_image(char *path) {
 	SDL_Surface *img;
 
 	// Load an image using SDL_image with format detection
-	///img = IMG_Load(path);
-	img = SDL_LoadBMP(path);
+	img = IMG_Load(path);
 	if (!img)
 		// If it fails, die with an error message
 		errx(3, "can't load %s: %s", path, IMG_GetError());

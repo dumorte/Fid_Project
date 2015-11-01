@@ -17,7 +17,7 @@ struct s_feature {
 	int w; 
 	int h; 
 	int param;
-	int weight;
+	float weight;
 }; 
 
 t_feature *feature_vect(SDL_Surface *img); 
