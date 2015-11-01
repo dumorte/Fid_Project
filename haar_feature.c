@@ -54,6 +54,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 	r.h = SIZE; 
 	int s1, s2, s3, s4, s5, s6, s7, s8, s9; 
 	int f = 0; 
+	//int count = 0;
 	
 	/* Feature type A */
 	for(int i = r.y; i < r.y+r.h; i++){
@@ -73,6 +74,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].h = h; 
 					v->tab[f].param = s1-s2+2*s3-s4+s5-2*s6;
 					/*if(v->tab[f].param == 0){
+						count++;
 						printf("i = %d\n", i);
 						printf("j = %d\n", j);
 						printf("w = %d\n", w);
@@ -110,6 +112,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].h = h; 
 					v->tab[f].param = s1-s2+2*s3-2*s4+s5-s6+2*s7;
 					/*if(v->tab[f].param == 0){
+						count++;
 						printf("f = %d\n", f);
 						printf("i = %d\n", i);
 						printf("j = %d\n", j);
@@ -128,8 +131,6 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 		}
 	}
 
-	int count = 0;
-
 	/* Feature type C */
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
@@ -147,7 +148,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].w = w; 
 					v->tab[f].h = h; 
 					v->tab[f].param = s1-2*s2+s3-s4+2*s5-s6;
-					if(v->tab[f].param == 0){
+					/*if(v->tab[f].param == 0){
 						count++;
 						printf("f = %d\n", f);
 						printf("i = %d\n", i);
@@ -160,14 +161,12 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 						printf("s4 = %d\n", s4);	
 						printf("s5 = %d\n", s5);	
 						printf("s6 = %d\n\n", s6);
-					}
+					}*/
 					f++; 
 				}
 			}
 		}
 	}
-
-	printf("count = %d\n", count);
 
 	/* Feature type D */
 	for(int i = r.y; i < r.y+r.h; i++){
@@ -189,6 +188,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].h = h; 
 					v->tab[f].param = s1-2*s2+2*s3-s4+s5-2*s6+2*s7-s8; 
 					/*if(v->tab[f].param == 0){
+						count++;
 						printf("f = %d\n", f);
 						printf("i = %d\n", i);
 						printf("j = %d\n", j);
@@ -228,6 +228,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].h = h; 
 					v->tab[f].param = s1-2*s2+s3-2*s4+s5-2*s6+s7-2*s8+4*s9; 
 					/*if(v->tab[f].param == 0){
+						count++;
 						printf("f = %d\n", f);
 						printf("i = %d\n", i);
 						printf("j = %d\n", j);
@@ -246,7 +247,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 		}
 	}
 
-	printf("\nf = %d\n", f);
+	//printf("count = %d\n", count);
 
 	return v; 
 }
