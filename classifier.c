@@ -20,4 +20,15 @@ t_vector *sort_features(t_vector *v)
 	return v;
 }
 
-//initialiser weights lors de la creation des features
+//t_classifier *decision_stump(/*tableau de t_vector nomme training_ex*/)
+/*{ 
+	t_vector *sorted_examples = sort_features(v);//tries
+	free(v);
+	t_classifier *dec_stump = malloc(sizeof(t_classifier));
+	dec_stump->threshold = v->tab[0].param - 1;
+	dec_stump->margin = 0;
+	dec_stump->error = 2;
+	//end init
+
+	
+}*/

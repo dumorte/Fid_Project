@@ -19,15 +19,11 @@ t_vector **haar_feature(SDL_Surface *img){
 	int width = img->w - SIZE; 
 	int height = img->h - SIZE;
 	t_vector **haar = malloc(sizeof(t_vector));
-	int count = 1; 
 
 	for(int i = 0; i < height; i++){
-		for(int j = 0; j < width; j++){
+		for(int j = 0; j<width; j++){
 			t_vector *v = feature_vect(img, i, j); 
-			haar[i*width+j] = v;	
-			printf("Vector num %d :\n", count); 
-			count++; 
-			print(haar[i*width+j]);
+			haar[i] = v;	
 			free(v); 
 		}
 	}
@@ -65,6 +61,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].w = w; 
 					v->tab[f].h = h; 
 					v->tab[f].param = s3-s6-s2+s1-s4+s5+s3-s6;
+					v->tab[f].weight = 1/NB_FEATURES;
 					f++;
 				}
 			}
@@ -90,6 +87,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].w = w; 
 					v->tab[f].h = h; 
 					v->tab[f].param = 2*s3+s1-2*s8-s2-2*s4+2*s7+s5-s6;
+					v->tab[f].weight = 1/NB_FEATURES;
 					f++; 
 				}
 			}
@@ -113,6 +111,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].w = w; 
 					v->tab[f].h = h; 
 					v->tab[f].param = 2*s5+s1-s6-2*s2-s4+s3;
+					v->tab[f].weight = 1/NB_FEATURES;
 					f++; 
 				}
 			}
@@ -138,6 +137,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].w = w; 
 					v->tab[f].h = h; 
 					v->tab[f].param = 2*s7+s1-2*s2-s8-2*s6+2*s3+s5-s4; 
+					v->tab[f].weight = 1/NB_FEATURES;
 					f++; 
 				}
 			}
@@ -164,6 +164,7 @@ t_vector *feature_vect(SDL_Surface *img, int x, int y){
 					v->tab[f].w = w; 
 					v->tab[f].h = h; 
 					v->tab[f].param = 4*s9+s1-2*s2-2*s8-2*s4+s3-2*s6+s7+s5; 
+					v->tab[f].weight = 1/NB_FEATURES;
 					f++; 
 				}
 			}

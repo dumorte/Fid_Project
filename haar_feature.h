@@ -15,7 +15,8 @@ struct s_feature {
 	int j; 
 	int w; 
 	int h; 
-	int param; 
+	int param;
+	int weight;
 }; 
 
 typedef struct s_vector t_vector; 
