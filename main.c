@@ -57,7 +57,10 @@ int main(/*int argc, char **argv*/){
 		i++;
 		fseek(f, 1, SEEK_CUR); 
 	}
+
 	fclose(f);
+	for(int i = 0; i < PICT_WITH_FACE; i++)
+		SDL_FreeSurface(img_set[i]);
 	free(img_set);
 
 	/*t_feature *vect = feature_vect(img);
