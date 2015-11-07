@@ -18,15 +18,15 @@ SDL_Surface *load_image(char *path);
 SDL_Surface *display_image(SDL_Surface *img);
 
 
-int main(int argc, char **argv){
-	if(argc < 2)
+int main(/*int argc, char **argv*/){
+	/*if(argc < 2)
 		errx(2, "Usage: %s <image path>\n", argv[0]);
 
 	SDL_Surface *img = NULL;
 
 	init_sdl();
 	img = load_image(argv[1]);
-	display_image(img);
+	display_image(img);*/
 	/*SDL_Rect p;
 	p.w = 24;
 	p.h = 24;
@@ -45,7 +45,7 @@ int main(int argc, char **argv){
 	}
 
 	SDL_FreeSurface(s);*/
-	SDL_FreeSurface(img);
+	//SDL_FreeSurface(img);
 
 	SDL_Surface **img_set= malloc(11838 * sizeof(SDL_Surface)); 
 	FILE *f = fopen("name", "r");
@@ -59,6 +59,8 @@ int main(int argc, char **argv){
 	}
 
 	fclose(f);
+	//Do what we want
+	
 	for(int i = 0; i < PICT_WITH_FACE; i++)
 		SDL_FreeSurface(img_set[i]);
 	free(img_set);
