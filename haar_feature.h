@@ -10,11 +10,7 @@ enum featureType {
 typedef struct s_feature t_feature; 
 struct s_feature {
 	enum featureType type; 
-	int i; 
-	int j; 
-	int w; 
-	int h; 
-	int param;
+	int i, j, w, h, param;
 	float weight;
 }; 
 
