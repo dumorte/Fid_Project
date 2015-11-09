@@ -47,13 +47,13 @@ int main(/*int argc, char **argv*/){
 	SDL_FreeSurface(s);*/
 	//SDL_FreeSurface(img);
 
-	SDL_Surface **img_set= malloc(11838 * sizeof(SDL_Surface)); 
+	t_feature **img_set= malloc(PICT_WITH_FACE * sizeof(SDL_Surface)); 
 	FILE *f = fopen("name", "r");
 	char *name_picture = malloc(28 * sizeof(char));
 	int i = 0;
 
 	while(fgets(name_picture, 28, f) != NULL){
-		img_set[i] = grey_level(load_image(name_picture));
+		img_set[i] = feature_vect(grey_level(load_image(name_picture)));
 		i++;
 		fseek(f, 1, SEEK_CUR); 
 	}
@@ -62,7 +62,7 @@ int main(/*int argc, char **argv*/){
 	//Do what we want
 	
 	for(int i = 0; i < PICT_WITH_FACE; i++)
-		SDL_FreeSurface(img_set[i]);
+		free(img_set[i]);
 	free(img_set);
 
 	/*t_feature *vect = feature_vect(img);

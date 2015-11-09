@@ -11,26 +11,24 @@ int cmpfunc (const void * a, const void * b)
 		return 0;
 }
 
-t_vector *sort_features(t_vector *v)
+t_feature *sort_features(t_feature *f)
 { 
-	qsort(v->tab, NB_FEATURES, sizeof(t_feature), cmpfunc); 
-	return v;
+	qsort(f, NB_FEATURES, sizeof(t_feature), cmpfunc); 
+	return f;
 }
 
 
-t_classifier *decision_stump(SDL_Surface **img)
+t_classifier *decision_stump(t_feature **img_set)
 { 
 	for(int i = 0; i < PICT_WITH_FACE; i++){
-		t_vector *v = feature_vect(img[i]); 
-		v = sort_features(v); 
+		sort_features(img_set[i]);
 	}
-	t_vector *sorted_examples = sort_features(v);//tries
-	free(v);
 	t_classifier *dec_stump = malloc(sizeof(t_classifier));
-	dec_stump->threshold = v->tab[0].param - 1;
+	dec_stump->threshold = img_set[0]->param - 1;
 	dec_stump->margin = 0;
 	dec_stump->error = 2;
 	//end init
 
+	return dec_stump;
 	
 }

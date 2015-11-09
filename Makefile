@@ -6,7 +6,7 @@ CFLAGS= -g -Wall -Wextra -Werror -std=c99
 LDFLAGS=
 LDLIBS= `pkg-config --libs sdl` -lSDL_image
 
-SRC= list.c feature_scaling.c haar_feature.c integral_image.c pixel_operations.c main.c #classifier.c
+SRC= list.c feature_scaling.c haar_feature.c integral_image.c pixel_operations.c main.c classifier.c
 OBJ= ${SRC:.c=.o}
 BIN= main 
 
