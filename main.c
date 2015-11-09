@@ -49,10 +49,10 @@ int main(/*int argc, char **argv*/){
 
 	t_feature **img_set= malloc(PICT_WITH_FACE * sizeof(SDL_Surface)); 
 	FILE *f = fopen("name", "r");
-	char *name_picture = malloc(28 * sizeof(char));
+	char *name_picture = malloc(31 * sizeof(char));
 	int i = 0;
 
-	while(fgets(name_picture, 28, f) != NULL){
+	while(fgets(name_picture, 30, f) != NULL){
 		img_set[i] = feature_vect(grey_level(load_image(name_picture)));
 		i++;
 		fseek(f, 1, SEEK_CUR); 
