@@ -44,7 +44,7 @@ t_feature *feature_vect(SDL_Surface *img){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+h-1)*width+(j+w-1)]; 
-					s4 = mat[(i+h)*width+(j+2*w-1)]; 
+					s4 = mat[(i+h-1)*width+(j+2*w-1)]; 
 					s5 = mat[i*width+(j+2*w-1)]; 
 					s6 = mat[i*width+(j+w-1)]; 
 					v[f].type = A; 
