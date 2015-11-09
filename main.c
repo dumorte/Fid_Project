@@ -10,6 +10,7 @@
 #include "integral_image.h"
 #include "haar_feature.h"
 #include "classifier.h"
+#include "constantes.h"
 
 void wait_for_keypressed(void);
 void init_sdl(void);
@@ -17,15 +18,15 @@ SDL_Surface *load_image(char *path);
 SDL_Surface *display_image(SDL_Surface *img);
 
 
-int main(int argc, char **argv){
-	if(argc < 2)
+int main(/*int argc, char **argv*/){
+	/*if(argc < 2)
 		errx(2, "Usage: %s <image path>\n", argv[0]);
 
 	SDL_Surface *img = NULL;
 
 	init_sdl();
-	img = grey_level(load_image(argv[1]));
-
+	img = load_image(argv[1]);
+	display_image(img);*/
 	/*SDL_Rect p;
 	p.w = 24;
 	p.h = 24;
@@ -43,24 +44,29 @@ int main(int argc, char **argv){
 		}
 	}
 
-	SDL_FreeSurface(s);
-	SDL_FreeSurface(img);*/
+	SDL_FreeSurface(s);*/
+	//SDL_FreeSurface(img);
 
-	/*SDL_Surface **img_set= malloc(11838 * sizeof(SDL_Surface)); 
+	SDL_Surface **img_set= malloc(11838 * sizeof(SDL_Surface)); 
 	FILE *f = fopen("name", "r");
-	char name[62];
+	char *name_picture = malloc(28 * sizeof(char));
 	int i = 0;
 
-	while(fgets(name, 61, f) != NULL){
-		printf("%s", name);
-		img_set[i] = grey_level(load_image(name));
+	while(fgets(name_picture, 28, f) != NULL){
+		img_set[i] = grey_level(load_image(name_picture));
 		i++;
+		fseek(f, 1, SEEK_CUR); 
 	}
-	fclose(f);
-	free(img_set);*/
 
-	t_feature *vect = feature_vect(img);
-	free(vect); 
+	fclose(f);
+	//Do what we want
+	
+	for(int i = 0; i < PICT_WITH_FACE; i++)
+		SDL_FreeSurface(img_set[i]);
+	free(img_set);
+
+	/*t_feature *vect = feature_vect(img);
+	free(vect); */
 
 	return 0;
 }
@@ -108,6 +114,7 @@ SDL_Surface* display_image(SDL_Surface *img) {
 	SDL_Surface *screen;
 
 	// Set the window to the same size as the image
+	// img->w, img->h
 	screen = SDL_SetVideoMode(img->w, img->h, 0, SDL_SWSURFACE|SDL_ANYFORMAT);
 
 	if ( screen == NULL ) {

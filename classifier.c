@@ -1,4 +1,5 @@
 #include "classifier.h"
+#include "constantes.h"
 
 int cmpfunc (const void * a, const void * b)
 {
@@ -19,7 +20,10 @@ t_vector *sort_features(t_vector *v)
 
 t_classifier *decision_stump(SDL_Surface **img)
 { 
-	for()
+	for(int i = 0; i < PICT_WITH_FACE; i++){
+		t_vector *v = feature_vect(img[i]); 
+		v = sort_features(v); 
+	}
 	t_vector *sorted_examples = sort_features(v);//tries
 	free(v);
 	t_classifier *dec_stump = malloc(sizeof(t_classifier));
