@@ -47,7 +47,7 @@ int main(/*int argc, char **argv*/){
 	SDL_FreeSurface(s);*/
 	//SDL_FreeSurface(img);
 
-	t_feature **img_set= malloc(PICT_WITH_FACE * sizeof(SDL_Surface)); 
+	t_feature **img_set= malloc(PICT_WITH_FACE * NB_FEATURES * sizeof(t_feature));//A modifier pour avoir 1 unique vecteur de features
 	FILE *f = fopen("name", "r");
 	char *name_picture = malloc(31 * sizeof(char));
 	int i = 0;
