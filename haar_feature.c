@@ -40,7 +40,7 @@ t_feature *feature_vect(SDL_Surface *img){
 	for(int i = r.y; i < r.y+r.h; i++){
 		for(int j = r.x; j < r.x+r.w; j++){
 			for(int w = 1; j+2*w-1 < r.x+r.w; w++){
-				for(int h = 1; i+h-1 < r.y+r.h; h++){
+				for(int h = 1; i+h-1 < r.y+r.h; h++){ //Premiere boucle = 0
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+h-1)*width+(j+w-1)]; 
