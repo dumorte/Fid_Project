@@ -47,12 +47,12 @@ int main(/*int argc, char **argv*/){
 	SDL_FreeSurface(s);*/
 	//SDL_FreeSurface(img);
 
-	t_feature **img_set= malloc(PICT_WITH_FACE * NB_FEATURES * sizeof(t_feature));//A modifier pour avoir 1 unique vecteur de features
+	t_feature **img_set= malloc(PICT_WITH_FACE * sizeof(SDL_Surface));//A modifier pour avoir 1 unique vecteur de features
 	FILE *f = fopen("name", "r");
-	char *name_picture = malloc(31 * sizeof(char));
+	char *name_picture = malloc(60 * sizeof(char));
 	int i = 0;
 
-	while(fgets(name_picture, 30, f) != NULL){
+	while(fgets(name_picture, 59, f) != NULL){
 		img_set[i] = feature_vect(grey_level(load_image(name_picture)));
 		i++;
 		fseek(f, 1, SEEK_CUR); 
@@ -67,7 +67,7 @@ int main(/*int argc, char **argv*/){
 
 	/*t_feature *vect = feature_vect(img);
 	free(vect); */
-
+	//FIXME set positive and negative images according to new type
 	return 0;
 }
 

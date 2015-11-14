@@ -17,82 +17,43 @@ t_feature *sort_features(t_feature *f)
 	return f;
 }
 
-
-float sum_negative_weights_bigger(t_feature *t, int threshold){
-	float sum = 0;
-
-	for(int i = 0; i < NB_FEATURES; i++){
-		float w = t[i].weight;
-		if(w > threshold)
-			sum += w;
-	}
-
-	return sum;
-}
-
-float sum_positive_weights_bigger(t_feature *t, int threshold){
-	float sum = 0;
-
-	for(int i = 0; i < NB_FEATURES; i++){
-		float w = t[i].weight;
-		if(w > threshold)
-			sum += w;
-	}
-
-	return sum;
-}
-
-float sum_positive_weights_lower(t_feature *t, int threshold){
-	float sum = 0;
-
-	for(int i = 0; i < NB_FEATURES; i++){
-		float w = t[i].weight;
-		if(w < threshold)
-			sum += w;
-	}
-
-	return sum;
-}
-
-float sum(t_feature *t, int threshold, int positive){
-	float sum = 0;
-
-	for(int i = 0; i < NB_FEATURES; i++){
-		float w = t[i].weight;
-		if(positive && w < threshold)
-			sum += w;
-		if(!positive && w < threshold)
-			sum += w;
-	}
-
-	return sum;
-}
-
-t_classifier *decision_stump(t_feature **img_set)
+float sum_weights(float *weight, t_example_images *ex_img)
 { 
-	int min = img_set[0]->param;
+	float x = 0;
+	for(int t = 0; t<200; t++)
+		for(int j = 0; j<ex_img->n; j++)
+			x+=weight[t*ex_img->n + j];
+	return x;
+}
 
-	for(int i = 0; i < PICT_WITH_FACE; i++){
-		sort_features(img_set[i]);
-		if(img_set[i][0].param < min)
-			min = img_set[i]->param;
-	}
-
-	t_classifier *dec_stump = malloc(sizeof(t_classifier));
-	dec_stump->threshold = min - 1;
-	dec_stump->margin = 0;
-	dec_stump->error = 2;
-	float weights_minus, weights_plus, error_plus, error_minus;
-	weights_plus = PICT_WITH_FACE * 0.5;
-	weights_minus = 0;
-	int j = 0;
-	float tmp_threshold = dec_stump->threshold, tmp_margin = dec_stump->margin;
-	//end init
+/*FIXME*/t_classifier learning_classification(t_example_images *ex_img)
+{ 
+	struct t_example_image *cpy = ex_img;
+	int T = 200;
+	float *weight = malloc(T*ex_img->n*sizeof(int));//tableau de poids
 	
-	while(1){
-		error_plus = 
+	for(int i = 0; i<ex_img->n; i++)//initialize weights
+	{ 
+		if(ex_img->face)
+			weight[i] = 1/PICT_WITH_FACE;
+		else
+			weight[i] = 1/PICT_WITH_NO_FACE;
+		ex_img++;
 	}
+	ex_img = cpy;
 
-	return dec_stump;
-	
+	for(int t = 0; t<T; t++)
+	{ 
+		for(int i = 0; i<ex_img->n; i++)
+		{ 
+			//Normalize weights
+			weight[t*ex_img->n + i] = weight[t*ex_img->n + i]/sum_weights(weight, ex_img);
+			//
+
+			ex_img++;
+		}
+	}	
+	ex_img = cpy;
+
+	free(ex_img);
 }
