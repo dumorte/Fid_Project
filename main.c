@@ -47,13 +47,14 @@ int main(/*int argc, char **argv*/){
 	SDL_FreeSurface(s);*/
 	//SDL_FreeSurface(img);
 
-	t_feature **img_set= malloc(PICT_WITH_FACE * sizeof(SDL_Surface));//A modifier pour avoir 1 unique vecteur de features
+	t_feature **img_set= malloc(PICT_WITH_FACE * sizeof(t_feature));//A modifier pour avoir 2 vecteurs de features
 	FILE *f = fopen("name", "r");
-	char *name_picture = malloc(60 * sizeof(char));
+	char *name_picture = malloc(31 * sizeof(char));
 	int i = 0;
 
-	while(fgets(name_picture, 59, f) != NULL){
+	while(fgets(name_picture, 30, f) != NULL){
 		img_set[i] = feature_vect(grey_level(load_image(name_picture)));
+		printf("%d\n",i);
 		i++;
 		fseek(f, 1, SEEK_CUR); 
 	}

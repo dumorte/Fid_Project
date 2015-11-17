@@ -17,6 +17,8 @@ t_feature *sort_features(t_feature *f)
 	return f;
 }
 
+
+
 float sum_weights(float *weight, t_example_images *ex_img)
 { 
 	float x = 0;
