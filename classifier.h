@@ -17,9 +17,10 @@ struct s_example_images {
 	int n;
 };
 
-typedef struct s_classifier t_classifier;
-struct s_classifier {
-	float weight;
+typedef struct s_weak_classifier t_weak_classifier;
+struct s_weak_classifier {
+	t_feature f;
+	float weight, error;
 };
 
 t_feature *sort_features(t_feature *feature);
