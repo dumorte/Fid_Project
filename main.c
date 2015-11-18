@@ -54,6 +54,7 @@ int main(/*int argc, char **argv*/){
 
 	while(fgets(name_picture, 59, f) != NULL){
 		img_set[i] = feature_vect(grey_level(load_image(name_picture)));
+		printf("%d\n", i);
 		i++;
 		fseek(f, 1, SEEK_CUR); 
 	}

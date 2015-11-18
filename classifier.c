@@ -26,7 +26,7 @@ float sum_weights(float *weight, t_example_images *ex_img)
 	return x;
 }
 
-/*FIXME*/t_classifier learning_classification(t_example_images *ex_img)
+/*FIXME*/t_strong_classifier learning_classification(t_example_images *ex_img)
 { 
 	struct t_example_image *cpy = ex_img;
 	int T = 200;
