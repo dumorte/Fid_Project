@@ -39,7 +39,7 @@ void feature_scaling(SDL_Surface *img, t_feature *f){
 			s4 = mat[(f->i+f->h-1)*width+(f->j+2*f->w-1)]; 
 			s5 = mat[f->i*width+(f->j+2*f->w-1)]; 
 			s6 = mat[f->i*width+(f->j+f->w-1)]; 
-			sum = s3-s6-s2+s1-s4+s5+s3-s6;
+			sum = s1-s2+2*s3-s4+s5-2*s6;
 			scaled_feature = (sum*a)/(2*f->w*f->h); 
 			
 			f->param = scaled_feature; 
@@ -59,7 +59,7 @@ void feature_scaling(SDL_Surface *img, t_feature *f){
 			s6 = mat[f->i*width+(f->j+3*f->w-1)];
 			s7 = mat[f->i*width+(f->j+2*f->w-1)];
 			s8 = mat[f->i*width+(f->j+f->w-1)];
-			sum = 2*s3+s1-2*s8-s2-2*s4+2*s7+s5-s6;
+			sum = s1-s2+2*s3-2*s4+s5-s6+2*s7-2*s8;
 			scaled_feature = (sum*a)/(3*f->w*f->h); 
 	
 			f->param = scaled_feature; 
@@ -77,7 +77,7 @@ void feature_scaling(SDL_Surface *img, t_feature *f){
 			s4 = mat[(f->i+2*f->h-1)*width+(f->j+f->w-1)]; 
 			s5 = mat[(f->i+f->h-1)*width+(f->j+f->w-1)]; 
 			s6 = mat[f->i*width+(f->j+f->w-1)];
-			sum = 2*s5+s1-s6-2*s2-s4+s3;
+			sum = s1-2*s2+s3-s4+2*s5-s6;
 			scaled_feature = (sum*a)/(2*f->w*f->h); 
 	
 			f->param = scaled_feature; 
@@ -96,7 +96,7 @@ void feature_scaling(SDL_Surface *img, t_feature *f){
 			s6 = mat[(f->i+2*f->h-1)*width+(f->j+f->w-1)];
 			s7 = mat[(f->i+f->h-1)*width+(f->j+f->w-1)];
 			s8 = mat[f->i*width+(f->j+f->w-1)];
-			sum = 2*s7+s1-2*s2-s8-2*s6+2*s3+s5-s4; 
+			sum = s1-2*s2+2*s3-s4+s5-2*s6+2*s7-s8; 
 			scaled_feature = (sum*a)/(3*f->w*f->h); 
 
 			f->param = scaled_feature; 
@@ -117,7 +117,7 @@ void feature_scaling(SDL_Surface *img, t_feature *f){
 			s7 = mat[f->i*width+(f->j+2*f->w-1)]; 
 			s8 = mat[f->i*width+(f->j+f->w-1)]; 
 			s9 = mat[(f->i+f->h-1)*width+(f->j+f->w-1)]; 
-			sum = 4*s9+s1-2*s2-2*s8-2*s4+s3-2*s6+s7+s5;
+			sum = s1-2*s2+s3-2*s4+s5-2*s6+s7-2*s8+4*s9;
 			scaled_feature = (sum*a)/(4*f->w*f->h); 
 	
 			f->param = scaled_feature; 
@@ -126,4 +126,6 @@ void feature_scaling(SDL_Surface *img, t_feature *f){
 		default: 
 			break;  
 	}
+
+	free(mat); 
 }
