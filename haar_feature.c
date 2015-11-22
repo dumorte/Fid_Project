@@ -79,7 +79,7 @@ t_feature *feature_vect(SDL_Surface *img){
 					v[f].w = w; 
 					v[f].h = h; 
 					v[f].weight = 0.5;
-					v[f].param = s1-s2+2*s3-2*s4+s5-s6+2*s7;
+					v[f].param = s1-s2+2*s3-2*s4+s5-s6+2*s7-2*s8;
 					f++; 
 				}
 			}
