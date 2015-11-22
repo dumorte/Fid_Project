@@ -52,7 +52,6 @@ t_feature *feature_vect(SDL_Surface *img){
 					v[f].j = j; 
 					v[f].w = w; 
 					v[f].h = h; 
-					v[f].weight = 0.5;
 					v[f].param = s1-s2+2*s3-s4+s5-2*s6;
 					f++;
 				}
@@ -78,7 +77,6 @@ t_feature *feature_vect(SDL_Surface *img){
 					v[f].j = j; 
 					v[f].w = w; 
 					v[f].h = h; 
-					v[f].weight = 0.5;
 					v[f].param = s1-s2+2*s3-2*s4+s5-s6+2*s7-2*s8;
 					f++; 
 				}
@@ -93,7 +91,7 @@ t_feature *feature_vect(SDL_Surface *img){
 				for(int h = 1; i+2*h-1 < r.y+r.h; h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
-					s3 = mat[(i+2*h-1)*width+j]; 
+					s3 = mat[(i+1*h-1)*width+j]; 
 					s4 = mat[(i+2*h-1)*width+(j+w-1)]; 
 					s5 = mat[(i+h-1)*width+(j+w-1)]; 
 					s6 = mat[i*width+(j+w-1)];
@@ -102,7 +100,6 @@ t_feature *feature_vect(SDL_Surface *img){
 					v[f].j = j; 
 					v[f].w = w; 
 					v[f].h = h; 
-					v[f].weight = 0.5; 
 					v[f].param = s1-2*s2+s3-s4+2*s5-s6;
 					f++; 
 				}
@@ -128,8 +125,7 @@ t_feature *feature_vect(SDL_Surface *img){
 					v[f].j = j; 
 					v[f].w = w; 
 					v[f].h = h; 
-					v[f].weight = 0.5;
-					v[f].param = s1-2*s2+2*s3-s4+s5-2*s6+2*s7-s8; 
+					v[f].param = s1-2*s2+2*s3-s4+s5-2*s6+2*s7-s8;
 					f++; 
 				}
 			}
@@ -155,8 +151,7 @@ t_feature *feature_vect(SDL_Surface *img){
 					v[f].j = j; 
 					v[f].w = w; 
 					v[f].h = h; 
-					v[f].weight = 0.5;
-					v[f].param = s1-2*s2+s3-2*s4+s5-2*s6+s7-2*s8+4*s9; 
+					v[f].param = s1-2*s2+s3-2*s4+s5-2*s6+s7-2*s8+4*s9;  
 					f++; 
 				}
 			}
@@ -164,4 +159,5 @@ t_feature *feature_vect(SDL_Surface *img){
 	}
 
 	return v; 
+	free(mat);
 }

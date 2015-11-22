@@ -11,6 +11,7 @@
 #include "haar_feature.h"
 #include "classifier.h"
 #include "constantes.h"
+#include "feature_scaling.h"
 
 void wait_for_keypressed(void);
 void init_sdl(void);
@@ -47,27 +48,38 @@ int main(/*int argc, char **argv*/){
 	SDL_FreeSurface(s);*/
 	//SDL_FreeSurface(img);
 
-	t_feature **img_set= malloc(PICT_WITH_FACE * sizeof(t_feature));//A modifier pour avoir 2 vecteurs de features
-	FILE *f = fopen("name", "r");
-	char *name_picture = malloc(31 * sizeof(char));
+	SDL_Surface **img_set= malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE) * sizeof(SDL_Surface));
+	FILE *f = fopen("nameface", "r");
+	char *name_picture = malloc(73 * sizeof(char));
 	int i = 0;
 
-	while(fgets(name_picture, 30, f) != NULL){
-		img_set[i] = feature_vect(grey_level(load_image(name_picture)));
+	while(fgets(name_picture, 69, f) != NULL){
+		img_set[i] = grey_level(load_image(name_picture));
+		i++;
+		fseek(f, 1, SEEK_CUR);
+	}
+	
+	f = fopen("namenonface", "r");
+	while(fgets(name_picture, 72, f) != NULL){
+		img_set[i] = grey_level(load_image(name_picture));
 		i++;
 		fseek(f, 1, SEEK_CUR); 
 	}
-
 	fclose(f);
+	best_stump(img_set);
 	//Do what we want
-	
-	for(int i = 0; i < PICT_WITH_FACE; i++)
+	/*SDL_Surface *img = grey_level(load_image("/home/erwan/Bureau/dumort_e-s3-tuto/proj/nonface24/nonface24_045353.bmp"));
+	Uint32 *mat = integral_image_matrix(img);
+	t_feature *feature = malloc(sizeof(t_feature));
+	feature->i=0; feature->j=0; feature->h=2; feature->w=2; feature->type=E;
+	feature_scaling(img, feature);
+	t_feature *vect = feature_vect(img);
+	free(mat);
+	free(vect);*/
+	/*for(int i = 0; i < PICT_WITH_FACE; i++)
 		free(img_set[i]);
-	free(img_set);
+	free(img_set);*/
 
-	/*t_feature *vect = feature_vect(img);
-	free(vect); */
-	//FIXME set positive and negative images according to new type
 	return 0;
 }
 

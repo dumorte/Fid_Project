@@ -10,22 +10,14 @@
 
 //#include "list.h"
 
-typedef struct s_example_images t_example_images;
-struct s_example_images {
-	SDL_Surface *img;
-	int face;
-	int n;
-};
-
-typedef struct s_weak_classifier t_weak_classifier;
-struct s_weak_classifier {
-	t_feature f;
-	float weight, error;
+typedef struct s_dec_stump t_dec_stump;
+struct s_dec_stump {
+	float threshold, toggle, error, margin;
 };
 
 t_feature *sort_features(t_feature *feature);
-
-float sum_weights(float *weight, t_example_images *ex_img);
-t_classifier learning_classification(t_example_images);
+t_dec_stump *dec_stump(t_feature *f);
+t_dec_stump *best_stump(SDL_Surface **img_set);
+int max(t_feature *f, int a);
 
 #endif
