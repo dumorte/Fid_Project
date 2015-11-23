@@ -135,12 +135,20 @@ t_dec_stump *best_stump(SDL_Surface **img_set)
 							}
 							feature_vect[nbimages].i=i; feature_vect[nbimages].j=j; feature_vect[nbimages].h=h; feature_vect[nbimages].w=w; feature_vect[nbimages].type=type;
 							feature_scaling(img_set[nbimages], feature_vect+nbimages);
-							//sort_features(feature_vect);
-							t_dec_stump *tmp = dec_stump(feature_vect);
-							if(tmp->error<beststump->error || ((tmp->error==beststump->error) && (tmp->margin>beststump->margin)))
-								beststump = tmp;
-							free(tmp);
 						}
+						sort_features(feature_vect);
+						t_dec_stump *tmp = dec_stump(feature_vect);
+
+						if(tmp->error<beststump->error || ((tmp->error==beststump->error) && (tmp->margin>beststump->margin)))
+							beststump = tmp;
+						/*if(h==1)
+						{ 
+							printf("threshold : %.6f\n", tmp->threshold);
+							printf("toggle : %.6f\n", tmp->toggle);
+							printf("error : %.6f\n", tmp->error);
+							printf("margin : %.6f\n", tmp->margin);
+						}*/
+						free(tmp);
 						free(feature_vect);
 					}
 				}

@@ -30,10 +30,9 @@ void feature_scaling(SDL_Surface *img, t_feature *f){
 		case A: 
 			//a = 2*f->w*f->h; 
 			f->i = (f->i*width)/24; 
-			printf("%d\n",f->i);
-			f->j = (f->j*width)/24; printf("%d\n",f->j);
-			f->h = (f->h*width)/24; printf("%d\n",f->h);
-			f->w = ((2*f->w*width)/24)/2; printf("%d\n",f->w);//suppr max && 1+... expression debut 
+			f->j = (f->j*width)/24;
+			f->h = (f->h*width)/24;
+			f->w = ((2*f->w*width)/24)/2;//suppr max && 1+... expression debut 
 			s1 = mat[f->i*width+f->j]; 
 			s2 = mat[(f->i+f->h-1)*width+f->j]; 
 			s3 = mat[(f->i+f->h-1)*width+(f->j+f->w-1)]; 

@@ -50,18 +50,20 @@ int main(/*int argc, char **argv*/){
 
 	SDL_Surface **img_set= malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE) * sizeof(SDL_Surface));
 	FILE *f = fopen("nameface", "r");
-	char *name_picture = malloc(73 * sizeof(char));
+	char *name_picture = malloc(63 * sizeof(char));
 	int i = 0;
 
-	while(fgets(name_picture, 69, f) != NULL){
+	while(fgets(name_picture, 59, f) != NULL){
 		img_set[i] = grey_level(load_image(name_picture));
+		printf("%d\n",i);
 		i++;
 		fseek(f, 1, SEEK_CUR);
 	}
 	
 	f = fopen("namenonface", "r");
-	while(fgets(name_picture, 72, f) != NULL){
+	while(fgets(name_picture, 62, f) != NULL){
 		img_set[i] = grey_level(load_image(name_picture));
+		printf("%d\n",i);
 		i++;
 		fseek(f, 1, SEEK_CUR); 
 	}
