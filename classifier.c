@@ -29,7 +29,7 @@ t_feature *sort_features(t_feature *f)
 	return f;
 }
 
-t_dec_stump *dec_stump(t_feature *f)//features de type 1 rangees par ordre croissant(best_stump)
+t_dec_stump *dec_stump(t_feature *f)
 { 
 	t_dec_stump *stump = malloc(sizeof(t_dec_stump));
 	stump->threshold = f[0].param-1;
@@ -125,12 +125,12 @@ t_dec_stump *best_stump(SDL_Surface **img_set)
 						{ 
 							if(nbimages<PICT_WITH_FACE)
 							{ 
-								feature_vect[nbimages].weight = 0.5*PICT_WITH_FACE;
+								feature_vect[nbimages].weight = 0.000042237;
 								feature_vect[nbimages].face = 1;
 							}
 							else
 							{ 
-								feature_vect[nbimages].weight = 0.5*PICT_WITH_NO_FACE;
+								feature_vect[nbimages].weight = 0.000011024;
 								feature_vect[nbimages].face = 0;
 							}
 							feature_vect[nbimages].i=i; feature_vect[nbimages].j=j; feature_vect[nbimages].h=h; feature_vect[nbimages].w=w; feature_vect[nbimages].type=type;
@@ -141,13 +141,6 @@ t_dec_stump *best_stump(SDL_Surface **img_set)
 
 						if(tmp->error<beststump->error || ((tmp->error==beststump->error) && (tmp->margin>beststump->margin)))
 							beststump = tmp;
-						/*if(h==1)
-						{ 
-							printf("threshold : %.6f\n", tmp->threshold);
-							printf("toggle : %.6f\n", tmp->toggle);
-							printf("error : %.6f\n", tmp->error);
-							printf("margin : %.6f\n", tmp->margin);
-						}*/
 						free(tmp);
 						free(feature_vect);
 					}
