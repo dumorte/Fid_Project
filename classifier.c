@@ -1,6 +1,7 @@
 #include "classifier.h"
 #include "constantes.h"
 #include "feature_scaling.h"
+#include "adaboost.h"
 
 int max(t_feature *f, int a)
 { 
@@ -150,5 +151,10 @@ t_dec_stump *best_stump(SDL_Surface **img_set)
 			}
 		}
 	}
+
+	FILE *f = fopen("class", "w"); 
+	print_classifier(beststump, f); 
+	fclose(f); 
+
 	return beststump;
 }
