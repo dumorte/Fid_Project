@@ -35,8 +35,8 @@ t_dec_stump *dec_stump(t_feature *f)
 	stump->threshold = f[0].param-1;
 	stump->margin = 0;
 	stump->error = 2;
-	float weight_bigger_face, weight_bigger_nonface = 0;
-	float weight_lower_face, weight_lower_nonface = 0;
+	float weight_bigger_face = 0, weight_bigger_nonface = 0;
+	float weight_lower_face = 0, weight_lower_nonface = 0;
 	float errorplus, errorminus;
 	float errormem, togglemem; 
 	float thresholdmem = stump->threshold;
@@ -51,6 +51,7 @@ t_dec_stump *dec_stump(t_feature *f)
 			weight_bigger_nonface+=f[i].weight;
 
 	}
+
 	for(;;)
 	{ 
 		errorplus = weight_lower_face + weight_bigger_nonface;
@@ -137,6 +138,7 @@ t_dec_stump *best_stump(SDL_Surface **img_set)
 							feature_scaling(img_set[nbimages], feature_vect+nbimages);
 						}
 						sort_features(feature_vect);
+						printf("Call of decision stump type = %d ; i = %d ; j = %d ; w = %d ; h = %d\n", type, i, j, w, h); 
 						t_dec_stump *tmp = dec_stump(feature_vect);
 
 						if(tmp->error<beststump->error || ((tmp->error==beststump->error) && (tmp->margin>beststump->margin)))
@@ -150,3 +152,7 @@ t_dec_stump *best_stump(SDL_Surface **img_set)
 	}
 	return beststump;
 }
+
+/*void class_în_file(t_dec_stump *stump){
+
+}*/
