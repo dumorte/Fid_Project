@@ -152,7 +152,3 @@ t_dec_stump *best_stump(SDL_Surface **img_set)
 	}
 	return beststump;
 }
-
-/*void class_în_file(t_dec_stump *stump){
-
-}*/
