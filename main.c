@@ -50,10 +50,10 @@ int main(/*int argc, char **argv*/){
 
 	SDL_Surface **img_set= malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE) * sizeof(SDL_Surface));
 	FILE *f = fopen("nameface", "r");
-	char *name_picture = malloc(63 * sizeof(char));
+	char *name_picture = malloc(86 * sizeof(char));
 	int i = 0;
 
-	while(fgets(name_picture, 59, f) != NULL){
+	while(fgets(name_picture, 82, f) != NULL){
 		img_set[i] = grey_level(load_image(name_picture));
 		printf("%d\n",i);
 		i++;
@@ -61,13 +61,14 @@ int main(/*int argc, char **argv*/){
 	}
 	
 	f = fopen("namenonface", "r");
-	while(fgets(name_picture, 62, f) != NULL){
+	while(fgets(name_picture, 85, f) != NULL){
 		img_set[i] = grey_level(load_image(name_picture));
 		printf("%d\n",i);
 		i++;
 		fseek(f, 1, SEEK_CUR); 
 	}
 	fclose(f);
+	printf("Call best_stump\n"); 
 	best_stump(img_set);
 	//Do what we want
 	/*SDL_Surface *img = grey_level(load_image("/home/erwan/Bureau/dumort_e-s3-tuto/proj/nonface24/nonface24_045353.bmp"));
