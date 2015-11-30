@@ -2,6 +2,7 @@
 #define _ADABOOST_H_
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "classifier.h"
 
