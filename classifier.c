@@ -30,7 +30,7 @@ t_feature *sort_features(t_feature *f)
 	return f;
 }
 
-t_dec_stump *dec_stump(t_feature *f)
+t_dec_stump *dec_stump(t_couple_images *img_set, t_feature *f)
 { 
 	t_dec_stump *stump = malloc(sizeof(t_dec_stump));
 	stump->threshold = f[0].param-1;
@@ -108,7 +108,7 @@ t_dec_stump *dec_stump(t_feature *f)
 	return stump;
 }
 
-t_dec_stump *best_stump(SDL_Surface **img_set)
+t_dec_stump *best_stump(t_couple_image *img_set) //FIXM   ont leurs probabilistic weights sur eux a img_set[i].weight
 { 
 	SDL_Rect r;
 	r.x = 0;
@@ -125,22 +125,12 @@ t_dec_stump *best_stump(SDL_Surface **img_set)
 						t_feature *feature_vect = malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE)*sizeof(t_feature));
 						for(int nbimages = 0; nbimages<PICT_WITH_FACE+PICT_WITH_NO_FACE; nbimages++)
 						{ 
-							if(nbimages<PICT_WITH_FACE)
-							{ 
-								feature_vect[nbimages].weight = 0.000042237;
-								feature_vect[nbimages].face = 1;
-							}
-							else
-							{ 
-								feature_vect[nbimages].weight = 0.000011024;
-								feature_vect[nbimages].face = 0;
-							}
 							feature_vect[nbimages].i=i; feature_vect[nbimages].j=j; feature_vect[nbimages].h=h; feature_vect[nbimages].w=w; feature_vect[nbimages].type=type;
-							feature_scaling(img_set[nbimages], feature_vect+nbimages);
+							feature_scaling(img_set[nbimages].img, feature_vect+nbimages);
 						}
 						sort_features(feature_vect);
 						printf("Call of decision stump type = %d ; i = %d ; j = %d ; w = %d ; h = %d\n", type, i, j, w, h); 
-						t_dec_stump *tmp = dec_stump(feature_vect);
+						t_dec_stump *tmp = dec_stump(img_set, feature_vect);
 
 						if(tmp->error<beststump->error || ((tmp->error==beststump->error) && (tmp->margin>beststump->margin)))
 							beststump = tmp;
