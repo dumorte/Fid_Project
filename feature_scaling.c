@@ -23,7 +23,7 @@ void feature_scaling(SDL_Surface *img, t_feature *f){
 	Uint32 *mat = integral_image_matrix(grey_level(img)); 
 	int width = img->w; 
 	//int height = img->h; 
-	Uint32 sum = 0; 
+	int sum = 0; 
 	//int a = 0; 
 
 	switch(f->type){

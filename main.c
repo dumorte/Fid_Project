@@ -76,14 +76,13 @@ int main(/*int argc, char **argv*/){
 	printf("Call best_stump\n"); 
 	best_stump(img_set);
 	//Do what we want
-	/*SDL_Surface *img = grey_level(load_image("/home/erwan/Bureau/dumort_e-s3-tuto/proj/nonface24/nonface24_045353.bmp"));
-	Uint32 *mat = integral_image_matrix(img);
+	/*SDL_Surface *img = grey_level(load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000200.jpg"));
 	t_feature *feature = malloc(sizeof(t_feature));
-	feature->i=0; feature->j=0; feature->h=2; feature->w=2; feature->type=E;
+	feature->i=0; feature->j=0; feature->h=4; feature->w=1; feature->type=A;
 	feature_scaling(img, feature);
 	t_feature *vect = feature_vect(img);
-	free(mat);
-	free(vect);*/
+	free(vect);
+	free(feature);*/
 	/*for(int i = 0; i < PICT_WITH_FACE; i++)
 		free(img_set[i]);
 	free(img_set);*/
