@@ -1,8 +1,5 @@
 #include "adaboost.h"
 
-void print_classifier(t_dec_stump *dec, FILE *f){
-	fprintf(f, "threshold=%lf;toggle=%lf;error=%lf;margin=%lf\n", dec->threshold, dec->toggle, dec->error, dec->margin); 
-}
 
 float sum_weights_images(t_couple_images *img)
 { 
