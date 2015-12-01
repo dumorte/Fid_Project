@@ -134,7 +134,12 @@ t_dec_stump *best_stump(t_couple_image *img_set)
 						printf("Call of decision stump type = %d ; i = %d ; j = %d ; w = %d ; h = %d ; threshold = %d\n", type, i, j, w, h, tmp->threshold); 
 
 						if(tmp->error<beststump->error || ((tmp->error==beststump->error) && (tmp->margin>beststump->margin)))
-							beststump = tmp;
+						{ 
+							beststump->error = tmp->error;
+							beststump->margin = tmp->margin;
+							beststump->threshold= tmp->threshold;
+							beststump->toggle = tmp->toggle;
+						}
 						free(tmp);
 						free(feature_vect);
 					}
@@ -142,6 +147,8 @@ t_dec_stump *best_stump(t_couple_image *img_set)
 			}
 		}
 	}
+	
+	printf("error = %lf; margin = %d; threshold = %d; toggle = %d\n", beststump->error, beststump->margin, beststump->threshold, beststump->toggle);
 
 	FILE *f = fopen("class", "w"); 
 	print_classifier(beststump, f); 

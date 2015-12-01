@@ -74,7 +74,7 @@ int main(/*int argc, char **argv*/){
 	}
 	fclose(f);
 	printf("Call best_stump\n"); 
-	best_stump(img_set);
+	adaboost(img_set, 100);//200
 	//Do what we want
 	/*SDL_Surface *img = grey_level(load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000200.jpg"));
 	t_feature *feature = malloc(sizeof(t_feature));
