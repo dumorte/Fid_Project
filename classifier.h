@@ -18,7 +18,8 @@ struct s_couple_image{
 
 typedef struct s_dec_stump t_dec_stump;
 struct s_dec_stump {
-	float threshold, toggle, error, margin;
+	int threshold, toggle, margin;
+	float error;
 };
 
 void print_classifier(t_dec_stump *dec, FILE *f); 

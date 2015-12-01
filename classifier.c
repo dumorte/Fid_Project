@@ -51,7 +51,7 @@ t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 		else
 			weight_bigger_nonface+=img_set[i].weight;
 
-	}
+	}//OK
 
 	for(;;)
 	{ 
@@ -67,7 +67,7 @@ t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 			errormem = errorminus;
 			togglemem = -1;
 		}
-		if(errormem<=stump->error && marginmem>stump->margin)
+		if(errormem<stump->error || (errormem==stump->error && marginmem>stump->margin))
 		{ 
 			stump->error = errormem;
 			stump->threshold = thresholdmem;
@@ -129,8 +129,9 @@ t_dec_stump *best_stump(t_couple_image *img_set)
 							feature_scaling(img_set[nbimages].img, feature_vect+nbimages);
 						}
 						sort_features(feature_vect);
-						printf("Call of decision stump type = %d ; i = %d ; j = %d ; w = %d ; h = %d ; param = %d\n", type, i, j, w, h, feature_vect[200].param); 
 						t_dec_stump *tmp = dec_stump(img_set, feature_vect);
+
+						printf("Call of decision stump type = %d ; i = %d ; j = %d ; w = %d ; h = %d ; threshold = %d\n", type, i, j, w, h, tmp->threshold); 
 
 						if(tmp->error<beststump->error || ((tmp->error==beststump->error) && (tmp->margin>beststump->margin)))
 							beststump = tmp;
@@ -138,7 +139,6 @@ t_dec_stump *best_stump(t_couple_image *img_set)
 						free(feature_vect);
 					}
 				}
-
 			}
 		}
 	}
@@ -151,5 +151,5 @@ t_dec_stump *best_stump(t_couple_image *img_set)
 }
 
 void print_classifier(t_dec_stump *dec, FILE *f){
-	fprintf(f, "threshold=%lf;toggle=%lf;error=%lf;margin=%lf\n", dec->threshold, dec->toggle, dec->error, dec->margin); 
+	fprintf(f, "threshold=%d;toggle=%d;error=%lf;margin=%d\n", dec->threshold, dec->toggle, dec->error, dec->margin); 
 }

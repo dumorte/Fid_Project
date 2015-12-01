@@ -24,7 +24,7 @@
 
 t_feature *feature_vect(SDL_Surface *img){
 	t_feature *v = malloc(NB_FEATURES*sizeof(t_feature)); 
-	Uint32 *mat = integral_image_matrix(grey_level(img));  
+	Uint32 *mat = integral_image_matrix(img);  
 	int width = img->w; 
 	//int height = img->h; 
 	SDL_Rect r; 
