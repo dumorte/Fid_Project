@@ -1,5 +1,6 @@
 #include "callback.h"
 
+<<<<<<< HEAD
 static void open_file (const gchar *, GtkTextView *);
 
 void cb_open (GtkWidget *p_widget, gpointer user_data)
@@ -24,6 +25,8 @@ void cb_open (GtkWidget *p_widget, gpointer user_data)
   (void)p_widget;
 }
 
+=======
+>>>>>>> 50fc783a52b389a7b73be41202eb10f9ca648afa
 void cb_quit (GtkWidget *p_widget, gpointer user_data)
 {
   gtk_main_quit();

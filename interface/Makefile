@@ -12,7 +12,7 @@ BIN= interface
 all: ${BIN}
 
 ${BIN}: ${OBJ}
-	$(CC) $(CFLAGS) ${LDLIBS} -o $(BIN) $(OBJ)
+	${CC} -o ${BIN} ${OBJ} ${CFLAGS} ${LDLIBS}
 
 clean:
 	rm -f *~ *.o

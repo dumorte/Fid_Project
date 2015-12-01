@@ -51,10 +51,10 @@ int main(/*int argc, char **argv*/){
 
 	t_couple_image *img_set= malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE) * sizeof(SDL_Surface));
 	FILE *f = fopen("nameface", "r");
-	char *name_picture = malloc(86 * sizeof(char));
+	char *name_picture = malloc(64 * sizeof(char));
 	int i = 0;
 
-	while(fgets(name_picture, 82, f) != NULL){
+	while(fgets(name_picture, 60, f) != NULL){
 		img_set[i].img = grey_level(load_image(name_picture));
 		img_set[i].face = 1;
 		img_set[i].weight = 1.0/(2*PICT_WITH_FACE);
@@ -64,9 +64,9 @@ int main(/*int argc, char **argv*/){
 	}
 	
 	f = fopen("namenonface", "r");
-	while(fgets(name_picture, 85, f) != NULL){
+	while(fgets(name_picture, 63, f) != NULL){
 		img_set[i].img = grey_level(load_image(name_picture));
-		img_set[i].face = 0;
+		img_set[i].face = -1;
 		img_set[i].weight = 1.0/(2*PICT_WITH_NO_FACE);
 		printf("%d\n",i);
 		i++;
@@ -74,6 +74,7 @@ int main(/*int argc, char **argv*/){
 	}
 	fclose(f);
 	printf("Call best_stump\n"); 
+	best_stump(img_set);
 	//Do what we want
 	/*SDL_Surface *img = grey_level(load_image("/home/erwan/Bureau/dumort_e-s3-tuto/proj/nonface24/nonface24_045353.bmp"));
 	Uint32 *mat = integral_image_matrix(img);

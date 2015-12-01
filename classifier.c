@@ -30,7 +30,7 @@ t_feature *sort_features(t_feature *f)
 	return f;
 }
 
-t_dec_stump *dec_stump(t_couple_images *img_set, t_feature *f)
+t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 { 
 	t_dec_stump *stump = malloc(sizeof(t_dec_stump));
 	stump->threshold = f[0].param-1;
@@ -44,12 +44,12 @@ t_dec_stump *dec_stump(t_couple_images *img_set, t_feature *f)
 	float marginmem = stump->margin;
 	int n = PICT_WITH_FACE + PICT_WITH_NO_FACE;
 	int j = 0;
-	for(int i = 1; i<n; i++)
+	for(int i = 0; i<n; i++)
 	{ 
-		if(f[i].face)
-			weight_bigger_face+=f[i].weight;
+		if(img_set[i].face == 1)
+			weight_bigger_face+=img_set[i].weight;
 		else
-			weight_bigger_nonface+=f[i].weight;
+			weight_bigger_nonface+=img_set[i].weight;
 
 	}
 
@@ -65,7 +65,7 @@ t_dec_stump *dec_stump(t_couple_images *img_set, t_feature *f)
 		else
 		{ 
 			errormem = errorminus;
-			togglemem = 0;
+			togglemem = -1;
 		}
 		if(errormem<=stump->error && marginmem>stump->margin)
 		{ 
@@ -79,7 +79,7 @@ t_dec_stump *dec_stump(t_couple_images *img_set, t_feature *f)
 		j+=1;
 		for(;;)
 		{ 
-			if(!f[j].face)
+			if(f[j].face == -1)
 			{ 
 				weight_lower_nonface+=f[j].weight;
 				weight_bigger_nonface-=f[j].weight;
@@ -89,7 +89,7 @@ t_dec_stump *dec_stump(t_couple_images *img_set, t_feature *f)
 				weight_lower_face+=f[j].weight;
 				weight_bigger_face-=f[j].weight;
 			}
-			if(j==n || ((f[j].param==f[j+1].param)&&(f[j].face==f[j+1].face)))
+			if(j==n || f[j].param!=f[j+1].param)
 				break;
 			else
 				j+=1;
@@ -108,7 +108,7 @@ t_dec_stump *dec_stump(t_couple_images *img_set, t_feature *f)
 	return stump;
 }
 
-t_dec_stump *best_stump(t_couple_image *img_set) //FIXM   ont leurs probabilistic weights sur eux a img_set[i].weight
+t_dec_stump *best_stump(t_couple_image *img_set) 
 { 
 	SDL_Rect r;
 	r.x = 0;
@@ -122,14 +122,14 @@ t_dec_stump *best_stump(t_couple_image *img_set) //FIXM   ont leurs probabilisti
 			for(int j = r.x; j < r.x+r.w; j++){
 				for(int w = 1; j+2*w-1 < r.x+r.w; w++){
 					for(int h = 1; i+h-1 < r.y+r.h; h++){
-						t_feature *feature_vect = malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE)*sizeof(t_feature));
+						t_feature *feature_vect = malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE)*sizeof(t_feature)); //assigner poids et face
 						for(int nbimages = 0; nbimages<PICT_WITH_FACE+PICT_WITH_NO_FACE; nbimages++)
 						{ 
-							feature_vect[nbimages].i=i; feature_vect[nbimages].j=j; feature_vect[nbimages].h=h; feature_vect[nbimages].w=w; feature_vect[nbimages].type=type;
+							feature_vect[nbimages].i=i; feature_vect[nbimages].j=j; feature_vect[nbimages].h=h; feature_vect[nbimages].w=w; feature_vect[nbimages].type=type; feature_vect[nbimages].face = img_set[nbimages].face; feature_vect[nbimages].weight = img_set[nbimages].weight;
 							feature_scaling(img_set[nbimages].img, feature_vect+nbimages);
 						}
 						sort_features(feature_vect);
-						printf("Call of decision stump type = %d ; i = %d ; j = %d ; w = %d ; h = %d\n", type, i, j, w, h); 
+						printf("Call of decision stump type = %d ; i = %d ; j = %d ; w = %d ; h = %d ; param = %d\n", type, i, j, w, h, feature_vect[200].param); 
 						t_dec_stump *tmp = dec_stump(img_set, feature_vect);
 
 						if(tmp->error<beststump->error || ((tmp->error==beststump->error) && (tmp->margin>beststump->margin)))
@@ -138,6 +138,7 @@ t_dec_stump *best_stump(t_couple_image *img_set) //FIXM   ont leurs probabilisti
 						free(feature_vect);
 					}
 				}
+
 			}
 		}
 	}
@@ -147,4 +148,8 @@ t_dec_stump *best_stump(t_couple_image *img_set) //FIXM   ont leurs probabilisti
 	fclose(f); 
 
 	return beststump;
+}
+
+void print_classifier(t_dec_stump *dec, FILE *f){
+	fprintf(f, "threshold=%lf;toggle=%lf;error=%lf;margin=%lf\n", dec->threshold, dec->toggle, dec->error, dec->margin); 
 }
