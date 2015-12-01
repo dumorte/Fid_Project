@@ -3,6 +3,7 @@
 
 #include <gtk/gtk.h>
 
+void cb_open (GtkWidget *, gpointer);
 void cb_quit (GtkWidget *, gpointer);
 
 #endif /* not H_CALLBACK */
