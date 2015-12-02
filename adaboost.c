@@ -2,8 +2,8 @@
 
 void adaboost(t_couple_image *img_set, int T){
 	float error = 0;
+	FILE *f = fopen("strong_classifier", "w"); 
 	for(int t = 0; t < T; t++){
-		FILE *f = fopen("strong_classifier", "w"); 
 		t_dec_stump *ht = best_stump(img_set);
 		for(int i = 0; i<PICT_WITH_FACE+PICT_WITH_NO_FACE; i++)
 		{ 
@@ -30,9 +30,8 @@ void adaboost(t_couple_image *img_set, int T){
 			}
 		}
 		fprintf(f, "%lf %d %d %d\n", ht->error, ht->threshold, ht->margin, ht->toggle); 
-		fclose(f);
 		free(ht);
 		printf("t = %d\n", t); 
 	}
-	//fclose(f); 
+	fclose(f); 
 }

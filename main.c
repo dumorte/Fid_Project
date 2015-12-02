@@ -73,7 +73,6 @@ int main(/*int argc, char **argv*/){
 		fseek(f, 1, SEEK_CUR); 
 	}
 	fclose(f);
-	printf("Call best_stump\n"); 
 	adaboost(img_set, 100);
 	//Do what we want
 	/*SDL_Surface *img = grey_level(load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000200.jpg"));
