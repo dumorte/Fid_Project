@@ -74,7 +74,7 @@ int main(/*int argc, char **argv*/){
 	}
 	fclose(f);
 	printf("Call best_stump\n"); 
-	adaboost(img_set, 100);//200
+	adaboost(img_set, 100);
 	//Do what we want
 	/*SDL_Surface *img = grey_level(load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000200.jpg"));
 	t_feature *feature = malloc(sizeof(t_feature));
@@ -86,7 +86,21 @@ int main(/*int argc, char **argv*/){
 	/*for(int i = 0; i < PICT_WITH_FACE; i++)
 		free(img_set[i]);
 	free(img_set);*/
-
+	/*SDL_Surface *img = grey_level(load_image("/home/epita/Desktop/Fid_Project/nonface24/nonface24_000011.jpg"));
+	//SDL_Surface *img = grey_level(load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000199.jpg"));
+	t_dec_stump *stump = malloc(sizeof(t_dec_stump));
+	stump->error = 0.112500;
+	stump->margin = 1250067;
+	stump->threshold = 26679060;
+	stump->toggle = 1;
+	t_feature *vect = feature_vect(img);
+	for(int i = 0; i<NB_FEATURES; i++)
+	{ 
+		if(vect[i].param<stump->threshold + stump->margin && vect[i].param > stump->threshold - stump->margin)
+		{ 
+			printf("OK\n");
+		}
+	}*/
 	return 0;
 }
 

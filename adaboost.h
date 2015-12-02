@@ -8,6 +8,6 @@
 #include "classifier.h"
 #include "constantes.h"
 
-t_dec_stump *adaboost(t_couple_image *img_set, int T);
+void adaboost(t_couple_image *img_set, int T);
 
 #endif
