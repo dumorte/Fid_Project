@@ -33,6 +33,11 @@ t_feature *sort_features(t_feature *f)
 t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 { 
 	t_dec_stump *stump = malloc(sizeof(t_dec_stump));
+	stump->i = f[0].i;
+	stump->j = f[0].j;
+	stump->w = f[0].w;
+	stump->h = f[0].h;
+	stump->type = f[0].type;
 	stump->threshold = f[0].param-1;
 	stump->margin = 0;
 	stump->error = 2;
@@ -51,7 +56,7 @@ t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 		else
 			weight_bigger_nonface+=img_set[i].weight;
 
-	}//OK
+	}
 
 	for(;;)
 	{ 
@@ -137,6 +142,11 @@ t_dec_stump *best_stump(t_couple_image *img_set)
 							beststump->margin = tmp->margin;
 							beststump->threshold= tmp->threshold;
 							beststump->toggle = tmp->toggle;
+							beststump->i = tmp->i;
+							beststump->j = tmp->j;
+							beststump->w = tmp->w;
+							beststump->h = tmp->h;
+							beststump->type = tmp->type;
 						}
 						free(tmp);
 						free(feature_vect);
@@ -146,11 +156,6 @@ t_dec_stump *best_stump(t_couple_image *img_set)
 		}
 		printf("Type = %d\n", type); 
 	}
-
-	FILE *f = fopen("class", "w"); 
-	print_classifier(beststump, f); 
-	fclose(f); 
-
 	return beststump;
 }
 

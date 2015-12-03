@@ -23,12 +23,13 @@ SDL_Surface *display_image(SDL_Surface *img);
 int main(/*int argc, char **argv*/){
 	/*if(argc < 2)
 		errx(2, "Usage: %s <image path>\n", argv[0]);
-
-	SDL_Surface *img = NULL;
+	*/
+	/*SDL_Surface *img = NULL;
 
 	init_sdl();
-	img = load_image(argv[1]);
+	img = load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000200.jpg");
 	display_image(img);*/
+	//display_image(grey_level(img));
 	/*SDL_Rect p;
 	p.w = 24;
 	p.h = 24;
@@ -49,7 +50,7 @@ int main(/*int argc, char **argv*/){
 	SDL_FreeSurface(s);*/
 	//SDL_FreeSurface(img);
 
-	t_couple_image *img_set= malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE) * sizeof(SDL_Surface));
+	/*t_couple_image *img_set= malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE) * sizeof(SDL_Surface));
 	FILE *f = fopen("nameface", "r");
 	char *name_picture = malloc(64 * sizeof(char));
 	int i = 0;
@@ -73,7 +74,15 @@ int main(/*int argc, char **argv*/){
 		fseek(f, 1, SEEK_CUR); 
 	}
 	fclose(f);
-	adaboost(img_set, 100);
+	adaboost(img_set, 100);*/
+
+
+	SDL_Surface *img = (load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000200.jpg"));
+	/*t_feature *f = malloc(sizeof(t_feature));
+	f->type = A; f->i = 0; f->j=0; f->w=2; f->h = 2; feature_scaling(img, f);
+	printf("%d\n", f->param);*/
+	integral_image_matrix(img);
+
 	//Do what we want
 	/*SDL_Surface *img = grey_level(load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000200.jpg"));
 	t_feature *feature = malloc(sizeof(t_feature));

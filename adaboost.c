@@ -18,7 +18,7 @@ void adaboost(t_couple_image *img_set, int T){
 			ht_threshold = ht->threshold; 
 			ht_margin = ht->margin; 
 			ht_toggle = ht->toggle; 
-			fprintf(file, "%lf %d %d %d\n", ht_error, ht_threshold, ht_margin, ht_toggle); 
+			fprintf(file, "%lf %d %d %d %d %d %d %d %d\n", ht_error, ht_threshold, ht_margin, ht_toggle, ht->i, ht->j, ht->w, ht->h, ht->type); 
 			free(ht);
 			break;
 		}
@@ -39,7 +39,7 @@ void adaboost(t_couple_image *img_set, int T){
 		ht_threshold = ht->threshold; 
 		ht_margin = ht->margin; 
 		ht_toggle = ht->toggle; 
-		fprintf(file, "%lf %d %d %d\n", ht_error, ht_threshold, ht_margin, ht_toggle); 
+		fprintf(file, "%lf %d %d %d %d %d %d %d %d\n", ht_error, ht_threshold, ht_margin, ht_toggle, ht->i, ht->j, ht->w, ht->h, ht->type); 
 		free(ht);
 		printf("t = %d\n", t); 
 	}

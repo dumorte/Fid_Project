@@ -20,6 +20,8 @@ typedef struct s_dec_stump t_dec_stump;
 struct s_dec_stump {
 	int threshold, toggle, margin;
 	float error;
+	int i, j, w, h;
+	enum featureType type;
 };
 
 void print_classifier(t_dec_stump *dec, FILE *f); 

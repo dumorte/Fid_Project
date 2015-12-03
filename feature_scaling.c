@@ -19,15 +19,15 @@
 
 void feature_scaling(SDL_Surface *img, t_feature *f){
 	//Uint32 scaled_feature; 
-	Uint32 s1, s2, s3, s4, s5, s6, s7, s8, s9; 
-	Uint32 *mat = integral_image_matrix(img); 
+	int s1, s2, s3, s4, s5, s6, s7, s8, s9; 
+	int *mat = integral_image_matrix(img); 
 	int width = img->w; 
 	//int height = img->h; 
 	int sum = 0; 
 	//int a = 0; 
 
 	switch(f->type){
-		case A: 
+		case A:
 			//a = 2*f->w*f->h; 
 			f->i = (f->i*width)/24; 
 			f->j = (f->j*width)/24;
