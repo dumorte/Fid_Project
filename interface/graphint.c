@@ -25,13 +25,13 @@ int main (int argc, char **argv)
   
   /*Creation des boutons*/
   //p_button[0] = gtk_button_new_from_stock (GTK_STOCK_ADD);
-  //p_button[1] = gtk_button_new_from_stock (GTK_STOCK_QUIT);
+  p_button[1] = gtk_button_new_from_stock (GTK_STOCK_QUIT);
   p_button[2] = gtk_button_new_from_stock (GTK_STOCK_OPEN);
 
   /*Insertion des boutons*/
   //gtk_table_attach(GTK_TABLE(pTable), p_button[0], 0, 1, 0, 1, GTK_EXPAND, GTK_EXPAND | GTK_FILL, 0, 0);
-  //gtk_table_attach(GTK_TABLE(pTable), p_button[1], 1, 2, 0, 1, GTK_EXPAND, GTK_EXPAND | GTK_FILL, 0, 0);
-  //g_signal_connect (G_OBJECT (p_button[1]), "clicked", G_CALLBACK (cb_quit), NULL);
+  gtk_table_attach(GTK_TABLE(pTable), p_button[1], 0, 1, 0, 1, GTK_EXPAND, GTK_EXPAND | GTK_FILL, 0, 0);
+  g_signal_connect (G_OBJECT (p_button[1]), "clicked", G_CALLBACK (cb_quit), NULL);
   gtk_table_attach(GTK_TABLE(pTable), p_button[2], 1, 2, 0, 1, GTK_EXPAND, GTK_EXPAND | GTK_FILL, 0, 0);
   g_signal_connect (G_OBJECT (p_button[2]), "clicked", G_CALLBACK (cb_open), NULL);
   
