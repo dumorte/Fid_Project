@@ -50,7 +50,7 @@ int main(/*int argc, char **argv*/){
 	SDL_FreeSurface(s);*/
 	//SDL_FreeSurface(img);
 
-	/*t_couple_image *img_set= malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE) * sizeof(SDL_Surface));
+	t_couple_image *img_set= malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE) * sizeof(SDL_Surface));
 	FILE *f = fopen("nameface", "r");
 	char *name_picture = malloc(64 * sizeof(char));
 	int i = 0;
@@ -74,15 +74,12 @@ int main(/*int argc, char **argv*/){
 		fseek(f, 1, SEEK_CUR); 
 	}
 	fclose(f);
-	adaboost(img_set, 100);*/
-
-
-	SDL_Surface *img = (load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000200.jpg"));
-	/*t_feature *f = malloc(sizeof(t_feature));
-	f->type = A; f->i = 0; f->j=0; f->w=2; f->h = 2; feature_scaling(img, f);
-	printf("%d\n", f->param);*/
-	integral_image_matrix(img);
-
+	//adaboost(img_set, 4);//FIXME 100
+	integral_image_matrix(img_set[0].img);
+	/*t_feature *feat = feature_vect(img_set[0].img);
+	for(int i = 0; i<NB_FEATURES; i++)
+		printf("%d\n", feat[i].param);
+	*/
 	//Do what we want
 	/*SDL_Surface *img = grey_level(load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000200.jpg"));
 	t_feature *feature = malloc(sizeof(t_feature));

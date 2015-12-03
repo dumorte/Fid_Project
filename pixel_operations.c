@@ -27,21 +27,21 @@ Uint8* pixelref(SDL_Surface *surf, unsigned x, unsigned y) {
 }
 
 Uint32 getpixel(SDL_Surface *surface, unsigned x, unsigned y) {
-  Uint8 *p = pixelref(surface, x, y);
-  //switch(surface->format->BytesPerPixel) {
-  //case 1:
-    return *p;
-  /*case 2:
-    return *(Uint16 *)p;
-  case 3:
-    if(SDL_BYTEORDER == SDL_BIG_ENDIAN)
-      return p[0] << 16 | p[1] << 8 | p[2];
-    else
-      return p[0] | p[1] << 8 | p[2] << 16;
-  case 4:
-    return *(Uint32 *)p;
-  }
-  return 0;*/
+	Uint8 *p = pixelref(surface, x, y);
+	switch(surface->format->BytesPerPixel) {
+	case 1:
+		return (int)*p;
+	case 2:
+		return *(Uint16 *)p;
+	case 3:
+		if(SDL_BYTEORDER == SDL_BIG_ENDIAN)
+			return p[0] << 16 | p[1] << 8 | p[2];
+		else
+			return p[0] | p[1] << 8 | p[2] << 16;
+	case 4:
+		return *(Uint32 *)p;
+	}
+	return 0;
 } 
 
  

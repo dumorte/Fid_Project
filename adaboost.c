@@ -2,8 +2,6 @@
 
 void adaboost(t_couple_image *img_set, int T){
 	float error = 0;
-	float ht_error = 0; 
-	int ht_threshold = 0, ht_margin = 0, ht_toggle = 0; 
 	FILE *file = fopen("strong_classifier", "w"); 
 	for(int t = 0; t < T; t++){
 		t_dec_stump *ht = best_stump(img_set);
@@ -14,11 +12,7 @@ void adaboost(t_couple_image *img_set, int T){
 		}
 		if(error == 0 && t==0)
 		{ 
-			ht_error = ht->error; 
-			ht_threshold = ht->threshold; 
-			ht_margin = ht->margin; 
-			ht_toggle = ht->toggle; 
-			fprintf(file, "%lf %d %d %d %d %d %d %d %d\n", ht_error, ht_threshold, ht_margin, ht_toggle, ht->i, ht->j, ht->w, ht->h, ht->type); 
+			fprintf(file, "%lf %d %d %d %d %d %d %d %d\n", ht->error, ht->threshold, ht->margin, ht->toggle, ht->i, ht->j, ht->w, ht->h, ht->type); 
 			free(ht);
 			break;
 		}
@@ -35,11 +29,9 @@ void adaboost(t_couple_image *img_set, int T){
 
 			}
 		}
-		ht_error = ht->error; 
-		ht_threshold = ht->threshold; 
-		ht_margin = ht->margin; 
-		ht_toggle = ht->toggle; 
-		fprintf(file, "%lf %d %d %d %d %d %d %d %d\n", ht_error, ht_threshold, ht_margin, ht_toggle, ht->i, ht->j, ht->w, ht->h, ht->type); 
+		fprintf(file, "%lf %d %d %d %d %d %d %d %d\n", ht->error, ht->threshold, ht->margin, ht->toggle, ht->i, ht->j, ht->w, ht->h, ht->type); 
+		printf("%lf %d %d %d %d %d %d %d %d\n", ht->error, ht->threshold, ht->margin, ht->toggle, ht->i, ht->j, ht->w, ht->h, ht->type); 
+
 		free(ht);
 		printf("t = %d\n", t); 
 	}
@@ -52,7 +44,7 @@ t_dec_stump *get_strong_classifier(int T){
 
 	if(file){
 		for(int i = 0; i < T; i++){
-			fscanf(file, "%f %d %d %d", &(sc[i].error), &(sc[i].threshold), &(sc[i].margin), &(sc[i].toggle)); 
+			fscanf(file, "%f %d %d %d", &(sc[i].error), &(sc[i].threshold), &(sc[i].margin), &(sc[i].toggle)); //FIXME
 		}	
 	}
 
