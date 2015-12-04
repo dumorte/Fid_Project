@@ -1,7 +1,5 @@
 #include "callback.h"
 
-//static void open_file(char *file_name);
-
 void cb_open (GtkWidget *p_widget)
 {
   GtkWidget *p_dialog = NULL;
@@ -12,22 +10,23 @@ void cb_open (GtkWidget *p_widget)
                                           NULL);
   if (gtk_dialog_run (GTK_DIALOG (p_dialog)) == GTK_RESPONSE_ACCEPT)
   {
-    gchar *file_name;
-    GtkWidget *image;
-    GtkWidget *event_box;
-
-    event_box = gtk_event_box_new();
-
+    gchar *file_name=NULL;
+    GFile *file;
+    gchar *uri;
+    //GError *error = NULL;
+ 
     file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p_dialog));
-    image = gtk_image_new_from_file(file_name);
+    file = g_file_new_for_path (file_name);
+    uri = g_file_get_uri (file);
     
-    gtk_container_add (GTK_CONTAINER (event_box), image);
-
-    g_signal_connect (G_OBJECT (event_box),
-		      "button_press_event",
-                      G_CALLBACK (cb_open),
-		      image);
-    
+    GtkWidget *window = gtk_window_new (GTK_WINDOW_TOPLEVEL); 
+    gtk_window_set_default_size(GTK_WINDOW(window),500,500);
+    GtkWidget *view = gtk_image_view_new ();
+    GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file (uri, NULL);
+    gtk_image_view_set_pixbuf (GTK_IMAGE_VIEW (view), pixbuf, TRUE);
+    gtk_container_add (GTK_CONTAINER (window), view);
+    gtk_widget_show_all(window); 
+    //g_app_info_launch_default_for_uri (uri, NULL, &error);
     g_free (file_name), file_name = NULL;
   }
   gtk_widget_destroy (p_dialog);
@@ -41,3 +40,5 @@ void cb_quit (GtkWidget *p_widget)
   
   (void)p_widget;
 }
+
+
