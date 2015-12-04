@@ -52,60 +52,28 @@ int main(/*int argc, char **argv*/){
 
 	t_couple_image *img_set= malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE) * sizeof(SDL_Surface));
 	FILE *f = fopen("nameface", "r");
-	char *name_picture = malloc(64 * sizeof(char));
+	char *name_picture = malloc(63 * sizeof(char));
 	int i = 0;
 
-	while(fgets(name_picture, 60, f) != NULL){
-		img_set[i].img = grey_level(load_image(name_picture));
+	while(fgets(name_picture, 59, f) != NULL){
+		img_set[i].img = load_image(name_picture);
 		img_set[i].face = 1;
 		img_set[i].weight = 1.0/(2*PICT_WITH_FACE);
-		printf("%d\n",i);
 		i++;
 		fseek(f, 1, SEEK_CUR);
 	}
 	
 	f = fopen("namenonface", "r");
-	while(fgets(name_picture, 63, f) != NULL){
-		img_set[i].img = grey_level(load_image(name_picture));
+	while(fgets(name_picture, 62, f) != NULL){
+		img_set[i].img = load_image(name_picture);
 		img_set[i].face = -1;
 		img_set[i].weight = 1.0/(2*PICT_WITH_NO_FACE);
-		printf("%d\n",i);
 		i++;
 		fseek(f, 1, SEEK_CUR); 
 	}
 	fclose(f);
-	//adaboost(img_set, 4);//FIXME 100
-	integral_image_matrix(img_set[0].img);
-	/*t_feature *feat = feature_vect(img_set[0].img);
-	for(int i = 0; i<NB_FEATURES; i++)
-		printf("%d\n", feat[i].param);
-	*/
-	//Do what we want
-	/*SDL_Surface *img = grey_level(load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000200.jpg"));
-	t_feature *feature = malloc(sizeof(t_feature));
-	feature->i=0; feature->j=0; feature->h=4; feature->w=1; feature->type=A;
-	feature_scaling(img, feature);
-	t_feature *vect = feature_vect(img);
-	free(vect);
-	free(feature);*/
-	/*for(int i = 0; i < PICT_WITH_FACE; i++)
-		free(img_set[i]);
-	free(img_set);*/
-	/*SDL_Surface *img = grey_level(load_image("/home/epita/Desktop/Fid_Project/nonface24/nonface24_000011.jpg"));
-	//SDL_Surface *img = grey_level(load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000199.jpg"));
-	t_dec_stump *stump = malloc(sizeof(t_dec_stump));
-	stump->error = 0.112500;
-	stump->margin = 1250067;
-	stump->threshold = 26679060;
-	stump->toggle = 1;
-	t_feature *vect = feature_vect(img);
-	for(int i = 0; i<NB_FEATURES; i++)
-	{ 
-		if(vect[i].param<stump->threshold + stump->margin && vect[i].param > stump->threshold - stump->margin)
-		{ 
-			printf("OK\n");
-		}
-	}*/
+	adaboost(img_set, 4);//FIXME 100
+	
 	return 0;
 }
 
