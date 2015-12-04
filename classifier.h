@@ -9,7 +9,6 @@
 #include "haar_feature.h"
 #include "constantes.h"
 #include "feature_scaling.h"
-#include "adaboost.h"
 
 typedef struct s_couple_image t_couple_image;
 struct s_couple_image{
