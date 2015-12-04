@@ -1,14 +1,16 @@
 #ifndef _CLASSIFIER_H_
 #define _CLASSIFIER_H_
 
-#include "haar_feature.h"
-#include "constantes.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 
-//#include "list.h"
+#include "haar_feature.h"
+#include "constantes.h"
+#include "feature_scaling.h"
+#include "adaboost.h"
+
 typedef struct s_couple_image t_couple_image;
 struct s_couple_image{
 	SDL_Surface *img;

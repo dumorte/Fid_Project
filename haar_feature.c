@@ -1,10 +1,4 @@
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-
 #include "haar_feature.h"
-#include "pixel_operations.h"
-#include "integral_image.h"
-#include "constantes.h"
 
 /*t_vector **haar_feature(SDL_Surface *img){
 	int width = img->w - SIZE; 

@@ -1,7 +1,4 @@
 #include "classifier.h"
-#include "constantes.h"
-#include "feature_scaling.h"
-#include "adaboost.h"
 
 int max(t_feature *f, int a)
 { 
