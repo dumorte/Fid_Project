@@ -63,7 +63,6 @@ float *create_matrix_mean(SDL_Surface **img_set, int columns) //passer les image
 
 float *transposed_matrix(float *mat, int width, int height, int columns)//columns = nb images dans img_set
 { 
-	int line = 0;
 	printf("\n\n");
 	float *transposed_mat = malloc(columns*width*height*sizeof(float));
 	
@@ -71,19 +70,16 @@ float *transposed_matrix(float *mat, int width, int height, int columns)//column
 	{ 
 		for(int i = 0; i<width*height; i++)
 		{ 
-			transposed_mat[line*width*height+i] = mat[i*(columns+1)+j];
+			transposed_mat[j*width*height+i] = mat[i*(columns+1)+j];
 		}
-		line++;
 		
 	}
-	line = 0;
 	for(int j = 0; j<columns; j++)
 	{ 
 		for(int i = 0; i<width*height; i++)
 		{ 
-			printf("%6f | ", transposed_mat[line*width*height+i]);
+			printf("%6f | ", transposed_mat[j*width*height+i]);
 		}
-		line++;
 		printf("\n");
 	}
 	return transposed_mat;
