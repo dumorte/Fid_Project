@@ -15,8 +15,7 @@ enum featureType {
 typedef struct s_feature t_feature; 
 struct s_feature {
 	enum featureType type; 
-	int i, j, w, h, param, face;
-	float weight;
+	int i, j, w, h, param, face, index;
 }; 
 
 t_feature *feature_vect(SDL_Surface *img); 
