@@ -13,6 +13,7 @@ void cb_open (GtkWidget *p_widget)
     gchar *file_name;
     GtkWidget *pVBox;
     GtkWidget *pImage;
+    GtkWidget *pAdd;
 
     file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p_dialog));
     
@@ -25,6 +26,11 @@ void cb_open (GtkWidget *p_widget)
     pImage = gtk_image_new_from_file(file_name);
     gtk_box_pack_start(GTK_BOX(pVBox), pImage, FALSE, FALSE, 5);
    
+    pAdd = gtk_button_new();
+    gtk_box_pack_start(GTK_BOX(pVBox), pAdd, TRUE, FALSE, 5);
+    g_signal_connect(G_OBJECT(pAdd), "clicked", G_CALLBACK(cb_open), NULL);
+    gtk_container_add(GTK_CONTAINER(pAdd), pVBox);
+
     gtk_widget_show_all (window);
     g_free (file_name), file_name = NULL;
   }
@@ -39,5 +45,3 @@ void cb_quit (GtkWidget *p_widget)
   
   (void)p_widget;
 }
-
-
