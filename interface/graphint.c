@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <gtk/gtk.h>
 #include "callback.h"
 
 int main (int argc, char **argv)
