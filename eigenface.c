@@ -50,20 +50,20 @@ float *create_matrix_mean(SDL_Surface **img_set, int columns) //passer les image
 	}
 	
 	//Print matrix
-	for(int i = 0; i<width*height; i++)
+	/*for(int i = 0; i<width*height; i++)
 	{ 
 		for(int j = 0; j<columns+1; j++)
 		{ 
 			printf("%6f | ", mat[i*(columns+1)+j]);
 		}
 		printf("\n");
-	}
+	}*/
 	return mat;
 }
 
 float *transposed_matrix(float *mat, int width, int height, int columns)//columns = nb images dans img_set
 { 
-	printf("\n\n");
+	//printf("\n\n");
 	float *transposed_mat = malloc(columns*width*height*sizeof(float));
 	
 	for(int j = 0; j<columns; j++)
@@ -74,14 +74,14 @@ float *transposed_matrix(float *mat, int width, int height, int columns)//column
 		}
 		
 	}
-	for(int j = 0; j<columns; j++)
+	/*for(int j = 0; j<columns; j++)
 	{ 
 		for(int i = 0; i<width*height; i++)
 		{ 
 			printf("%6f | ", transposed_mat[j*width*height+i]);
 		}
 		printf("\n");
-	}
+	}*/
 	return transposed_mat;
 }
 
@@ -101,10 +101,21 @@ float *multiply_matrix(float *m1, float *m2, int row1, int row2, int col1, int c
 	return mul;
 }
 
+int symetric(float *m, int size){
+	for(int i = 0; i < size; i++){
+		for(int j = 0; j < size; j++){
+			if(m[i*size+j] != m[j*size+i])
+				return 0; 
+		}
+	}
+
+	return 1; 
+}
+
 void print_matrix(float *m, int width, int height){
 	for(int i = 0; i < height; i++){
 		for(int j = 0; j < width; j++){
-			printf("%lf | ", m[i*width+j]); 
+			printf("%d | ", (int)m[i*width+j]); 
 		}
 		printf("\n"); 
 	}
