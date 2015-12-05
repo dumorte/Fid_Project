@@ -84,3 +84,28 @@ float *transposed_matrix(float *mat, int width, int height, int columns)//column
 	}
 	return transposed_mat;
 }
+
+float *multiply_matrix(float *m1, float *m2, int row1, int row2, int col1, int col2){
+	float *mul = malloc(row1 * col2 * sizeof(float)); 
+
+	if(col1 == row2){
+		for(int i = 0; i < row1; i++){
+			for(int j = 0; j < col2; j++){
+				for(int k = 0; k < row2; k++){
+					mul[i*row1+j] += m1[i*col1+k] * m2[k*col2+j]; 
+				}
+			}
+		}
+	}
+
+	return mul;
+}
+
+void print_matrix(float *m, int width, int height){
+	for(int i = 0; i < height; i++){
+		for(int j = 0; j < width; j++){
+			printf("%lf | ", m[i*width+j]); 
+		}
+		printf("\n"); 
+	}
+}
