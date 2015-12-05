@@ -38,6 +38,7 @@ t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 	stump->threshold = f[0].param-1;
 	stump->margin = 0;
 	stump->error = 2;
+	stump->toggle = 0;
 	float weight_bigger_face = 0, weight_bigger_nonface = 0;
 	float weight_lower_face = 0, weight_lower_nonface = 0;
 	float errorplus, errorminus;
@@ -76,29 +77,29 @@ t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 			stump->margin = marginmem;
 			stump->toggle = togglemem;
 		}
+		j++;
 		if(j==n)
 			break;
-		j+=1;
 		for(;;)
 		{ 
 			if(f[j].face == -1)
 			{ 
-				weight_lower_nonface+=f[j].weight;
-				weight_bigger_nonface-=f[j].weight;
+				weight_lower_nonface+=img_set[f[j].index].weight; //poids de l'image rattachee a la feature
+				weight_bigger_nonface-=img_set[f[j].index].weight;
 			}
 			else
 			{ 
-				weight_lower_face+=f[j].weight;
-				weight_bigger_face-=f[j].weight;
+				weight_lower_face+=img_set[f[j].index].weight;
+				weight_bigger_face-=img_set[f[j].index].weight;
 			}
-			if(j==n || f[j].param!=f[j+1].param)
+			if(j==n-1 || f[j].param!=f[j+1].param)
 				break;
 			else
-				j+=1;
+				j++;
 		}
-		if(j==n)
+		if(j==n-1)
 		{ 
-			thresholdmem = max(f,1);
+			thresholdmem = f[j].param + 1;//max(f,1);
 			marginmem=0;
 		}
 		else
@@ -127,7 +128,7 @@ t_dec_stump *best_stump(t_couple_image *img_set)
 						t_feature *feature_vect = malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE)*sizeof(t_feature)); //assigner poids et face
 						for(int nbimages = 0; nbimages<PICT_WITH_FACE+PICT_WITH_NO_FACE; nbimages++)
 						{ 
-							feature_vect[nbimages].i=i; feature_vect[nbimages].j=j; feature_vect[nbimages].h=h; feature_vect[nbimages].w=w; feature_vect[nbimages].type=type; feature_vect[nbimages].face = img_set[nbimages].face; feature_vect[nbimages].weight = img_set[nbimages].weight;
+							feature_vect[nbimages].i=i; feature_vect[nbimages].j=j; feature_vect[nbimages].h=h; feature_vect[nbimages].w=w; feature_vect[nbimages].type=type; feature_vect[nbimages].face = img_set[nbimages].face; feature_vect[nbimages].index = nbimages;    
 							feature_scaling(img_set[nbimages].img, feature_vect+nbimages);
 						}
 						sort_features(feature_vect);
