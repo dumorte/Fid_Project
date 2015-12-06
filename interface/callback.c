@@ -2,7 +2,6 @@
 
 void cb_open (GtkWidget *p_widget)
 {
-
   GtkWidget *p_dialog;
   gchar *file_name;
 
@@ -13,12 +12,16 @@ void cb_open (GtkWidget *p_widget)
                                           NULL);
  if (gtk_dialog_run (GTK_DIALOG (p_dialog)) == GTK_RESPONSE_ACCEPT)
   {
+
     file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p_dialog));
     if(pImage)
 	gtk_widget_destroy(pImage);
-    pImage = gtk_image_new_from_file(file_name);
 
-    gtk_layout_put(GTK_LAYOUT(layout), pImage,200,50);  
+    GdkPixbuf *pBuf = gdk_pixbuf_new_from_file_at_scale (file_name,500,330,TRUE,NULL);
+    pImage = gtk_image_new_from_pixbuf(pBuf);
+    g_object_unref (pBuf);
+
+    gtk_layout_put(GTK_LAYOUT(layout), pImage,150,25);  
     gtk_widget_show_all(pImage);
     g_free(file_name), file_name=NULL;
   }
