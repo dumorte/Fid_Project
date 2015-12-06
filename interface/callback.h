@@ -1,8 +1,8 @@
 #ifndef H_CALLBACK
 #define H_CALLBACK
 
+#include <stdlib.h>
 #include <gtk/gtk.h>
-#include <gtkimageview/gtkimageview.h>
 
 void cb_open (GtkWidget *);
 void cb_quit (GtkWidget *);

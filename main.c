@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "eigenface.h"
 #include "pixel_operations.h"
 #include "integral_image.h"
 #include "haar_feature.h"
@@ -52,10 +53,10 @@ int main(/*int argc, char **argv*/){
 
 	t_couple_image *img_set= malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE) * sizeof(SDL_Surface));
 	FILE *f = fopen("nameface", "r");
-	char *name_picture = malloc(63 * sizeof(char));
+	char *name_picture = malloc(64 * sizeof(char));
 	int i = 0;
 
-	while(fgets(name_picture, 59, f) != NULL){
+	while(fgets(name_picture, 60, f) != NULL){
 		img_set[i].img = load_image(name_picture);
 		img_set[i].face = 1;
 		img_set[i].weight = 1.0/(2*PICT_WITH_FACE);
@@ -64,7 +65,7 @@ int main(/*int argc, char **argv*/){
 	}
 	
 	f = fopen("namenonface", "r");
-	while(fgets(name_picture, 62, f) != NULL){
+	while(fgets(name_picture, 63, f) != NULL){
 		img_set[i].img = load_image(name_picture);
 		img_set[i].face = -1;
 		img_set[i].weight = 1.0/(2*PICT_WITH_NO_FACE);
@@ -73,6 +74,13 @@ int main(/*int argc, char **argv*/){
 	}
 	fclose(f);
 	adaboost(img_set, 4);//FIXME 100
+	
+	/*SDL_Surface **img_set = malloc(3*sizeof(SDL_Surface));
+	img_set[0] = load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000198.jpg");
+	img_set[1] = load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000199.jpg");
+	img_set[2] = load_image("/home/epita/Desktop/Fid_Project/newface24/face24_000200.jpg");*/
+	//create_matrix_mean(img_set, 3); //3 = nombre d'images dans le set'
+	//transposed_matrix(create_matrix_mean(img_set, 3), img_set[0]->w, img_set[0]->h, 3);
 	
 	return 0;
 }
