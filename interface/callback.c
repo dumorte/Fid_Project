@@ -5,29 +5,26 @@ void cb_open (GtkWidget *p_widget)
 
   GtkWidget *p_dialog;
   gchar *file_name;
+
   p_dialog = gtk_file_chooser_dialog_new ("Image selection", NULL,
                                           GTK_FILE_CHOOSER_ACTION_OPEN,
                                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                           GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
                                           NULL);
-  if (gtk_dialog_run (GTK_DIALOG (p_dialog)) == GTK_RESPONSE_ACCEPT)
+ if (gtk_dialog_run (GTK_DIALOG (p_dialog)) == GTK_RESPONSE_ACCEPT)
   {
     file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p_dialog));
+    if(pImage)
+	gtk_widget_destroy(pImage);
+    pImage = gtk_image_new_from_file(file_name);
 
+    gtk_layout_put(GTK_LAYOUT(layout), pImage,200,50);  
+    gtk_widget_show_all(pImage);
     g_free(file_name), file_name=NULL;
-    gtk_widget_show_all(p_dialog);
   }
    gtk_widget_destroy (p_dialog);
- 
   
-  /*if (gtk_dialog_run (GTK_DIALOG (p_dialog)) == GTK_RESPONSE_ACCEPT)
-  {
-    file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p_dialog));
-    
-    g_free(file_name), file_name = NULL;
-  }
-  gtk_widget_destroy (p_dialog);
-  */(void)p_widget;
+  (void)p_widget;
 }
 
 void cb_quit (GtkWidget *p_widget)

@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 
+GtkWidget *pImage;
+GtkWidget *layout;
 void cb_open (GtkWidget *);
 void cb_quit (GtkWidget *);
 void cb_add (GtkWidget *);

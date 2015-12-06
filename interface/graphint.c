@@ -5,17 +5,14 @@ int main (int argc, char **argv)
   GtkWidget *p_window;
   GtkWidget *p_button[3];
   GdkPixbuf *pixbuf;
-  GtkWidget *layout;
   GtkWidget *image;
-  GtkWidget *pImage;
-  GtkWidget *p_dialog;
-  gchar *file_name;
   GError *error = NULL;
 
   /* Initialisation de GTK+ */
   gtk_init (&argc, &argv);  
-
+  
   pixbuf = gdk_pixbuf_new_from_file ("ressources/logo.jpeg", &error);
+
   /* Creation de la fenetre principale de notre application */
   p_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(p_window),"Face Identifier");
@@ -51,25 +48,7 @@ int main (int argc, char **argv)
   gtk_layout_put(GTK_LAYOUT(layout), p_button[1],50,405);
   gtk_layout_put(GTK_LAYOUT(layout), p_button[2],200,405);
   gtk_layout_put(GTK_LAYOUT(layout), p_button[3],350,405);
-
-
-  p_dialog = gtk_file_chooser_dialog_new ("Image selection", NULL,
-                                          GTK_FILE_CHOOSER_ACTION_OPEN,
-                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-                                          NULL);
-  gtk_window_set_icon(GTK_WINDOW(p_dialog), pixbuf);
-
-  if (gtk_dialog_run (GTK_DIALOG (p_dialog)) == GTK_RESPONSE_ACCEPT)
-  {
-    file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p_dialog));
-    pImage = gtk_image_new_from_file(file_name);
-    gtk_layout_put(GTK_LAYOUT(layout), pImage,200,50);  
-
-   g_free(file_name), file_name=NULL; 
-   gtk_widget_destroy (p_dialog);
- }
- 
+  
   /* Affichage de la fenetre principale */
   gtk_widget_show_all (p_window);
   /* Lancement de la boucle principale */
