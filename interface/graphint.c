@@ -6,6 +6,8 @@ int main (int argc, char **argv)
   GtkWidget *p_button[3];
   GdkPixbuf *pixbuf;
   GtkWidget *image;
+  GtkWidget *scrollbar;
+  GtkWidget *box;
   GError *error = NULL;
 
   /* Initialisation de GTK+ */
@@ -20,7 +22,10 @@ int main (int argc, char **argv)
 
   gtk_window_set_default_size(GTK_WINDOW(p_window),800,500);
   g_signal_connect (G_OBJECT (p_window), "destroy", G_CALLBACK (cb_quit), NULL);
-     
+  
+  box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+  scrollbar = gtk_scrolled_window_new(NULL,NULL);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrollbar),GTK_POLICY_AUTOMATIC,GTK_POLICY_ALWAYS);    
   /*Creation des boutons*/
   p_button[0] = gtk_button_new_from_stock (GTK_STOCK_QUIT);
   p_button[1] = gtk_button_new_from_stock (GTK_STOCK_OPEN);
@@ -31,7 +36,8 @@ int main (int argc, char **argv)
   gtk_widget_set_size_request(p_button[1],120,90);
   gtk_widget_set_size_request(p_button[2],120,90);
   gtk_widget_set_size_request(p_button[3],120,90);
-
+  gtk_widget_set_size_request(scrollbar,253,398);
+  
   /*Insertion des boutons*/
   g_signal_connect (G_OBJECT (p_button[0]), "clicked", G_CALLBACK (cb_quit), NULL);
   g_signal_connect (G_OBJECT (p_button[1]), "clicked", G_CALLBACK (cb_open), NULL);
@@ -43,12 +49,14 @@ int main (int argc, char **argv)
   gtk_layout_put(GTK_LAYOUT(layout), image,0,0);
 
   gtk_container_add(GTK_CONTAINER(p_window), layout);
-  
+  gtk_container_add(GTK_CONTAINER(scrollbar), box);
+ 
   gtk_layout_put(GTK_LAYOUT(layout), p_button[0],600,405);
   gtk_layout_put(GTK_LAYOUT(layout), p_button[1],50,405);
   gtk_layout_put(GTK_LAYOUT(layout), p_button[2],200,405);
   gtk_layout_put(GTK_LAYOUT(layout), p_button[3],350,405);
-  
+  gtk_layout_put(GTK_LAYOUT(layout), scrollbar,548,0);
+ 
   /* Affichage de la fenetre principale */
   gtk_widget_show_all (p_window);
   /* Lancement de la boucle principale */
