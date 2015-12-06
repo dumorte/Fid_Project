@@ -54,8 +54,7 @@ int main ( int argc, char **argv)
   //{
       while ((in_file =readdir(FD)))
 	{
-
-	  Pbx = gdk_pixbuf_new_from_file_at_scale (concat("/DataBase/",in_file->d_name),220,150,TRUE,NULL);
+	  Pbx = gdk_pixbuf_new_from_file_at_scale (concat("DataBase/",in_file->d_name),220,150,TRUE,NULL);
 	  ImgScr = gtk_image_new_from_pixbuf(Pbx);
 
 	  g_object_unref (Pbx);
