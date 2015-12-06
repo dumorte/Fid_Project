@@ -3,7 +3,7 @@ CC=gcc
 CPPFLAGS= `pkg-config --cflags gtk+-3.0`
 CFLAGS= -Wall -Wextra -Werror -std=c99 -O3
 LDFLAGS=
-LDLIBS= `pkg-config --libs gtk+-3.0` `pkg-config --libs gtkimageview`
+LDLIBS= `pkg-config --libs gtk+-3.0`
  
 SRC= showUI.c
 OBJ= ${SRC:.c=.o}
@@ -17,6 +17,3 @@ ${BIN}: ${OBJ}
 clean:
 	rm -f *~ *.o
 	rm -f ${BIN}
-	rm -f interface*
-	rm -f UI
-	rm -f \#*
