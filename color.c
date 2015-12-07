@@ -388,14 +388,16 @@ void draw_square(SDL_Surface *img, int x1, int y1, int width, int height, Uint32
 //enregistre les visages encadrés
 /*void save_recognised(SDL_Surface *img, int x1, int y1, int width, int height)
 {
-	SDL_Rect *fillRect = NULL;
+	printf("ok");
+	SDL_Rect fillRect;
 	SDL_Surface *imgcopied = NULL;
-	fillRect->x = x1;
-	fillRect->y = y1;
-	fillRect->w = width;
-	fillRect->h = height;
+	printf("OK");
+	fillRect.x = x1;
+	fillRect.y = y1;
+	fillRect.w = width;
+	fillRect.h = height;
 
-	SDL_BlitSurface(img, fillRect, imgcopied, fillRect);
+	SDL_BlitSurface(img, &fillRect, imgcopied, &fillRect);
 	display_image(imgcopied);
 }*/
 
@@ -406,7 +408,6 @@ void face_detection()
 	//char *file_name = path;
 	SDL_Surface *img = load_image(file_name);
 	int nbSegments = get_nb_regions(img);
-	printf("ok\n");
 	t_seg_computing *carac = malloc(nbSegments*sizeof(t_seg_computing));
 	segment_positions(img, carac);
 	compute_dimension(img, carac);
@@ -414,7 +415,21 @@ void face_detection()
 	compute_on_image(img, carac);
 	//display_image(img);
 	free(carac);
-	gtk_widget_destroy()
+	gtk_widget_destroy(pImage);
+	
 	SDL_SaveBMP(img, "copy.bmp");
+	GdkPixbuf *pBuf = gdk_pixbuf_new_from_file_at_scale ("./copy.bmp",500,330,TRUE,NULL);
+	pImage = gtk_image_new_from_pixbuf(pBuf);
+	g_object_unref (pBuf);
+
+	//permet de centrer l'image
+	GdkPixbuf *pBufFcd = gtk_image_get_pixbuf (GTK_IMAGE(pImage));
+	int w = gdk_pixbuf_get_width(pBufFcd);
+	int h = gdk_pixbuf_get_height(pBufFcd);
+
+	gtk_layout_put(GTK_LAYOUT(layout), pImage, 273-(w/2), 196-(h/2));  
+	gtk_widget_show_all(pImage);
+
+	//SDL_SaveBMP(img, "copy.bmp");
 	SDL_FreeSurface(img);
 }
