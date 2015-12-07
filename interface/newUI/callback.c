@@ -7,10 +7,10 @@ void cb_open (GtkWidget *p_widget)
 
   p_dialog = gtk_file_chooser_dialog_new ("Image selection", NULL,
                                           GTK_FILE_CHOOSER_ACTION_OPEN,
-                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                          ("_Cancel"), GTK_RESPONSE_CANCEL,
+                                          ("_Open"), GTK_RESPONSE_ACCEPT,
                                           NULL);
- if (gtk_dialog_run (GTK_DIALOG (p_dialog)) == GTK_RESPONSE_ACCEPT)
+if (gtk_dialog_run (GTK_DIALOG (p_dialog)) == GTK_RESPONSE_ACCEPT)
   {
 
     file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p_dialog));
@@ -56,7 +56,7 @@ void cb_add (GtkWidget *p_widget){
     gtk_window_set_default_size(GTK_WINDOW(pWindow), 320, 200);
     g_signal_connect(G_OBJECT(pWindow), "destroy", G_CALLBACK(cb_quit), NULL);
  
-    pVBox = gtk_vbox_new(TRUE, 0);
+    pVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add(GTK_CONTAINER(pWindow), pVBox);
  
     /* Creation du premier GtkFrame */
@@ -64,7 +64,7 @@ void cb_add (GtkWidget *p_widget){
     gtk_box_pack_start(GTK_BOX(pVBox), pFrame, TRUE, FALSE, 0);
  
     /* Creation et insertion d une boite pour le premier GtkFrame */
-    pVBoxFrame = gtk_vbox_new(TRUE, 0);
+    pVBoxFrame = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add(GTK_CONTAINER(pFrame), pVBoxFrame);
  
     /* Creation et insertion des elements contenus dans le premier GtkFrame */
@@ -80,7 +80,7 @@ void cb_add (GtkWidget *p_widget){
     pEntry = gtk_entry_new();
     gtk_box_pack_start(GTK_BOX(pVBoxFrame), pEntry, TRUE, FALSE, 0);
     
-    pSave = gtk_button_new_from_stock (GTK_STOCK_SAVE);
+    pSave = gtk_button_new_with_label ("Save");
     gtk_box_pack_start(GTK_BOX(pVBoxFrame), pSave, TRUE, FALSE, 0);
     g_signal_connect(G_OBJECT(pSave), "clicked", G_CALLBACK(cb_open), NULL);
    
@@ -105,7 +105,7 @@ GPid cb_program(gchar *program, gchar *arguments)
  gboolean status;
 
  args = g_new (gchar *, 3);
-	args[0] = g_strdup ("20151116_IntrusiveLists/list");                /* programme à lancer                 */
+	args[0] = g_strdup ("../../main");                /* programme à lancer                 */
 	args[1] = NULL;                               /* zéro terminal obligatoire            */
 
  status = g_spawn_async_with_pipes ( NULL,

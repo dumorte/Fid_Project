@@ -4,7 +4,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <string.h>
-#include "callback.c"
+#include "callback.h"
 
 char* concat(char *s1, char *s2)
 {
@@ -56,14 +56,14 @@ int main ( int argc, char **argv)
   GtkWidget *p_button2= gtk_button_new_with_label("Identify");
   gtk_widget_set_size_request(p_button2,120,90);
   GtkWidget *p_button3= gtk_button_new_with_label("Add");
-  gtk_widget_set_size_request(p_button2,120,90);
+  gtk_widget_set_size_request(p_button3,120,90);
 
   /*Insertion des boutons*/
   g_signal_connect (G_OBJECT (p_button1), "clicked", G_CALLBACK (cb_open), NULL);
   g_signal_connect (G_OBJECT (p_button2), "clicked", G_CALLBACK (cb_program), NULL);
-  g_signal_connect (G_OBJECT (p_buttyon3), "clicked", G_CALLBACK (cb_add), NULL);
+  g_signal_connect (G_OBJECT (p_button3), "clicked", G_CALLBACK (cb_add), NULL);
 
-  GtkWidget *layout = gtk_layout_new(NULL, NULL);
+  layout = gtk_layout_new(NULL, NULL);
   GtkWidget *backgrd = gtk_image_new_from_file("backgroundUI.jpg");
   GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
   GtkWidget *scrollbar = gtk_scrolled_window_new(NULL, NULL);
@@ -113,6 +113,7 @@ int main ( int argc, char **argv)
 
   gtk_layout_put (GTK_LAYOUT (layout), p_button1, 250, 405);
   gtk_layout_put (GTK_LAYOUT (layout), p_button2, 100, 405);
+  gtk_layout_put (GTK_LAYOUT (layout), p_button3, 400, 405);
 
 
   ////////////////////////////////////////////////////////
