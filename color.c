@@ -367,8 +367,7 @@ void compute_on_image(SDL_Surface *img, t_seg_computing *seg_pos)
 		{ 
 			draw_square(img, seg_pos[i].posX2, seg_pos[i].posY2, seg_pos[i].width, seg_pos[i].height, 16711680);
 			//sauvegarde les visages
-			save_recognised(img, seg_pos[i].posX2, seg_pos[i].posY2, seg_pos[i].width, seg_pos[i].height);
-
+//			save_recognised(img, seg_pos[i].posX2, seg_pos[i].posY2, seg_pos[i].width, seg_pos[i].height);
 		}
 	}
 }
@@ -387,7 +386,7 @@ void draw_square(SDL_Surface *img, int x1, int y1, int width, int height, Uint32
 }
 
 //enregistre les visages encadrés
-void save_recognised(SDL_Surface *img, int x1, int y1, int width, int height)
+/*void save_recognised(SDL_Surface *img, int x1, int y1, int width, int height)
 {
 	SDL_Rect *fillRect = NULL;
 	SDL_Surface *imgcopied = NULL;
@@ -398,7 +397,7 @@ void save_recognised(SDL_Surface *img, int x1, int y1, int width, int height)
 
 	SDL_BlitSurface(img, fillRect, imgcopied, fillRect);
 	display_image(imgcopied);
-}
+}*/
 
 void face_detection()
 { 
@@ -415,5 +414,7 @@ void face_detection()
 	compute_on_image(img, carac);
 	//display_image(img);
 	free(carac);
+	gtk_widget_destroy()
+	SDL_SaveBMP(img, "copy.bmp");
 	SDL_FreeSurface(img);
 }
