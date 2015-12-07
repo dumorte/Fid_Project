@@ -55,7 +55,7 @@ int *bin_mat(SDL_Surface *img)
 			r = (int)red;
 			g = (int)green;
 			b = (int)blue;
-			if(r>95 && g>40 && b>20 && (maxi(r,g,b)-min(r,g,b)>15 && abs(r-g)>15 && r>g && r>b))//eclairage fort//if((r>b && g>b) || (r>220 && g>210 && b>170 && abs(r-g)<=15))
+			if(r>95 && g>40 && b>20 && (maxi(r,g,b)-min(r,g,b)>15 && abs(r-g)>15 && r>g && r>b))//eclairage fort		//if((r>b && g>b) || (r>220 && g>210 && b>170 && abs(r-g)<=15))
 			{ 
 				mat[i*img->w+j] = 1;
 				//putpixel(img,j,i, SDL_MapRGB(img->format, 255,255,255));
@@ -225,8 +225,8 @@ int get_nb_regions(SDL_Surface *img)
 int *separate_regions(SDL_Surface *img)
 { 
 	int *labeled_mat = labeling(img);
-	print_mat(labeled_mat, img->w, img->h);
-	printf("\n\n");
+	//print_mat(labeled_mat, img->w, img->h);
+	//printf("\n\n");
 	int w = img->w;
 	int h = img->h;
 	int nbRegions = get_nb_regions(img);
@@ -244,11 +244,11 @@ int *separate_regions(SDL_Surface *img)
 					separated_regions[(counter-1)*w*h+i*w+j] = 0;
 				else
 					separated_regions[(counter-1)*w*h+i*w+j] = counter;
-				printf("%d|", separated_regions[(counter-1)*w*h+i*w+j]);
+	//			printf("%d|", separated_regions[(counter-1)*w*h+i*w+j]);
 			}
-			printf("\n");
+	//		printf("\n");
 		}
-		printf("\n\n"); //FIXME suppr printf
+	//	printf("\n\n"); //FIXME suppr printf
 	}
 	free(labeled_mat);
 	return separated_regions;
@@ -263,9 +263,9 @@ void segment_positions(SDL_Surface *img, t_seg_computing *seg_pos)
 	for(int i = 0; i<nbSegments; i++)//initialisation pour i
 	{ 
 		seg_pos[i].posY2 = h+1;
-		seg_pos[i].posX2 = h+1;
+		seg_pos[i].posX2 = w+1;
 		seg_pos[i].posY1 = h+1;
-		seg_pos[i].posX1 = h+1;
+		seg_pos[i].posX1 = w+1;
 	}
 	for(int k = 1; k<=nbSegments; k++)
 	{ 
@@ -274,14 +274,13 @@ void segment_positions(SDL_Surface *img, t_seg_computing *seg_pos)
 			for(int j = 0; j<w; j++)
 			{ 
 				if(separated_regions[(k-1)*w*h+i*w+j] == k)
-				{ 
-					seg_pos[k-1].posX2 = j;
-					seg_pos[k-1].posY2 = i;
-					break;
+				{
+					if(seg_pos[k-1].posX2>j)
+						seg_pos[k-1].posX2 = j;
+					if(seg_pos[k-1].posY2>i)
+						seg_pos[k-1].posY2 = i;
 				}
 			}
-			if(seg_pos[k-1].posY2 == i)
-				break;
 		}
 	}
 	for(int k = 1; k<=nbSegments; k++)
@@ -363,21 +362,37 @@ void compute_on_image(SDL_Surface *img, t_seg_computing *seg_pos)
 	int nbSegments = get_nb_regions(img);
 	for(int i = 0; i<nbSegments; i++)
 	{ 
-		if(seg_pos[i].surface>10 && seg_pos[i].ratio>0.8 && seg_pos[i].ratio<1.8)
+		if(seg_pos[i].ratio>0.8 && seg_pos[i].ratio<1.8)
 		{ 
 			draw_square(img, seg_pos[i].posX2, seg_pos[i].posY2, seg_pos[i].width, seg_pos[i].height, 16711680);
 		}
 	}
 }
 
-void draw_square(SDL_Surface *img, int x1, int y1, int width, int height, Uint32 color)
+void draw_square(SDL_Surface *img, int x2, int y2, int width, int height, Uint32 color)
 { 
-	for(int i = x1; i<x1+width; i++)
-		putpixel(img, i, y1, color);
-	for(int i = y1; i<y1+height; i++)
-		putpixel(img, x1+width, i, color);
-	for(int i = x1+width; i>x1; i--)
-		putpixel(img, i, y1+height, color);
-	for(int i = y1+height; i>y1; i--)
-		putpixel(img, x1, i,color);
+	for(int i = x2; i<x2+width; i++)
+		putpixel(img, i, y2, color);
+	for(int i = y2; i<y2+height; i++)
+		putpixel(img, x2+width, i, color);
+	for(int i = x2+width; i>x2; i--)
+		putpixel(img, i, y2+height, color);
+	for(int i = y2+height; i>y2; i--)
+		putpixel(img, x2, i,color);
+}
+
+void face_detection(char *path)
+{ 
+	//init_sdl();
+	SDL_Surface *img = load_image(path);
+	int nbSegments = get_nb_regions(img);
+	t_seg_computing *carac = malloc(nbSegments*sizeof(t_seg_computing));
+	segment_positions(img, carac);
+	compute_dimension(img, carac);
+	gravity_center(img, carac);
+	compute_on_image(img, carac);
+	//display_image(img);
+	free(carac);
+	SDL_FreeSurface(img);
+
 }
