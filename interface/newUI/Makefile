@@ -5,9 +5,9 @@ CFLAGS= -Wall -Wextra -Werror -std=c99 -O3
 LDFLAGS=
 LDLIBS= `pkg-config --libs gtk+-3.0`
  
-SRC= graphint.c callback.c
+SRC= showUI.c callback.c
 OBJ= ${SRC:.c=.o}
-BIN= interface
+BIN= UI
 
 all: ${BIN}
 

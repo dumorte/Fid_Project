@@ -5,8 +5,8 @@
 	int height = img->h - SIZE;
 	t_vector **haar = malloc(sizeof(t_vector));
 
-	for(int i = 0; i < height; i++){
-		for(int j = 0; j<width; j++){
+	for(int i = 0; i < height; i+=2){
+		for(int j = 0; j<width; j+=2){
 			t_vector *v = feature_vect(img, i, j); 
 			haar[i*width+j] = v;	
 			free(v); 
@@ -31,8 +31,8 @@ t_feature *feature_vect(SDL_Surface *img){
 
 	
 	/* Feature type A */
-	for(int i = r.y; i < r.y+r.h; i++){
-		for(int j = r.x; j < r.x+r.w; j++){
+	for(int i = r.y; i < r.y+r.h; i+=2){
+		for(int j = r.x; j < r.x+r.w; j+=2){
 			for(int w = 1; j+2*w-1 < r.x+r.w; w++){
 				for(int h = 1; i+h-1 < r.y+r.h; h++){ //Premiere boucle = 0
 					s1 = mat[i*width+j]; 
@@ -54,8 +54,8 @@ t_feature *feature_vect(SDL_Surface *img){
 	}
 
 	/* Feature type B */
-	for(int i = r.y; i < r.y+r.h; i++){
-		for(int j = r.x; j < r.x+r.w; j++){
+	for(int i = r.y; i < r.y+r.h; i+=2){
+		for(int j = r.x; j < r.x+r.w; j+=2){
 			for(int w = 1; j+3*w-1 < r.x+r.w; w++){
 				for(int h = 1; i+h-1 < r.y+r.w; h++){
 					s1 = mat[i*width+j]; 
@@ -79,8 +79,8 @@ t_feature *feature_vect(SDL_Surface *img){
 	}
 
 	/* Feature type C */
-	for(int i = r.y; i < r.y+r.h; i++){
-		for(int j = r.x; j < r.x+r.w; j++){
+	for(int i = r.y; i < r.y+r.h; i+=2){
+		for(int j = r.x; j < r.x+r.w; j+=2){
 			for(int w = 1; j+w-1 < r.x+r.w; w++){
 				for(int h = 1; i+2*h-1 < r.y+r.h; h++){
 					s1 = mat[i*width+j]; 
@@ -102,8 +102,8 @@ t_feature *feature_vect(SDL_Surface *img){
 	}
 
 	/* Feature type D */
-	for(int i = r.y; i < r.y+r.h; i++){
-		for(int j = r.x; j < r.x+r.w; j++){
+	for(int i = r.y; i < r.y+r.h; i+=2){
+		for(int j = r.x; j < r.x+r.w; j+=2){
 			for(int w = 1; j+w-1 < r.x+r.w; w++){
 				for(int h = 1; i+3*h-1 < r.y+r.h; h++){
 					s1 = mat[i*width+j]; 
@@ -127,8 +127,8 @@ t_feature *feature_vect(SDL_Surface *img){
 	}
 
 	/* Feature type E */
-	for(int i = r.y; i < r.y+r.h; i++){
-		for(int j = r.x; j < r.x+r.w; j++){
+	for(int i = r.y; i < r.y+r.h; i+=2){
+		for(int j = r.x; j < r.x+r.w; j+=2){
 			for(int w = 1; j+2*w-1 < r.x+r.w; w++){
 				for(int h = 1; i+2*h-1 < r.y+r.h; h++){
 					s1 = mat[i*width+j]; 
@@ -151,7 +151,7 @@ t_feature *feature_vect(SDL_Surface *img){
 			}
 		}
 	}
-
+	printf("%d", f);
 	return v; 
 	free(mat);
 }

@@ -113,19 +113,14 @@ t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 
 t_dec_stump *best_stump(t_couple_image *img_set) 
 { 
-	SDL_Rect r;
-	r.x = 0;
-	r.y = 0;
-	r.w = SIZE;
-	r.h = SIZE;
 	t_dec_stump *beststump = malloc(sizeof(t_dec_stump));
 	beststump->error = 2;
 	for(int type = A; type<=E; type++){
-		for(int i = r.y; i < r.y+r.h; i++){
-			for(int j = r.x; j < r.x+r.w; j++){
-				for(int w = 1; j+2*w-1 < r.x+r.w; w++){
-					for(int h = 1; i+h-1 < r.y+r.h; h++){
-						t_feature *feature_vect = malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE)*sizeof(t_feature)); //assigner poids et face
+		for(int i = 0; i < SIZE; i+=2){
+			for(int j = 0; j < SIZE; j+=2){
+				for(int w = 1; j+2*w-1 < SIZE; w++){
+					for(int h = 1; i+h-1 < SIZE; h++){
+						t_feature *feature_vect = malloc((PICT_WITH_FACE+PICT_WITH_NO_FACE)*sizeof(t_feature));
 						for(int nbimages = 0; nbimages<PICT_WITH_FACE+PICT_WITH_NO_FACE; nbimages++)
 						{ 
 							feature_vect[nbimages].i=i; feature_vect[nbimages].j=j; feature_vect[nbimages].h=h; feature_vect[nbimages].w=w; feature_vect[nbimages].type=type; feature_vect[nbimages].face = img_set[nbimages].face; feature_vect[nbimages].index = nbimages;    
