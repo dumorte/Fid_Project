@@ -103,9 +103,9 @@ int main(int argc, char **argv){
 	}
 
 
-	GdkPixbuf *PbxFcd = gdk_pixbuf_new_from_file_at_scale ("violajones.png",500,330,TRUE,NULL);
-	GtkWidget *ImgF = gtk_image_new_from_pixbuf(PbxFcd);
-	g_object_unref (PbxFcd);
+	//GdkPixbuf *PbxFcd = gdk_pixbuf_new_from_file_at_scale ("violajones.png",500,330,TRUE,NULL);
+	//GtkWidget *ImgF = gtk_image_new_from_pixbuf(PbxFcd);
+	//g_object_unref (PbxFcd);
 
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrollbar),GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
 
@@ -116,7 +116,7 @@ int main(int argc, char **argv){
 
 	gtk_container_add(GTK_CONTAINER(p_window), layout);
 	gtk_layout_put(GTK_LAYOUT (layout), scrollbar, 548,0);
-	gtk_layout_put (GTK_LAYOUT (layout), ImgF, 20, 25);
+	//gtk_layout_put (GTK_LAYOUT (layout), ImgF, 20, 25);
 
 	gtk_layout_put (GTK_LAYOUT (layout), p_button1, 250, 405);
 	gtk_layout_put (GTK_LAYOUT (layout), p_button2, 100, 405);

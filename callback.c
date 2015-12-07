@@ -22,7 +22,12 @@ void cb_open (GtkWidget *p_widget)
 		pImage = gtk_image_new_from_pixbuf(pBuf);
 		g_object_unref (pBuf);
 
-		gtk_layout_put(GTK_LAYOUT(layout), pImage,150,25);  
+		//permet de centrer l'image
+		GdkPixbuf *pBufFcd = gtk_image_get_pixbuf (GTK_IMAGE(pImage));
+		int w = gdk_pixbuf_get_width(pBufFcd);
+                int h = gdk_pixbuf_get_height(pBufFcd);
+
+		gtk_layout_put(GTK_LAYOUT(layout), pImage, 273-(w/2), 196-(h/2));  
 		gtk_widget_show_all(pImage);
 		//g_free(file_name), file_name=NULL;
 	}
