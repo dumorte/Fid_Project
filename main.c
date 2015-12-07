@@ -31,12 +31,12 @@ char *concat(char *s1, char *s2);
 char *remove_after_dot(char *s);
 
 int main(int argc, char **argv){
-	//instalation de gtk+
 	gtk_init (&argc, &argv);
 
 	GtkWidget *p_window;
 	GdkPixbuf *Pixbuf; 
 	GError *error=NULL;
+
 	/* Creation de la fenetre principale de notre application */
 	p_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position(GTK_WINDOW(p_window), GTK_WIN_POS_CENTER);
@@ -55,9 +55,8 @@ int main(int argc, char **argv){
 			p_window,
 			&hints,
 			(GdkWindowHints)(GDK_HINT_MIN_SIZE | GDK_HINT_MAX_SIZE));
-	////////////////////////////////////////////////////////////////////////
 
-
+	/* Creation des buttons */
 	GtkWidget *p_button1= gtk_button_new_with_label("Search");
 	gtk_widget_set_size_request(p_button1,120,90);
 	GtkWidget *p_button2= gtk_button_new_with_label("Identify");
@@ -65,7 +64,7 @@ int main(int argc, char **argv){
 	GtkWidget *p_button3= gtk_button_new_with_label("Add");
 	gtk_widget_set_size_request(p_button3,120,90);
 
-	/*Insertion des boutons*/
+	/* Insertion des boutons */
 	g_signal_connect (G_OBJECT (p_button1), "clicked", G_CALLBACK (cb_open), NULL);
 	g_signal_connect (G_OBJECT (p_button2), "clicked", G_CALLBACK (face_detection), NULL);
 	g_signal_connect (G_OBJECT (p_button3), "clicked", G_CALLBACK (cb_add), NULL);
@@ -74,7 +73,7 @@ int main(int argc, char **argv){
 	GtkWidget *backgrd = gtk_image_new_from_file("backgroundUI.jpg");
 	GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 	GtkWidget *scrollbar = gtk_scrolled_window_new(NULL, NULL);
-
+	
 	DIR* FD = opendir ("./DataBase");
 	struct dirent* in_file;
 
@@ -102,11 +101,6 @@ int main(int argc, char **argv){
 		(void) closedir (FD);
 	}
 
-
-	//GdkPixbuf *PbxFcd = gdk_pixbuf_new_from_file_at_scale ("violajones.png",500,330,TRUE,NULL);
-	//GtkWidget *ImgF = gtk_image_new_from_pixbuf(PbxFcd);
-	//g_object_unref (PbxFcd);
-
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrollbar),GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
 
 	gtk_widget_set_size_request(scrollbar, 253,398);
@@ -116,14 +110,11 @@ int main(int argc, char **argv){
 
 	gtk_container_add(GTK_CONTAINER(p_window), layout);
 	gtk_layout_put(GTK_LAYOUT (layout), scrollbar, 548,0);
-	//gtk_layout_put (GTK_LAYOUT (layout), ImgF, 20, 25);
 
 	gtk_layout_put (GTK_LAYOUT (layout), p_button1, 250, 405);
 	gtk_layout_put (GTK_LAYOUT (layout), p_button2, 100, 405);
 	gtk_layout_put (GTK_LAYOUT (layout), p_button3, 400, 405);
 
-
-	////////////////////////////////////////////////////////
 	g_signal_connect(G_OBJECT(p_window), "destroy",
 			G_CALLBACK(gtk_main_quit), NULL);
 	/* Affichage de la fenetre principale */
@@ -137,8 +128,7 @@ int main(int argc, char **argv){
 
 char* concat(char *s1, char *s2)
 {
-	char *result = malloc(strlen(s1)+strlen(s2)+1);//+1 for the zero-terminator
-	//in real code you would check for errors in malloc here
+	char *result = malloc(strlen(s1)+strlen(s2)+1);
 	strcpy(result, s1);
 	strcat(result, s2);
 	return result;

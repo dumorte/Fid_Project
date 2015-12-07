@@ -1,26 +1,9 @@
 #include "haar_feature.h"
 
-/*t_vector **haar_feature(SDL_Surface *img){
-	int width = img->w - SIZE; 
-	int height = img->h - SIZE;
-	t_vector **haar = malloc(sizeof(t_vector));
-
-	for(int i = 0; i < height; i+=2){
-		for(int j = 0; j<width; j+=2){
-			t_vector *v = feature_vect(img, i, j); 
-			haar[i*width+j] = v;	
-			free(v); 
-		}
-	}
-
-	return haar; 
-}*/
-
 t_feature *feature_vect(SDL_Surface *img){
 	t_feature *v = malloc(NB_FEATURES*sizeof(t_feature)); 
 	Uint32 *mat = integral_image_matrix(img);  
 	int width = img->w; 
-	//int height = img->h; 
 	SDL_Rect r; 
 	r.x = 0; 
 	r.y = 0; 
@@ -29,12 +12,11 @@ t_feature *feature_vect(SDL_Surface *img){
 	int s1, s2, s3, s4, s5, s6, s7, s8, s9; 
 	int f = 0; 
 
-	
 	/* Feature type A */
 	for(int i = r.y; i < r.y+r.h; i+=2){
 		for(int j = r.x; j < r.x+r.w; j+=2){
 			for(int w = 1; j+2*w-1 < r.x+r.w; w++){
-				for(int h = 1; i+h-1 < r.y+r.h; h++){ //Premiere boucle = 0
+				for(int h = 1; i+h-1 < r.y+r.h; h++){
 					s1 = mat[i*width+j]; 
 					s2 = mat[(i+h-1)*width+j]; 
 					s3 = mat[(i+h-1)*width+(j+w-1)]; 
@@ -151,7 +133,8 @@ t_feature *feature_vect(SDL_Surface *img){
 			}
 		}
 	}
-	printf("%d", f);
-	return v; 
+
 	free(mat);
+
+	return v; 
 }

@@ -68,9 +68,10 @@ SDL_Surface *grey_level(SDL_Surface *img)
 			r = average;                                                                                                        
 			b = average;                                                                                                        
 			g = average;                                                                                                        
-                        putpixel(img, i, j, SDL_MapRGB(img->format, r, g, b));
+			putpixel(img, i, j, SDL_MapRGB(img->format, r, g, b));
 		}
 	}
+
 	return img;
 }           
 
@@ -83,6 +84,7 @@ Uint8* pixelref(SDL_Surface *surf, unsigned x, unsigned y) {
 
 Uint32 getpixel(SDL_Surface *surface, unsigned x, unsigned y) {
 	Uint8 *p = pixelref(surface, x, y);
+
 	switch(surface->format->BytesPerPixel) {
 	case 1:
 		return (int)*p;
@@ -96,12 +98,14 @@ Uint32 getpixel(SDL_Surface *surface, unsigned x, unsigned y) {
 	case 4:
 		return *(Uint32 *)p;
 	}
+
 	return 0;
 } 
 
  
 void putpixel(SDL_Surface *surface, unsigned x, unsigned y, Uint32 pixel) {
 	Uint8 *p = pixelref(surface, x, y);
+
 	switch(surface->format->BytesPerPixel) {
 		case 1:
 			*p = pixel;
@@ -134,5 +138,6 @@ SDL_Surface* load_image(char *path) {
 	if (!img)
 		// If it fails, die with an error message
 		errx(3, "can't load %s: %s", path, IMG_GetError());
+
 	return img;
 }

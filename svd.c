@@ -4,7 +4,6 @@
 #define false 0
 
 void svd(matrix A, int M, int N, vect W, matrix V){
-	/* Householder reduction to bidiagonal form. */
 	int NM;
 	double C, F, G = 0.0, H, S, X, Y, Z, Scale = 0.0, ANorm = 0.0, tmp;
 	int flag, i, its, j, jj, k, l;

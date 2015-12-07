@@ -1,5 +1,3 @@
-// pixel_operations.h
-
 #ifndef PIXEL_OPERATIONS_H_
 #define PIXEL_OPERATIONS_H_
 

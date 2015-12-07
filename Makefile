@@ -1,7 +1,7 @@
 CC=gcc
 
 CPPFLAGS= `pkg-config --cflags sdl` `pkg-config --cflags gtk+-3.0`
-CFLAGS= -g -lm -Wall -Wextra -Werror -pedantic -std=c99 #-O3
+CFLAGS= -g -Wall -Wextra -Werror -pedantic -std=c99 #-O3
 LDFLAGS=
 LDLIBS= `pkg-config --libs sdl` -lSDL_image `pkg-config --libs gtk+-3.0`
 
@@ -12,7 +12,7 @@ BIN= main
 all: ${BIN}
 
 ${BIN}: ${OBJ}
-	${CC} ${CFLAGS} ${CPPFLAGS} ${LDLIBS} -o ${BIN} ${OBJ}
+	${CC} ${CFLAGS} ${CPPFLAGS} ${LDLIBS} -o ${BIN} ${OBJ} -lm
 
 clean:
 	rm -f *~ *.o

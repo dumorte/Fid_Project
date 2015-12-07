@@ -1,15 +1,5 @@
 #include "integral_image.h"
 
-SDL_Surface *matrix_to_img(SDL_Surface *img, Uint32 *mat) //Only for testing, to remove FIXME
-{
-        Uint32 width = img->w;
-        Uint32 height = img->h;
-        for(Uint32 i = 0; i<height; i++)
-                for(Uint32 j=0; j<width;j++)
-                        putpixel(img, j, i, mat[i*width+j]);
-        return img;
-}
-
 Uint32 *integral_image_matrix(SDL_Surface *img)
 {
         Uint32 width = img->w;
@@ -31,6 +21,7 @@ Uint32 *integral_image_matrix(SDL_Surface *img)
 			matcpy[(i-1)*width+j-1]= mat[i*(width+1)+j];
 		}
 	}
+
 	free(mat);
 	return matcpy;
 }

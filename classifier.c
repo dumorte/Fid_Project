@@ -3,11 +3,13 @@
 int max(t_feature *f, int a)
 { 
 	int maximum = f[0].param;
+
 	for(int i=1; i<PICT_WITH_FACE+PICT_WITH_NO_FACE; i++)
 	{ 
 		if(f[i].param>maximum)
 			maximum = f[i].param;
 	}
+
 	return maximum+a;
 }
 
@@ -47,6 +49,7 @@ t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 	float marginmem = stump->margin;
 	int n = PICT_WITH_FACE + PICT_WITH_NO_FACE;
 	int j = 0;
+
 	for(int i = 0; i<n; i++)
 	{ 
 		if(img_set[i].face == 1)
@@ -61,6 +64,7 @@ t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 		errorplus = weight_lower_face + weight_bigger_nonface;
 		errorminus = weight_bigger_face + weight_lower_nonface;
 		if(errorplus<errorminus)
+
 		{ 
 			errormem = errorplus;
 			togglemem = 1;
@@ -70,6 +74,7 @@ t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 			errormem = errorminus;
 			togglemem = -1;
 		}
+
 		if(errormem<stump->error || (errormem==stump->error && marginmem>stump->margin))
 		{ 
 			stump->error = errormem;
@@ -77,14 +82,17 @@ t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 			stump->margin = marginmem;
 			stump->toggle = togglemem;
 		}
+
 		j++;
+
 		if(j==n)
 			break;
+
 		for(;;)
 		{ 
 			if(f[j].face == -1)
 			{ 
-				weight_lower_nonface+=img_set[f[j].index].weight; //poids de l'image rattachee a la feature
+				weight_lower_nonface+=img_set[f[j].index].weight;
 				weight_bigger_nonface-=img_set[f[j].index].weight;
 			}
 			else
@@ -92,14 +100,16 @@ t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 				weight_lower_face+=img_set[f[j].index].weight;
 				weight_bigger_face-=img_set[f[j].index].weight;
 			}
+
 			if(j==n-1 || f[j].param!=f[j+1].param)
 				break;
 			else
 				j++;
 		}
+
 		if(j==n-1)
 		{ 
-			thresholdmem = f[j].param + 1;//max(f,1);
+			thresholdmem = f[j].param + 1;
 			marginmem=0;
 		}
 		else
@@ -108,6 +118,7 @@ t_dec_stump *dec_stump(t_couple_image *img_set, t_feature *f)
 			marginmem = f[j+1].param - f[j].param;
 		}
 	}
+
 	return stump;
 }
 
@@ -115,6 +126,7 @@ t_dec_stump *best_stump(t_couple_image *img_set)
 { 
 	t_dec_stump *beststump = malloc(sizeof(t_dec_stump));
 	beststump->error = 2;
+
 	for(int type = A; type<=E; type++){
 		for(int i = 0; i < SIZE; i+=2){
 			for(int j = 0; j < SIZE; j+=2){
@@ -141,14 +153,15 @@ t_dec_stump *best_stump(t_couple_image *img_set)
 							beststump->h = tmp->h;
 							beststump->type = tmp->type;
 						}
+
 						free(tmp);
 						free(feature_vect);
 					}
 				}
 			}
 		}
-		printf("Type = %d\n", type); 
 	}
+
 	return beststump;
 }
 
