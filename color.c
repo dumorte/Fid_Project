@@ -389,14 +389,34 @@ void draw_square(SDL_Surface *img, int x1, int y1, int width, int height, Uint32
 void save_recognised(SDL_Surface *img, int x1, int y1, int width, int height)
 {
 	SDL_Rect fillRect;
+<<<<<<< HEAD
+=======
+	SDL_Surface *imgcopied = malloc(sizeof(SDL_Surface));
+>>>>>>> e5f7b2824d22269ac9a0b1e96a529e95bcbee521
 	fillRect.x = x1;
 	fillRect.y = y1;
 	fillRect.w = width;
 	fillRect.h = height;
 	SDL_Surface *imgcopied = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
 
+<<<<<<< HEAD
 	SDL_BlitSurface(img, &fillRect, imgcopied, NULL);
 	SDL_SaveBMP(imgcopied, "./DataBase/save.bmp");
+=======
+	SDL_Rect destination;
+	destination.x = 0;
+	destination.y = 0;
+	destination.w = width;
+	destination.h = height;
+
+	printf("ok");
+	SDL_UnlockSurface(img);
+	printf("ok");
+	SDL_BlitSurface(img, &fillRect, imgcopied, &destination);
+	SDL_LockSurface(img);
+	SDL_SaveBMP(imgcopied,"copytruc.bmp");
+	SDL_FreeSurface(imgcopied);
+>>>>>>> e5f7b2824d22269ac9a0b1e96a529e95bcbee521
 }
 
 void face_detection()
