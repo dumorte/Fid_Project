@@ -1,0 +1,32 @@
+  ______   _       _            _____                     _                 _   
+ |  ____| (_)     | |          |  __ \                   (_)               | |  
+ | |__     _    __| |          | |__) |  _ __    ___      _    ___    ___  | |_ 
+ |  __|   | |  / _` |          |  ___/  | '__|  / _ \    | |  / _ \  / __| | __|
+ | |      | | | (_| |          | |      | |    | (_) |   | | |  __/ | (__  | |_ 
+ |_|      |_|  \__,_|          |_|      |_|     \___/    | |  \___|  \___|  \__|
+                       ______                           _/ |                    
+                      |______|                         |__/                     
+
+
+
+README
+
+  Fid_Project is a face identifier program. It is able to detect a face in a 
+  picture and identify it. 
+
+USAGE
+
+  Use make command to compile the source files and ./main to launch the program
+  (no argument needed). Once you have launch the program, you can select a 
+  picture by cliking on the "Search" button, then you can identify the face(s)
+  by cliking on the "Identify" button. If you want to save the identified face
+  you can click on the "Add" button and simply fill the name of the face. 
+
+CONTACT
+
+  All contributors to the project are :
+  
+  	Hussem Ben belgacem (benbel_h)
+  	Erwan Dumortier     (dumort_e)
+  	Daniel El Ghozi     (elghoz_d)
+  	Guillaume Esposito  (esposi_g)
