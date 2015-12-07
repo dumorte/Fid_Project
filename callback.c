@@ -99,8 +99,8 @@ GPid cb_program(gchar *program, gchar *arguments)
 	gboolean status;
 
 	args = g_new (gchar *, 3);
-	args[0] = g_strdup ("../../main");                /* programme à lancer */
-	args[1] = NULL;                                   /* zéro terminal obligatoire */
+	args[0] = g_strdup ("../../main");/* programme à lancer */
+	args[1] = NULL;/* zéro terminal obligatoire */
 
 	status = g_spawn_async_with_pipes ( NULL,
 			args,
