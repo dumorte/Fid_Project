@@ -3,7 +3,6 @@
 void cb_open (GtkWidget *p_widget)
 {
 	GtkWidget *p_dialog;
-	gchar *file_name;
 
 	p_dialog = gtk_file_chooser_dialog_new ("Image selection", NULL,
 			GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -91,7 +90,7 @@ void cb_add (GtkWidget *p_widget){
 	(void)p_widget;
 }
 
-GPid cb_program(gchar *program, gchar *arguments)
+/*GPid cb_program(gchar *program, gchar *arguments)
 {
 	gchar  **args;
 	GPid pid;
@@ -99,8 +98,10 @@ GPid cb_program(gchar *program, gchar *arguments)
 	gboolean status;
 
 	args = g_new (gchar *, 3);
-	args[0] = g_strdup ("../../main");/* programme à lancer */
-	args[1] = NULL;/* zéro terminal obligatoire */
+
+	//g_signal_connect(G_OBJECT(pSave), "clicked", NULL, NULL);
+	args[0] = g_strdup ();// programme à lancer 
+	args[1] = NULL;// zéro terminal obligatoire 
 
 	status = g_spawn_async_with_pipes ( NULL,
 			args,
@@ -127,4 +128,4 @@ GPid cb_program(gchar *program, gchar *arguments)
 	(void)program;
 	(void)arguments; 
 	return pid;
-}
+}*/

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 
+char *file_name; //FIXME
 GtkWidget *pImage;
 GtkWidget *layout;
 void cb_open (GtkWidget *);

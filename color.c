@@ -1,3 +1,4 @@
+#include "callback.h"
 #include "color.h"
 #include "pixel_operations.h"
 #include <SDL/SDL_image.h>
@@ -379,7 +380,7 @@ void draw_square(SDL_Surface *img, int x1, int y1, int width, int height, Uint32
 	for(int i = y1; i<y1+height; i++)
 		putpixel(img, x1+width, i, color);
 	for(int i = x1+width; i>x1; i--)
-y		putpixel(img, i, y1+height, color);
+		putpixel(img, i, y1+height, color);
 	for(int i = y1+height; i>y1; i--)
 		putpixel(img, x1, i,color);
 
@@ -388,21 +389,21 @@ y		putpixel(img, i, y1+height, color);
 //enregistre les visages encadrés
 void save_recognised(SDL_Surface *img, int x1, int y1, int width, int height)
 {
-  SDL_Rect fillRect, savedimg;
-  SDL_Surface *imgcopied;
-  fillRect.x = x1;
-  fillRect.y = y1;
-  fillRect.w = width;
-  fillRect.h = height;
- 
-  SDL_BlitSurface(img, fillRect, imgcopied, NULL);
-  display_image(imgcopied);
+	SDL_Rect *fillRect = NULL;
+	SDL_Surface *imgcopied = NULL;
+	fillRect->x = x1;
+	fillRect->y = y1;
+	fillRect->w = width;
+	fillRect->h = height;
+
+	SDL_BlitSurface(img, fillRect, imgcopied, fillRect);
+	display_image(imgcopied);
 }
 
-void face_detection(char *path)
+void face_detection(GtkWidget *widget)
 { 
-	//init_sdl();
-	SDL_Surface *img = load_image(path);
+	init_sdl();
+	SDL_Surface *img = load_image(file_name);
 	int nbSegments = get_nb_regions(img);
 	t_seg_computing *carac = malloc(nbSegments*sizeof(t_seg_computing));
 	segment_positions(img, carac);
@@ -412,5 +413,6 @@ void face_detection(char *path)
 	//display_image(img);
 	free(carac);
 	SDL_FreeSurface(img);
+	(void)widget;
 
 }

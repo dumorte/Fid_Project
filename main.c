@@ -15,6 +15,7 @@
 #include "feature_scaling.h"
 #include "adaboost.h"
 #include "matrix.h"
+#include "color.h"
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -66,7 +67,7 @@ int main(int argc, char **argv){
 
 	/*Insertion des boutons*/
 	g_signal_connect (G_OBJECT (p_button1), "clicked", G_CALLBACK (cb_open), NULL);
-	g_signal_connect (G_OBJECT (p_button2), "clicked", G_CALLBACK (cb_program), NULL);
+	g_signal_connect (G_OBJECT (p_button2), "clicked", G_CALLBACK (face_detection), NULL);
 	g_signal_connect (G_OBJECT (p_button3), "clicked", G_CALLBACK (cb_add), NULL);
 
 	layout = gtk_layout_new(NULL, NULL);
@@ -132,61 +133,6 @@ int main(int argc, char **argv){
 	return EXIT_SUCCESS;
 
 	return 0;
-}
-
-void wait_for_keypressed(void) {
-	SDL_Event event;
-	// Infinite loop, waiting for event
-	for (;;) {
-		// Take an event
-		SDL_PollEvent( &event );
-		// Switch on event type
-		switch (event.type) {
-			// Someone pressed a key -> leave the function
-			case SDL_KEYDOWN: 
-				return;
-			default:
-				 break;
-	    	}
-		// Loop until we got the expected event
-	}
-}
-
-void init_sdl(void) {
-	// Init only the video part
-	if( SDL_Init(SDL_INIT_VIDEO)==-1 ) {
-		// If it fails, die with an error message
-		errx(1,"Could not initialize SDL: %s.\n", SDL_GetError());
-	}
-
-	// We don't really need a function for that ...
-}
-
-SDL_Surface* display_image(SDL_Surface *img) {
-	SDL_Surface *screen;
-
-	// Set the window to the same size as the image
-	// img->w, img->h
-	screen = SDL_SetVideoMode(img->w, img->h, 0, SDL_SWSURFACE|SDL_ANYFORMAT);
-
-	if ( screen == NULL ) {
-		// error management
-		errx(1, "Couldn't set %dx%d video mode: %s\n",
-		img->w, img->h, SDL_GetError());
-	}
- 
-	/* Blit onto the screen surface */
-	if(SDL_BlitSurface(img, NULL, screen, NULL) < 0)
-		warnx("BlitSurface error: %s\n", SDL_GetError());
- 
-	// Update the screen
-	SDL_UpdateRect(screen, 0, 0, img->w, img->h);
- 
-	// wait for a key
-	wait_for_keypressed();
- 
-	// return the screen for further uses
-	 return screen;
 }
 
 char* concat(char *s1, char *s2)

@@ -4,9 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define min(a,b) ((a < b) ? a : b)
-#define abs(x)   (x < 0 ? -x : x)
-
 typedef double **matrix;
 typedef double *vect;
 
