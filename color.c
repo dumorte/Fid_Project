@@ -367,7 +367,7 @@ void compute_on_image(SDL_Surface *img, t_seg_computing *seg_pos)
 		{ 
 			draw_square(img, seg_pos[i].posX2, seg_pos[i].posY2, seg_pos[i].width, seg_pos[i].height, 16711680);
 			//sauvegarde les visages
-//			save_recognised(img, seg_pos[i].posX2, seg_pos[i].posY2, seg_pos[i].width, seg_pos[i].height);
+			save_recognised(img, seg_pos[i].posX2, seg_pos[i].posY2, seg_pos[i].width, seg_pos[i].height);
 		}
 	}
 }
@@ -386,20 +386,29 @@ void draw_square(SDL_Surface *img, int x1, int y1, int width, int height, Uint32
 }
 
 //enregistre les visages encadrés
-/*void save_recognised(SDL_Surface *img, int x1, int y1, int width, int height)
+void save_recognised(SDL_Surface *img, int x1, int y1, int width, int height)
 {
-	printf("ok");
 	SDL_Rect fillRect;
-	SDL_Surface *imgcopied = NULL;
-	printf("OK");
+	SDL_Surface *imgcopied = malloc(sizeof(SDL_Surface));
 	fillRect.x = x1;
 	fillRect.y = y1;
 	fillRect.w = width;
 	fillRect.h = height;
 
-	SDL_BlitSurface(img, &fillRect, imgcopied, &fillRect);
-	display_image(imgcopied);
-}*/
+	SDL_Rect destination;
+	destination.x = 0;
+	destination.y = 0;
+	destination.w = width;
+	destination.h = height;
+
+	printf("ok");
+	SDL_UnlockSurface(img);
+	printf("ok");
+	SDL_BlitSurface(img, &fillRect, imgcopied, &destination);
+	SDL_LockSurface(img);
+	SDL_SaveBMP(imgcopied,"copytruc.bmp");
+	SDL_FreeSurface(imgcopied);
+}
 
 void face_detection()
 { 
