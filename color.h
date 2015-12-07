@@ -29,7 +29,7 @@ void compute_dimension(SDL_Surface *img, t_seg_computing *seg_pos);
 void compute_on_image(SDL_Surface *img, t_seg_computing *seg_pos);
 void draw_square(SDL_Surface *img, int x1, int y1, int width, int height, Uint32 color);
 void gravity_center(SDL_Surface *img, t_seg_computing *seg_pos);
-void face_detection(GtkWidget *widget);
+void face_detection();
 void save_recognised(SDL_Surface *img, int x1, int y1, int width, int height);
 
 #endif

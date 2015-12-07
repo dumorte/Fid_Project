@@ -12,7 +12,9 @@ void cb_open (GtkWidget *p_widget)
 	if (gtk_dialog_run (GTK_DIALOG (p_dialog)) == GTK_RESPONSE_ACCEPT)
 	{
 
-		file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p_dialog));
+		//file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p_dialog));
+		file_name = g_file_get_path(gtk_file_chooser_get_file(GTK_FILE_CHOOSER(p_dialog)));
+		printf("%s\n", file_name);
 		if(pImage)
 			gtk_widget_destroy(pImage);
 
@@ -22,7 +24,7 @@ void cb_open (GtkWidget *p_widget)
 
 		gtk_layout_put(GTK_LAYOUT(layout), pImage,150,25);  
 		gtk_widget_show_all(pImage);
-		g_free(file_name), file_name=NULL;
+		//g_free(file_name), file_name=NULL;
 	}
 	gtk_widget_destroy (p_dialog);
 

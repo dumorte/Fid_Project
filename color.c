@@ -400,11 +400,14 @@ void save_recognised(SDL_Surface *img, int x1, int y1, int width, int height)
 	display_image(imgcopied);
 }
 
-void face_detection(GtkWidget *widget)
+void face_detection()
 { 
 	init_sdl();
+	printf("%s\n", file_name);
+	//char *file_name = path;
 	SDL_Surface *img = load_image(file_name);
 	int nbSegments = get_nb_regions(img);
+	printf("ok\n");
 	t_seg_computing *carac = malloc(nbSegments*sizeof(t_seg_computing));
 	segment_positions(img, carac);
 	compute_dimension(img, carac);
@@ -413,6 +416,4 @@ void face_detection(GtkWidget *widget)
 	//display_image(img);
 	free(carac);
 	SDL_FreeSurface(img);
-	(void)widget;
-
 }
