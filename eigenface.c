@@ -1,6 +1,45 @@
 #include "eigenface.h"
 
-float *create_matrix_mean(SDL_Surface **img_set, int columns) //passer les images en niv de gris //columns = nbimages
+vect eigenvalue(SDL_Surface **img_set, int columns){
+	Uint8 grey;
+	int width = img_set[0]->w;
+	int height = img_set[0]->h;
+	matrix mat = create_matrix(width*height, columns);
+	matrix transpose = create_matrix(columns, width*height);
+	matrix mul = create_matrix(width*height, width*height);
+	vect eigenvalues = create_vector(width*height);
+	matrix V = create_matrix(width*height, width*height);
+
+	for(int i = 0; i < columns; i++){
+		int row = 0;
+		for(int j = 0; j < width; j++){
+			for(int k = 0; k < height; k++){
+				SDL_GetRGB(getpixel(img_set[i], j, k), img_set[i]->format, &grey, &grey, &grey);
+				mat[row][i] = grey;
+				row++;
+			}
+		}
+	}
+
+	vect mean = create_vector(width*height);
+	matrix_mean_row(mat, width*height, columns, mean);
+	matrix_center(mat, width*height, columns, mean);
+	matrix_transpose(mat, width*height, columns, transpose);
+	matrix_multiply(mat, width*height, columns, transpose, columns, width*height, mul);
+	svd(mul, width*height, width*height, eigenvalues, V);
+
+	free(mat);
+	free(transpose);
+	free(mul);
+	free(V);
+	free(mean);
+
+	print_vector(eigenvalues, width*height);
+
+	return eigenvalues;
+}	
+
+/*float *create_matrix_mean(SDL_Surface **img_set, int columns) //passer les images en niv de gris //columns = nbimages
 { 
 	Uint8 grey;
 	float mean = 0;
@@ -50,73 +89,13 @@ float *create_matrix_mean(SDL_Surface **img_set, int columns) //passer les image
 	}
 	
 	//Print matrix
-	/*for(int i = 0; i<width*height; i++)
+	for(int i = 0; i<width*height; i++)
 	{ 
 		for(int j = 0; j<columns+1; j++)
 		{ 
 			printf("%6f | ", mat[i*(columns+1)+j]);
 		}
 		printf("\n");
-	}*/
+	}
 	return mat;
-}
-
-float *transposed_matrix(float *mat, int width, int height, int columns)//columns = nb images dans img_set
-{ 
-	//printf("\n\n");
-	float *transposed_mat = malloc(columns*width*height*sizeof(float));
-	
-	for(int j = 0; j<columns; j++)
-	{ 
-		for(int i = 0; i<width*height; i++)
-		{ 
-			transposed_mat[j*width*height+i] = mat[i*(columns+1)+j];
-		}
-		
-	}
-	/*for(int j = 0; j<columns; j++)
-	{ 
-		for(int i = 0; i<width*height; i++)
-		{ 
-			printf("%6f | ", transposed_mat[j*width*height+i]);
-		}
-		printf("\n");
-	}*/
-	return transposed_mat;
-}
-
-float *multiply_matrix(float *m1, float *m2, int row1, int row2, int col1, int col2){
-	float *mul = malloc(row1 * col2 * sizeof(float)); 
-
-	if(col1 == row2){
-		for(int i = 0; i < row1; i++){
-			for(int j = 0; j < col2; j++){
-				for(int k = 0; k < row2; k++){
-					mul[i*row1+j] += m1[i*col1+k] * m2[k*col2+j]; 
-				}
-			}
-		}
-	}
-
-	return mul;
-}
-
-int symetric(float *m, int size){
-	for(int i = 0; i < size; i++){
-		for(int j = 0; j < size; j++){
-			if(m[i*size+j] != m[j*size+i])
-				return 0; 
-		}
-	}
-
-	return 1; 
-}
-
-void print_matrix(float *m, int width, int height){
-	for(int i = 0; i < height; i++){
-		for(int j = 0; j < width; j++){
-			printf("%d | ", (int)m[i*width+j]); 
-		}
-		printf("\n"); 
-	}
-}
+}*/
