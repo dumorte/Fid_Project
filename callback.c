@@ -14,7 +14,6 @@ void cb_open (GtkWidget *p_widget)
 
 		//file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p_dialog));
 		file_name = g_file_get_path(gtk_file_chooser_get_file(GTK_FILE_CHOOSER(p_dialog)));
-		printf("%s\n", file_name);
 		if(pImage)
 			gtk_widget_destroy(pImage);
 

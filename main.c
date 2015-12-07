@@ -137,20 +137,20 @@ int main(int argc, char **argv){
 
 char* concat(char *s1, char *s2)
 {
-    char *result = malloc(strlen(s1)+strlen(s2)+1);//+1 for the zero-terminator
-    //in real code you would check for errors in malloc here
-    strcpy(result, s1);
-    strcat(result, s2);
-    return result;
+	char *result = malloc(strlen(s1)+strlen(s2)+1);//+1 for the zero-terminator
+	//in real code you would check for errors in malloc here
+	strcpy(result, s1);
+	strcat(result, s2);
+	return result;
 }
 
 char* remove_after_dot(char *s)
 {
-  char *c = s;
-  while(*c !='.')
-    {
-      c++;
-    }
-  *c = '\0';
-  return s;
+	char *c = s;
+	while(*c !='.')
+	{
+		c++;
+	}
+	*c = '\0';
+	return s;
 }
