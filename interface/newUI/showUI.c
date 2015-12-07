@@ -14,6 +14,17 @@ char* concat(char *s1, char *s2)
     return result;
 }
 
+char* remove_after_dot(char *s)
+{
+  char *c = s;
+  while(*c !='.')
+    {
+      c++;
+    }
+  *c = '\0';
+  return s;
+}
+
 void cb_quit (GtkWidget *p_widget)
 {
   gtk_main_quit();
@@ -29,10 +40,22 @@ int main ( int argc, char **argv)
   GtkWidget *p_window;
 /* Creation de la fenetre principale de notre application */
   p_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  //gtk_window_set_position(GTK_WINDOW(p_window), GTK_WIN_POS_CENTER);
+  gtk_window_set_position(GTK_WINDOW(p_window), GTK_WIN_POS_CENTER);
   gtk_window_set_title(GTK_WINDOW(p_window),"Face Identifier Project");
   gtk_window_set_default_size(GTK_WINDOW(p_window),800,500);
+  GdkGeometry hints;
+    hints.min_width = 800;
+    hints.max_width = 800;
+    hints.min_height = 500;
+    hints.max_height = 500;
+
+    gtk_window_set_geometry_hints(
+        GTK_WINDOW(p_window),
+        p_window,
+        &hints,
+        (GdkWindowHints)(GDK_HINT_MIN_SIZE | GDK_HINT_MAX_SIZE));
   ////////////////////////////////////////////////////////////////////////
+
 
   GtkWidget *p_button1= gtk_button_new_with_label("Rechercher");
   gtk_widget_set_size_request(p_button1,120,90);
@@ -49,47 +72,29 @@ int main ( int argc, char **argv)
 
   GtkWidget *ImgScr;
   GdkPixbuf *Pbx;
+  GtkWidget *Label;
 
-  //if (NULL != FD) 
-  //{
+  if (NULL != FD) 
+  {
       while ((in_file =readdir(FD)))
 	{
+	  if (!strcmp (in_file->d_name, "."))
+            continue;
+        if (!strcmp (in_file->d_name, ".."))    
+            continue;
+
 	  Pbx = gdk_pixbuf_new_from_file_at_scale (concat("DataBase/",in_file->d_name),220,150,TRUE,NULL);
 	  ImgScr = gtk_image_new_from_pixbuf(Pbx);
 
+	  Label = gtk_label_new (remove_after_dot(in_file->d_name));
 	  g_object_unref (Pbx);
 	  gtk_box_pack_start(GTK_BOX(box), ImgScr, FALSE, FALSE, 3);
+	  gtk_box_pack_start(GTK_BOX(box), Label, FALSE, FALSE, 3);
 	}
       (void) closedir (FD);
-      //}
-  /*
-  GdkPixbuf *Pbx1 = gdk_pixbuf_new_from_file_at_scale ("1.jpg",220,150,TRUE,NULL);
-  GtkWidget *ImgScr1 = gtk_image_new_from_pixbuf(Pbx1);
-  g_object_unref (Pbx1);
-  GdkPixbuf *Pbx2 = gdk_pixbuf_new_from_file_at_scale ("2.jpg",220,150,TRUE,NULL);
-  GtkWidget *ImgScr2 = gtk_image_new_from_pixbuf(Pbx2);
-  g_object_unref (Pbx2);
-  GdkPixbuf *Pbx3 = gdk_pixbuf_new_from_file_at_scale ("3.jpg",220,150,TRUE,NULL);
-  GtkWidget *ImgScr3 = gtk_image_new_from_pixbuf(Pbx3);
-  g_object_unref (Pbx3);
-  GdkPixbuf *Pbx4 = gdk_pixbuf_new_from_file_at_scale ("4.jpg",220,100,TRUE,NULL);
-  GtkWidget *ImgScr4 = gtk_image_new_from_pixbuf(Pbx4);
-  g_object_unref (Pbx4);
-  GdkPixbuf *Pbx5 = gdk_pixbuf_new_from_file_at_scale ("5.jpg",220,100,TRUE,NULL);
-  GtkWidget *ImgScr5 = gtk_image_new_from_pixbuf(Pbx5);
-  g_object_unref (Pbx5);
-  GdkPixbuf *Pbx6 = gdk_pixbuf_new_from_file_at_scale ("6.jpg",220,100,TRUE,NULL);
-  GtkWidget *ImgScr6 = gtk_image_new_from_pixbuf(Pbx6);
-  g_object_unref (Pbx6);
-  GdkPixbuf *Pbx7 = gdk_pixbuf_new_from_file_at_scale ("7.jpg",220,100,TRUE,NULL);
-  GtkWidget *ImgScr7 = gtk_image_new_from_pixbuf(Pbx7);
-  g_object_unref (Pbx7);
-  GdkPixbuf *Pbx8 = gdk_pixbuf_new_from_file_at_scale ("8.jpg",220,100,TRUE,NULL);
-  GtkWidget *ImgScr8 = gtk_image_new_from_pixbuf(Pbx8);
-  g_object_unref (Pbx8);
-  GdkPixbuf *Pbx9 = gdk_pixbuf_new_from_file_at_scale ("9.jpg",220,100,TRUE,NULL);
-  GtkWidget *ImgScr9 = gtk_image_new_from_pixbuf(Pbx9);
-  g_object_unref (Pbx9);*/
+  }
+
+
   GdkPixbuf *PbxFcd = gdk_pixbuf_new_from_file_at_scale ("violajones.png",500,330,TRUE,NULL);
   GtkWidget *ImgF = gtk_image_new_from_pixbuf(PbxFcd);
   g_object_unref (PbxFcd);
@@ -98,16 +103,6 @@ int main ( int argc, char **argv)
 
   gtk_widget_set_size_request(scrollbar, 253,398);
   gtk_container_add(GTK_CONTAINER(scrollbar), box);
-  //
-  /*gtk_box_pack_start(GTK_BOX(box), ImgScr1, FALSE, FALSE, 3);
-  gtk_box_pack_start(GTK_BOX(box), ImgScr2, FALSE, FALSE, 3);
-  gtk_box_pack_start(GTK_BOX(box), ImgScr3, FALSE, FALSE, 3);
-  gtk_box_pack_start(GTK_BOX(box), ImgScr4, FALSE, FALSE, 3);
-  gtk_box_pack_start(GTK_BOX(box), ImgScr5, FALSE, FALSE, 3);
-  gtk_box_pack_start(GTK_BOX(box), ImgScr6, FALSE, FALSE, 3);
-  gtk_box_pack_start(GTK_BOX(box), ImgScr7, FALSE, FALSE, 3);
-  gtk_box_pack_start(GTK_BOX(box), ImgScr8, FALSE, FALSE, 3);
-  gtk_box_pack_start(GTK_BOX(box), ImgScr9, FALSE, FALSE, 3);*/
   
   gtk_layout_put(GTK_LAYOUT(layout), backgrd, 0, 0);
 
