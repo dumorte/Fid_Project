@@ -21,8 +21,8 @@ void cb_open (GtkWidget *p_widget)
 		g_object_unref (pBuf);
 
 		//permet de centrer l'image
-		Gdkpixbuf *pBufFcd = gtk_image_get_pixbuf (pImage);
-		int w = gdk_pixbuf_get_width(pBufFcd),
+		GdkPixbuf *pBufFcd = gtk_image_get_pixbuf (GTK_IMAGE(pImage));
+		int w = gdk_pixbuf_get_width(pBufFcd);
                 int h = gdk_pixbuf_get_height(pBufFcd);
 
 		gtk_layout_put(GTK_LAYOUT(layout), pImage, 273-(w/2), 196-(h/2));  
