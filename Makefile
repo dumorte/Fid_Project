@@ -12,7 +12,7 @@ BIN= main
 all: ${BIN}
 
 ${BIN}: ${OBJ}
-	${CC} ${CFLAGS} ${LDLIBS} -o ${BIN} ${OBJ}
+	${CC} ${CFLAGS} ${CPPFLAGS} ${LDLIBS} -o ${BIN} ${OBJ}
 
 clean:
 	rm -f *~ *.o
