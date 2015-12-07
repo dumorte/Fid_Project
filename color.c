@@ -362,23 +362,41 @@ void compute_on_image(SDL_Surface *img, t_seg_computing *seg_pos)
 	int nbSegments = get_nb_regions(img);
 	for(int i = 0; i<nbSegments; i++)
 	{ 
-		if(seg_pos[i].ratio>0.8 && seg_pos[i].ratio<1.8)
+		if(seg_pos[i].surface>10 && seg_pos[i].ratio>0.8 && seg_pos[i].ratio<1.8)
 		{ 
 			draw_square(img, seg_pos[i].posX2, seg_pos[i].posY2, seg_pos[i].width, seg_pos[i].height, 16711680);
+			//sauvegarde les visages
+			save_recognised(img, seg_pos[i].posX2, seg_pos[i].posY2, seg_pos[i].width, seg_pos[i].height);
+
 		}
 	}
 }
 
-void draw_square(SDL_Surface *img, int x2, int y2, int width, int height, Uint32 color)
+void draw_square(SDL_Surface *img, int x1, int y1, int width, int height, Uint32 color)
 { 
-	for(int i = x2; i<x2+width; i++)
-		putpixel(img, i, y2, color);
-	for(int i = y2; i<y2+height; i++)
-		putpixel(img, x2+width, i, color);
-	for(int i = x2+width; i>x2; i--)
-		putpixel(img, i, y2+height, color);
-	for(int i = y2+height; i>y2; i--)
-		putpixel(img, x2, i,color);
+	for(int i = x1; i<x1+width; i++)
+		putpixel(img, i, y1, color);
+	for(int i = y1; i<y1+height; i++)
+		putpixel(img, x1+width, i, color);
+	for(int i = x1+width; i>x1; i--)
+y		putpixel(img, i, y1+height, color);
+	for(int i = y1+height; i>y1; i--)
+		putpixel(img, x1, i,color);
+
+}
+
+//enregistre les visages encadrés
+void save_recognised(SDL_Surface *img, int x1, int y1, int width, int height)
+{
+  SDL_Rect fillRect, savedimg;
+  SDL_Surface *imgcopied;
+  fillRect.x = x1;
+  fillRect.y = y1;
+  fillRect.w = width;
+  fillRect.h = height;
+ 
+  SDL_BlitSurface(img, fillRect, imgcopied, NULL);
+  display_image(imgcopied);
 }
 
 void face_detection(char *path)
