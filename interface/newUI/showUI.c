@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <string.h>
+#include "callback.c"
 
 char* concat(char *s1, char *s2)
 {
@@ -23,13 +24,6 @@ char* remove_after_dot(char *s)
     }
   *c = '\0';
   return s;
-}
-
-void cb_quit (GtkWidget *p_widget)
-{
-  gtk_main_quit();
-  
-  (void)p_widget;
 }
 
 int main ( int argc, char **argv)
@@ -57,10 +51,17 @@ int main ( int argc, char **argv)
   ////////////////////////////////////////////////////////////////////////
 
 
-  GtkWidget *p_button1= gtk_button_new_with_label("Rechercher");
+  GtkWidget *p_button1= gtk_button_new_with_label("Search");
   gtk_widget_set_size_request(p_button1,120,90);
-  GtkWidget *p_button2= gtk_button_new_with_label("Identifier");
+  GtkWidget *p_button2= gtk_button_new_with_label("Identify");
   gtk_widget_set_size_request(p_button2,120,90);
+  GtkWidget *p_button3= gtk_button_new_with_label("Add");
+  gtk_widget_set_size_request(p_button2,120,90);
+
+  /*Insertion des boutons*/
+  g_signal_connect (G_OBJECT (p_button1), "clicked", G_CALLBACK (cb_open), NULL);
+  g_signal_connect (G_OBJECT (p_button2), "clicked", G_CALLBACK (cb_program), NULL);
+  g_signal_connect (G_OBJECT (p_buttyon3), "clicked", G_CALLBACK (cb_add), NULL);
 
   GtkWidget *layout = gtk_layout_new(NULL, NULL);
   GtkWidget *backgrd = gtk_image_new_from_file("backgroundUI.jpg");
