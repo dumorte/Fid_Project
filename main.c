@@ -25,11 +25,9 @@
 
 void wait_for_keypressed(void);
 void init_sdl(void);
-SDL_Surface *load_image(char *path);
 SDL_Surface *display_image(SDL_Surface *img);
 char *concat(char *s1, char *s2);
 char *remove_after_dot(char *s);
-
 
 int main(int argc, char **argv){
 	//instalation de gtk+
@@ -162,17 +160,6 @@ void init_sdl(void) {
 	}
 
 	// We don't really need a function for that ...
-}
-
-SDL_Surface* load_image(char *path) {
-	SDL_Surface *img;
-
-	// Load an image using SDL_image with format detection
-	img = IMG_Load(path);
-	if (!img)
-		// If it fails, die with an error message
-		errx(3, "can't load %s: %s", path, IMG_GetError());
-	return img;
 }
 
 SDL_Surface* display_image(SDL_Surface *img) {

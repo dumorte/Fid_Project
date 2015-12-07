@@ -70,3 +70,14 @@ void putpixel(SDL_Surface *surface, unsigned x, unsigned y, Uint32 pixel) {
 			break;
 	}
 }
+
+SDL_Surface* load_image(char *path) {
+	SDL_Surface *img;
+
+	// Load an image using SDL_image with format detection
+	img = IMG_Load(path);
+	if (!img)
+		// If it fails, die with an error message
+		errx(3, "can't load %s: %s", path, IMG_GetError());
+	return img;
+}
