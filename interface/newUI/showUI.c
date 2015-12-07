@@ -32,11 +32,15 @@ int main ( int argc, char **argv)
   gtk_init (&argc, &argv);
 
   GtkWidget *p_window;
+  GdkPixbuf *Pixbuf; 
+  GError *error=NULL;
 /* Creation de la fenetre principale de notre application */
   p_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_position(GTK_WINDOW(p_window), GTK_WIN_POS_CENTER);
   gtk_window_set_title(GTK_WINDOW(p_window),"Face Identifier Project");
   gtk_window_set_default_size(GTK_WINDOW(p_window),800,500);
+  Pixbuf = gdk_pixbuf_new_from_file("logo.jpeg",&error);
+  gtk_window_set_icon(GTK_WINDOW(p_window),Pixbuf);
   GdkGeometry hints;
     hints.min_width = 800;
     hints.max_width = 800;

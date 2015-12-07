@@ -1,8 +1,13 @@
 #ifndef H_CALLBACK
 #define H_CALLBACK
 
+
 #include <stdlib.h>
 #include <gtk/gtk.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <dirent.h>
+#include <string.h>
 
 GtkWidget *pImage;
 GtkWidget *layout;

@@ -4,6 +4,7 @@ void cb_open (GtkWidget *p_widget)
 {
   GtkWidget *p_dialog;
   gchar *file_name;
+  GdkPixbuf *pBuf;
 
   p_dialog = gtk_file_chooser_dialog_new ("Image selection", NULL,
                                           GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -17,7 +18,7 @@ void cb_open (GtkWidget *p_widget)
     if(pImage)
 	gtk_widget_destroy(pImage);
 
-    GdkPixbuf *pBuf = gdk_pixbuf_new_from_file_at_scale (file_name,500,330,TRUE,NULL);
+    pBuf = gdk_pixbuf_new_from_file_at_scale (file_name,500,330,TRUE,NULL);
     pImage = gtk_image_new_from_pixbuf(pBuf);
     g_object_unref (pBuf);
 
@@ -106,7 +107,7 @@ GPid cb_program(gchar *program, gchar *arguments)
 
  args = g_new (gchar *, 3);
 	args[0] = g_strdup ("20151116_IntrusiveLists/list");                /* programme à lancer                 */
-	args[1] = NULL;                               /* zéro terminal obligatoire            */
+	args[1] = NULL;                                 		    /* zéro terminal obligatoire            */
 
  status = g_spawn_async_with_pipes ( NULL,
                                       args,

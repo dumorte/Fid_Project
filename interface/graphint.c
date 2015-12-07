@@ -1,4 +1,13 @@
 #include "callback.h"
+char* concat(char *s1, char *s2)
+{
+    char *result = malloc(strlen(s1)+strlen(s2)+1);//+1 for the zero-terminator
+    //in real code you would check for errors in malloc here
+    strcpy(result, s1);
+    strcat(result, s2);
+    return result;
+}
+
 
 int main (int argc, char **argv)
 {
@@ -12,7 +21,7 @@ int main (int argc, char **argv)
 
   /* Initialisation de GTK+ */
   gtk_init (&argc, &argv);  
-  
+ 
   pixbuf = gdk_pixbuf_new_from_file ("ressources/logo.jpeg", &error);
 
   /* Creation de la fenetre principale de notre application */
@@ -23,9 +32,25 @@ int main (int argc, char **argv)
   gtk_window_set_default_size(GTK_WINDOW(p_window),800,500);
   g_signal_connect (G_OBJECT (p_window), "destroy", G_CALLBACK (cb_quit), NULL);
   
-  box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+  box = gtk_vbox_new(GTK_ORIENTATION_VERTICAL, 5);
   scrollbar = gtk_scrolled_window_new(NULL,NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrollbar),GTK_POLICY_AUTOMATIC,GTK_POLICY_ALWAYS);    
+  
+  DIR* FD = opendir ("./Database");
+  struct dirent* in_file;
+
+  GtkWidget *ImgScr;
+  GdkPixbuf *Pbx;
+
+  while ((in_file =readdir(FD)))
+  {
+    Pbx = gdk_pixbuf_new_from_file_at_scale (concat("/Database/",in_file->d_name),220,150,TRUE,NULL);    ImgScr = gtk_image_new_from_pixbuf(Pbx);
+
+    g_object_unref (Pbx);
+    gtk_box_pack_start(GTK_BOX(box), ImgScr, FALSE, FALSE, 3);
+  }
+  (void) closedir (FD);
+   
   /*Creation des boutons*/
   p_button[0] = gtk_button_new_from_stock (GTK_STOCK_QUIT);
   p_button[1] = gtk_button_new_from_stock (GTK_STOCK_OPEN);
@@ -56,7 +81,7 @@ int main (int argc, char **argv)
   gtk_layout_put(GTK_LAYOUT(layout), p_button[2],200,405);
   gtk_layout_put(GTK_LAYOUT(layout), p_button[3],350,405);
   gtk_layout_put(GTK_LAYOUT(layout), scrollbar,548,0);
- 
+
   /* Affichage de la fenetre principale */
   gtk_widget_show_all (p_window);
   /* Lancement de la boucle principale */
