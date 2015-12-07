@@ -27,8 +27,9 @@ void adaboost(t_couple_image *img_set, int T){
 				error+=img_set[i].weight;
 				count++;
 			}
-			printf("count=misclassified : %d\n", count);
+			printf("count=(images non reconnues par ce seuil) : %d\n", count);
 		}
+		count = 0;
 		free(f);
 		if(error == 0 && t==0)
 		{ 
