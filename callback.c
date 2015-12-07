@@ -87,7 +87,7 @@ void cb_add (GtkWidget *p_widget){
 
 	pSave = gtk_button_new_with_label ("Save");
 	gtk_box_pack_start(GTK_BOX(pVBoxFrame), pSave, TRUE, FALSE, 0);
-	g_signal_connect(G_OBJECT(pSave), "clicked", NULL, NULL);
+	g_signal_connect(G_OBJECT(pSave), "clicked", G_CALLBACK (save), (GtkEntry *)pEntry);
 
 	gtk_widget_show_all(pWindow);
 

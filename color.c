@@ -363,10 +363,9 @@ void compute_on_image(SDL_Surface *img, t_seg_computing *seg_pos)
 	int nbSegments = get_nb_regions(img);
 	for(int i = 0; i<nbSegments; i++)
 	{ 
-		if(seg_pos[i].surface>10 && seg_pos[i].ratio>0.8 && seg_pos[i].ratio<1.8)
+		if(seg_pos[i].surface>20 && seg_pos[i].ratio>0.8 && seg_pos[i].ratio<1.8)
 		{ 
 			draw_square(img, seg_pos[i].posX2, seg_pos[i].posY2, seg_pos[i].width, seg_pos[i].height, 16711680);
-			//sauvegarde les visages
 			save_recognised(img, seg_pos[i].posX2, seg_pos[i].posY2, seg_pos[i].width, seg_pos[i].height);
 		}
 	}
@@ -397,6 +396,7 @@ void save_recognised(SDL_Surface *img, int x1, int y1, int width, int height)
 
 	SDL_BlitSurface(img, &fillRect, imgcopied, NULL);
 	SDL_SaveBMP(imgcopied, "./DataBase/save.bmp");
+	SDL_FreeSurface(imgcopied);
 }
 
 void face_detection()
@@ -428,6 +428,13 @@ void face_detection()
 	gtk_layout_put(GTK_LAYOUT(layout), pImage, 273-(w/2), 196-(h/2));  
 	gtk_widget_show_all(pImage);
 
-	//SDL_SaveBMP(img, "copy.bmp");
 	SDL_FreeSurface(img);
+}
+
+void save(GtkWidget *widget, GtkEntry *entry)
+{ 
+	char* name = malloc(1000*sizeof(char));
+	strcpy(name, gtk_entry_get_text(entry));
+	printf("%s", name);
+	(void)widget;
 }
